@@ -1,4 +1,65 @@
-syntax on
+set nocompatible              " be iMproved, required
+filetype off                  " required
 
-" Wrap gitcommit file types at the appropriate length
-filetype indent plugin on
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+" added powerline
+Plugin 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
+" added nerdtree
+Plugin 'scrooloose/nerdtree'
+" added nerdtree-git-plugin
+Plugin 'Xuyuanp/nerdtree-git-plugin'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+
+set guifont=Fira\ Code\ Light:h14
+let g:Powerline_symbols = 'fancy'
+set encoding=utf-8
+set t_Co=256
+set fillchars+=stl:\ ,stlnc:\
+set term=xterm-256color
+set termencoding=utf-8
+
+filetype off
+
+set ruler
+set laststatus=2
+set title
+set hlsearch
+set number relativenumber
+set tabstop=2 " Tabs are 2 spaces
+set softtabstop=4
+set autoindent
+set list
+set scrolloff=3 " when scrolling, keep cursor 3 lines away from screen border
+set expandtab 
+set shiftwidth=2
+
+syntax on
+filetype plugin indent on " Enable filetype-specific indenting and plugins
+autocmd FileType ruby setlocal ts=2 shiftwidth=2 softtabstop=2 foldmethod=manual
+autocmd FileType javascript setlocal ts=2 shiftwidth=2 softtabstop=2 foldmethod=syntax
+autocmd FileType coffee setlocal ts=2 shiftwidth=2 softtabstop=2 foldmethod=syntax
+autocmd FileType sass setlocal ts=2 shiftwidth=2 softtabstop=2 foldmethod=syntax
+autocmd FileType haml setlocal ts=2 shiftwidth=2 softtabstop=2 foldmethod=syntax
+autocmd vimenter * NERDTree
