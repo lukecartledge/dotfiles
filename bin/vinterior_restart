@@ -1,0 +1,16 @@
+#!/bin/bash
+# Sequentially restart Vinterior Dynos
+
+# count number of currently running dynos
+DYNOS=`heroku ps -a vinterior-production | ag ^web. | wc -l`
+# strip all whitespace from around the variable
+DYNOS_CLEAN="$(echo -e "${DYNOS}" | tr -d '[:space:]')"
+# only do this for the # of currently running dynos
+for i in $(seq $DYNOS_CLEAN)
+do
+  # run the command on the heroku dynos to restart sequentially
+  heroku ps:restart web.$i -a vinterior-production
+  # add a break between restarts to make it gentle
+  sleep 10
+done
+
