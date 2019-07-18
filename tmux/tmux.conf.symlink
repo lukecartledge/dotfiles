@@ -1,0 +1,91 @@
+# Sane TMUX Settings
+
+# Better prefix key settings
+unbind C-b
+set -g prefix C-s
+bind-key -r C-s send-prefix
+
+# Reload .tmux.conf
+bind-key r source-file ~/.tmux.conf \; display-message "~/.tmux.conf reloaded"
+
+# Select panes more like VIM
+bind-key -n C-h select-pane -L
+bind-key -n C-j select-pane -D
+bind-key -n C-k select-pane -U
+bind-key -n C-l select-pane -R
+
+# Make colors a little better
+set -ga terminal-overrides ",xterm-256color:Tc"
+
+# Change command edit mode to simpler emacs mode
+set-option -g status-keys 'emacs'
+
+# Less obtrusive command line
+set-option -g status-bg '#666666'
+set-option -g status-fg '#ffffff'
+
+# Longer left hand status
+set-option -g status-left-length 50
+
+# Easier to read right-hand status
+set-option -g status-right " #(date '+%a, %b %d - %H:%M') "
+
+# Better window splitting shortcuts
+bind-key - split-window -v -c '#{pane_current_path}'
+bind-key \ split-window -h -c '#{pane_current_path}'
+
+# Fine adjustment (1 or 2 cursor cells per bump)
+bind -n S-Left resize-pane -L 2
+bind -n S-Right resize-pane -R 2
+bind -n S-Down resize-pane -D 1
+bind -n S-Up resize-pane -U 1
+
+# Coarse adjustment (5 or 10 cursor cells per bump)
+bind -n C-Left resize-pane -L 10
+bind -n C-Right resize-pane -R 10
+bind -n C-Down resize-pane -D 5
+bind -n C-Up resize-pane -U 5
+
+# Create new window with current path
+bind c new-window -c "#{pane_current_path}"
+
+# Better window numbering setup
+set -g base-index 1
+set -g renumber-windows on
+
+# Break a pane out to new window while remaining on current
+bind-key b break-pane -d
+
+# Choose tree binding
+bind-key C-j choose-tree
+set -g mouse on
+
+# Cycle through windows
+bind-key -n F1 previous-window
+bind-key -n F2 next-window
+
+# Rearrange window order simply with left/right arrow
+ bind-key S-Left swap-window -t -1
+ bind-key S-Right swap-window -t +1
+
+# Removed theme to try out
+# caiogondim/maglev
+
+# List of plugins
+set -g @tpm_plugins '                \
+    jimeh/tmux-themepack             \
+    tmux-plugins/tpm                 \
+    tmux-plugins/tmux-sensible       \
+    tmux-plugins/tmux-resurrect      \
+    tmux-plugins/tmux-continuum      \
+    tmux-plugins/tmux-yank           \
+    tmux-plugins/tmux-pain-control   \
+    tmux-plugins/tmux-copycat        \
+    tmux-plugins/tmux-open           \
+    tmux-plugins/tmux-battery        \
+    tmux-plugins/tmux-cpu            \
+'
+set -g @themepack 'powerline/double/cyan'
+
+# Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
+run '~/.tmux/plugins/tpm/tpm'
