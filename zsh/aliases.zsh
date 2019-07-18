@@ -6,3 +6,8 @@ alias cls='clear' # Good 'ol Clear Screen command
 alias ...='../..'
 alias ....='../../..'
 alias .....='../../../..'
+
+alias cat='bat'
+alias git='hub'
+alias ping='prettyping --nolegend'
+alias top="sudo htop" # alias top and fix high sierra bug
