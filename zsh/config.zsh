@@ -26,7 +26,7 @@ setopt NO_SHARE_HISTORY
 unsetopt SHARE_HISTORY
 
 setopt APPEND_HISTORY # adds history
-setopt INC_APPEND_HISTORY SHARE_HISTORY  # adds history incrementally and share it across sessions
+setopt INC_APPEND_HISTORY # adds history incrementally
 setopt HIST_IGNORE_ALL_DUPS  # don't record dupes in history
 setopt HIST_REDUCE_BLANKS
 
