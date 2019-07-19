@@ -1,5 +1,3 @@
-export TERM="xterm-256color"
-export ZSH_DISABLE_COMPFIX=true
 export LSCOLORS="exfxcxdxbxegedabagacad"
 export CLICOLOR=true
 
