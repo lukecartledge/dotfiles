@@ -1,17 +1,7 @@
-export TERM="xterm-256color"
-export ZSH_DISABLE_COMPFIX=true
-export LSCOLORS="exfxcxdxbxegedabagacad"
-export CLICOLOR=true
-
-ZSH_THEME="bullet-train"
-BULLETTRAIN_PROMPT_ORDER=( dir git nvm ruby )
-BULLETTRAIN_PROMPT_ADD_NEWLINE=true
-BULLETTRAIN_PROMPT_SEPARATE_LINE=true
-BULLETTRAIN_RUBY_BG=default
-BULLETTRAIN_DIR_EXTENDED=0
-BULLETTRAIN_NVM_BG=default
-BULLETTRAIN_RUBY_PREFIX='\ue21e'
-BULLETTRAIN_NVM_PREFIX='\ue718'
+# export TERM="xterm-256color"
+# export ZSH_DISABLE_COMPFIX=true
+# export LSCOLORS="exfxcxdxbxegedabagacad"
+# export CLICOLOR=true
 
 fpath=(/usr/local/share/zsh-completions $fpath)
 fpath=($ZSH/functions $fpath)
@@ -22,9 +12,6 @@ HIST_STAMPS="dd/mm/yyyy"
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
-
-# Setup for Z
-. `brew --prefix`/etc/profile.d/z.sh
 
 setopt NO_BG_NICE # don't nice background tasks
 setopt NO_HUP
@@ -57,6 +44,3 @@ bindkey '^[[3~' delete-char
 bindkey '^?' backward-delete-char
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-# Nodeenv setup
-eval "$(nodenv init -)"
