@@ -1,12 +1,12 @@
-# export TERM="xterm-256color"
-# export ZSH_DISABLE_COMPFIX=true
-# export LSCOLORS="exfxcxdxbxegedabagacad"
-# export CLICOLOR=true
+export TERM="xterm-256color"
+export ZSH_DISABLE_COMPFIX=true
+export LSCOLORS="exfxcxdxbxegedabagacad"
+export CLICOLOR=true
 
 fpath=(/usr/local/share/zsh-completions $fpath)
-fpath=($ZSH/functions $fpath)
+fpath=($DOTFILES/functions $fpath)
 
-autoload -U $ZSH/functions/*(:t)
+autoload -U $DOTFILES/functions/*(:t)
 
 HIST_STAMPS="dd/mm/yyyy"
 HISTFILE=~/.zsh_history
