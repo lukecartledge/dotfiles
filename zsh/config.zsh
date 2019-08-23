@@ -38,4 +38,3 @@ bindkey '^[[5C' end-of-line
 bindkey '^[[3~' delete-char
 bindkey '^?' backward-delete-char
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
