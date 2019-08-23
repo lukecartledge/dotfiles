@@ -9,3 +9,5 @@ BULLETTRAIN_DIR_EXTENDED=0
 BULLETTRAIN_NVM_BG=default
 BULLETTRAIN_RUBY_PREFIX='\ue21e'
 BULLETTRAIN_NVM_PREFIX='\ue718'
+
+plugins=(git ruby ssh-agent osx battery node zsh-syntax-highlighting)
