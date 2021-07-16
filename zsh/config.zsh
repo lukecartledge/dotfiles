@@ -12,14 +12,14 @@ autoload -U $DOTFILES/functions/*(:t)
 # History options
 HIST_STAMPS="dd/mm/yyyy"
 HISTFILE=~/.zsh_history
-HISTSIZE=10000
-SAVEHIST=10000
+HISTFILESIZE=1000000000
+HISTSIZE=1000000000
+SAVEHIST=1000000000
 setopt APPEND_HISTORY # adds history
 setopt INC_APPEND_HISTORY # adds history incrementally
+setopt HIST_FIND_NO_DUPS
 setopt HIST_IGNORE_ALL_DUPS  # don't record dupes in history
 setopt HIST_REDUCE_BLANKS
-setopt EXTENDED_HISTORY # add timestamps to history
-setopt HIST_VERIFY
 
 setopt NO_BG_NICE # don't nice background tasks
 setopt NO_HUP
