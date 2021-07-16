@@ -56,3 +56,5 @@ bindkey "^[[B" down-line-or-beginning-search # Down
 # enables fzf fuzzy searching
 # this needs to be done after zsh is loaded
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+source /Users/lukecartledge/.config/broot/launcher/bash/br
