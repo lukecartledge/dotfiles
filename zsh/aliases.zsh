@@ -16,3 +16,5 @@ eb-ssh-production () { eb ssh $(eb list | rg production | sed  "s/\*//") ; }
 
 alias on-ngrok-applepay='ngrok http 3001 -subdomain on-dev-applepay'
 alias on-test-applepay='HOST=on-dev-applepay.ngrok.io LOCAL_TEST=true gulp --no-reload'
+
+alias sub='subl'
