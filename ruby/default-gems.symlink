@@ -1,0 +1,6 @@
+bundler
+pry
+gem-ctags
+solargraph
+rubocop
+colorls
