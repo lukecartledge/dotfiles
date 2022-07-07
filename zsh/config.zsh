@@ -2,6 +2,8 @@ export LSCOLORS="exfxcxdxbxegedabagacad"
 export CLICOLOR=true
 export UPDATE_ZSH_DAYS=7
 
+export GPG_TTY=$(tty)
+
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
 fpath=(/usr/local/share/zsh-completions $fpath)
