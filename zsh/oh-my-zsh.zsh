@@ -10,4 +10,22 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # BULLETTRAIN_RUBY_PREFIX='\ue21e'
 # BULLETTRAIN_NVM_PREFIX='\ue718'
 
-plugins=(git ruby ssh-agent macos node asdf zsh-syntax-highlighting zsh-autosuggestions docker docker-compose)
+plugins=(
+  asdf
+  bundler
+  catimg
+  colored-man-pages
+  direnv
+  docker
+  docker-compose
+  git
+  github
+  gpg-agent
+  node
+  rake
+  rails
+  ruby
+  ssh-agent
+  zsh-autosuggestions
+  zsh-syntax-highlighting
+)
