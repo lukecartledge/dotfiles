@@ -28,8 +28,6 @@
         #
         # Setting to git 2.0 default to suppress warning message
         default = simple
-[credential]
-	helper = osxkeychain
 [filter "lfs"]
         clean = git-lfs clean -- %f
         smudge = git-lfs smudge -- %f
@@ -51,10 +49,9 @@
         whitespace = red reverse
 [pull]
 	rebase = false
-[user]
-	signingkey = 66579F70F4DDD081
 [gpg]
 	program = gpg
+	format = ssh
 [init]
 	defaultBranch = main
 [fetch]
