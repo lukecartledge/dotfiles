@@ -10,4 +10,5 @@ if [[ "$_ARCH" == "i386" ]]; then
 else
  export PATH="/opt/homebrew/bin:/opt/homebrew/opt:$PATH"
 fi
+
 # export MANPATH="/usr/local/man:/usr/local/mysql/man:/usr/local/git/man:$MANPATH"
