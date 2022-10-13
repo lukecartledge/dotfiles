@@ -32,11 +32,8 @@
 	helper = osxkeychain
 [diff "spaceman-diff"]
   command = /opt/homebrew/bin/spaceman-diff
-
 [init]
 	defaultBranch = main
-[pull]
-	rebase = true
 [filter "lfs"]
         clean = git-lfs clean -- %f
         smudge = git-lfs smudge -- %f
@@ -58,11 +55,8 @@
         whitespace = red reverse
 [pull]
 	rebase = false
-[user]
-	signingkey = 66579F70F4DDD081
 [gpg]
 	program = gpg
-[init]
-	defaultBranch = main
+	format = ssh
 [fetch]
 	prune = true
