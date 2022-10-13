@@ -49,9 +49,10 @@
         whitespace = red reverse
 [pull]
 	rebase = false
+[user]
+	signingkey = 66579F70F4DDD081
 [gpg]
 	program = gpg
-	format = ssh
 [init]
 	defaultBranch = main
 [fetch]
