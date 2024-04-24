@@ -1,0 +1,64 @@
+#!/bin/bash
+
+# This script makes creating a tunnel to an RDS instance easier. The approach is based on
+# https://codelabs.transcend.io/codelabs/aws-ssh-ssm-rds/index.html#0
+#
+# In short, the process is:
+# 1. Generate a temporary key locally
+# 2. Push the temporary key to an EC2 instance via EC2 Instance Connect
+# 3. Use Session Manager to open an SSH tunnel through that instance to an RDS endpoint
+#
+# This requires the ssm plugin for the aws cli to be installed
+
+set -e
+
+region="us-east-1"
+instance_id=$1
+db_endpoint=$2
+local_port=$3
+
+# TODO: validate input properly
+if [ -z $instance_id ] || [ -z $db_endpoint ] || [ -z $local_port ]; then
+  echo "Usage: ssm-rds-tunnel INSTANCE_ID DB_ENDPOINT LOCAL_PORT"
+  echo "Opens a ssh tunnel to the DB_ENDPOINT via the EC2 instance INSTANCE_ID from local port LOCAL_PORT"
+  echo
+  echo "Example: ssm-rds-tunnel.sh i-1234567890 foo.1234abcd.us-east-1.rds.amazonaws.com:3306 33306"
+  exit 1
+fi
+
+read -e -p "Please specify the reason you're opening a session: " session_manager_reason
+
+if [ -z "$session_manager_reason" ]; then
+  echo "No reason, no session!"
+  exit 1
+fi
+
+instance_az=`aws ec2 describe-instances --region $region --instance-id $instance_id --output text | grep PLACEMENT | awk '{split($0,a,"\t"); print a[2]}'`
+
+if [ -z "$instance_az" ]; then
+  echo "Instance cannot be found in region $region: $instance_id"
+  exit 1
+fi
+
+# Generate a ssh key
+echo "Generating temporary key"
+echo -e 'y\n' | ssh-keygen -t rsa -f /tmp/tmp-key -N '' >/dev/null 2>&1
+
+echo "Pushing temporary key to instance"
+# Push key to instance via EC2 Instance Connect
+aws ec2-instance-connect send-ssh-public-key \
+  --instance-id $instance_id \
+  --availability-zone $instance_az \
+  --region $region \
+  --instance-os-user ssm-user \
+  --ssh-public-key file:///tmp/tmp-key.pub >/dev/null 2>&1
+
+echo "Opening tunnel on port $local_port to $db_endpoint"
+# Open an SSH tunnel to the db endpoint via SSM
+ssh -i /tmp/tmp-key \
+  -N -M \
+  -L "$local_port:$db_endpoint" \
+  -o "UserKnownHostsFile=/dev/null" \
+  -o "StrictHostKeyChecking=no" \
+  -o ProxyCommand="aws ssm start-session --target %h --document AWS-StartSSHSession --parameters portNumber=%p --reason \"$session_manager_reason\" --region=$region" \
+  "ssm-user@$instance_id"
