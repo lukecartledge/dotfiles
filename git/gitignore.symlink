@@ -32,3 +32,14 @@ Temporary Items
 .DS_Store
 *~
 *.swp
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+mise.toml
