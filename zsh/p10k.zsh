@@ -51,6 +51,7 @@
     background_jobs         # presence of background jobs
     direnv                  # direnv status (https://direnv.net/)
     asdf                    # asdf version manager (https://github.com/asdf-vm/asdf)
+    # mise                    # virtual environment (https://mise.jdx.dev/)
     virtualenv              # python virtual environment (https://docs.python.org/3/library/venv.html)
     anaconda                # conda environment (https://conda.io/)
     pyenv                   # python environment (https://github.com/pyenv/pyenv)
@@ -982,7 +983,7 @@
   typeset -g POWERLEVEL9K_NODENV_SOURCES=(shell local global)
   # If set to false, hide node version if it's the same as global:
   # $(nodenv version-name) == $(nodenv global).
-  typeset -g POWERLEVEL9K_NODENV_PROMPT_ALWAYS_SHOW=true
+  typeset -g POWERLEVEL9K_NODENV_PROMPT_ALWAYS_SHOW=false
   # If set to false, hide node version if it's equal to "system".
   typeset -g POWERLEVEL9K_NODENV_SHOW_SYSTEM=true
   # Custom icon.
@@ -1639,3 +1640,29 @@ typeset -g POWERLEVEL9K_CONFIG_FILE=${${(%):-%x}:a}
 
 (( ${#p10k_config_opts} )) && setopt ${p10k_config_opts[@]}
 'builtin' 'unset' 'p10k_config_opts'
+
+() {
+  function prompt_mise() {
+    local plugins=("${(@f)$(mise ls --current --offline 2>/dev/null | awk '!/\(symlink\)/ && $3!="~/.tool-versions" && $3!="~/.config/mise/config.toml" && $3!="(missing)" {if ($1) print $1, $2}')}")
+    local plugin
+    for plugin in ${(k)plugins}; do
+      local parts=("${(@s/ /)plugin}")
+      local tool=${(U)parts[1]}
+      local version=${parts[2]}
+      p10k segment -r -i "${tool}_ICON" -s $tool -t "$version"
+    done
+  }
+  # Colours
+  typeset -g POWERLEVEL9K_MISE_FOREGROUND=66
+
+  typeset -g POWERLEVEL9K_MISE_GOLANG_FOREGROUND=37
+  typeset -g POWERLEVEL9K_MISE_NODEJS_FOREGROUND=70
+  typeset -g POWERLEVEL9K_MISE_NODE_FOREGROUND=70
+  typeset -g POWERLEVEL9K_MISE_POSTGRES_FOREGROUND=31
+  typeset -g POWERLEVEL9K_MISE_PYTHON_FOREGROUND=37
+  typeset -g POWERLEVEL9K_MISE_RUBY_FOREGROUND=168
+  typeset -g POWERLEVEL9K_MISE_RUST_FOREGROUND=37
+
+  # Substitute the default asdf prompt element
+  typeset -g POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=("${POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS[@]/asdf/mise}")
+}
