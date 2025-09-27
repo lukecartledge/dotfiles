@@ -7,5 +7,3 @@ alias ping='prettyping --nolegend'
 alias top="sudo htop" # alias top and fix high sierra bug
 
 alias sub='subl'
-
-alias docker='podman'

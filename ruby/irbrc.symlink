@@ -3,7 +3,6 @@ require 'irb/completion'
 require 'irb/ext/eval_history'
 require 'rubygems'
 
-IRB.conf[:SAVE_HISTORY] = 1000
 IRB.conf[:HISTORY_FILE] = "#{ENV['HOME']}/.irb_history"
 
 IRB.conf[:PROMPT_MODE] = :SIMPLE
@@ -40,7 +39,7 @@ def cop
 end
 
 def me
-  User.find_by_login(ENV['USER'].strip)
+  User.find_by_email(`git config --get user.email`.chomp)
 end
 
 def r
