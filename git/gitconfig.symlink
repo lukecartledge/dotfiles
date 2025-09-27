@@ -54,14 +54,14 @@
         new = green bold
         whitespace = red reverse
 [pull]
-	rebase = false
+	    rebase = false
 [gpg]
-	format = ssh
+	    format = ssh
 [gpg "ssh"]
-    program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+        program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
 [fetch]
-	prune = true
+	    prune = true
 [merge]
-    conflictstyle = zdiff3
+        conflictstyle = zdiff3
 [commit]
-  gpgsign = true
+        gpgsign = true
