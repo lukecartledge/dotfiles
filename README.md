@@ -1,4 +1,4 @@
-# @lukecartledge dotfiles
+# Dotfiles
 
 _this is a fork of [@holman/dotfiles](https://github.com/holman/dotfiles)_
 
