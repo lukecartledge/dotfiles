@@ -78,3 +78,5 @@ eval "$(mise activate zsh)"
 source ~/.config/broot/launcher/zsh/br
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+
+eval "$(zoxide init zsh)"

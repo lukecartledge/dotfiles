@@ -8,4 +8,4 @@ zstyle ':completion:*' insert-tab pending
 zstyle :omz:plugins:ssh-agent agent-forwarding on
 
 # Setup for Z
-. `brew --prefix`/etc/profile.d/z.sh
+# . `brew --prefix`/etc/profile.d/z.sh
