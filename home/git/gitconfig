@@ -67,5 +67,7 @@
         gpgsign = true
 [user]
 	signingkey = ~/.ssh/id_ed25519.pub
+	name = lukecartledge
+	email = luke@lukecartledge.com
 [diff "sekrets"]
 	textconv = sekrets read
