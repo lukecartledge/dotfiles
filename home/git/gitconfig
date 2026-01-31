@@ -1,58 +1,52 @@
 # Local/private config goes in the include
 [include]
-        path = ~/.gitconfig.local
-[hub]
-        protocol = https
+	path = ~/.gitconfig.local
 [alias]
-        co = checkout
-        promote = !$DOTFILES/bin/git-promote
-        wtf     = !$DOTFILES/bin/git-wtf
-        rank-contributors = !$DOTFILES/bin/git-rank-contributors
-        count   = !git shortlog -sn
-        lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	co = checkout
+	promote = !$DOTFILES/bin/git-promote
+	wtf = !$DOTFILES/bin/git-wtf
+	rank-contributors = !$DOTFILES/bin/git-rank-contributors
+	count = !git shortlog -sn
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 [core]
-        excludesfile = ~/.gitignore
-        editor = vim
-        pager = diff-so-fancy | less --tabs=4 -RFX
+	excludesfile = ~/.gitignore
+	editor = vim
+	pager = diff-so-fancy | less --tabs=4 -RFX
 [apply]
-        whitespace = nowarn
+	whitespace = nowarn
 [mergetool]
-        keepBackup = false
+	keepBackup = false
 [difftool]
-        prompt = false
+	prompt = false
 [help]
-        autocorrect = 1
+	autocorrect = 1
 [push]
-        # See `git help config` (search for push.default)
-        # for more information on different options of the below setting.
-        #
-        # Setting to git 2.0 default to suppress warning message
-        default = simple
+	default = simple
 [credential]
 	helper = osxkeychain
 [diff "spaceman-diff"]
-  command = /opt/homebrew/bin/spaceman-diff
+	command = /opt/homebrew/bin/spaceman-diff
 [init]
 	defaultBranch = main
 [filter "lfs"]
-        clean = git-lfs clean -- %f
-        smudge = git-lfs smudge -- %f
-        process = git-lfs filter-process
-        required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
 [color]
-        ui = true
+	ui = true
 [color "diff-highlight"]
-        oldNormal = red bold
-        oldHighlight = red bold 52
-        newNormal = green bold
-        newHighlight = green bold 22
+	oldNormal = red bold
+	oldHighlight = red bold 52
+	newNormal = green bold
+	newHighlight = green bold 22
 [color "diff"]
-        meta = yellow
-        frag = magenta bold
-        commit = yellow bold
-        old = red bold
-        new = green bold
-        whitespace = red reverse
+	meta = yellow
+	frag = magenta bold
+	commit = yellow bold
+	old = red bold
+	new = green bold
+	whitespace = red reverse
 [pull]
 	rebase = false
 [gpg]
@@ -62,12 +56,10 @@
 [fetch]
 	prune = true
 [merge]
-        conflictstyle = zdiff3
+	conflictstyle = zdiff3
 [commit]
-        gpgsign = true
+	gpgsign = true
 [user]
-	signingkey = ~/.ssh/id_ed25519.pub
-	name = lukecartledge
-	email = luke@lukecartledge.com
+	signingkey = /Users/luke.cartledge/.ssh/id_ed25519.pub
 [diff "sekrets"]
 	textconv = sekrets read

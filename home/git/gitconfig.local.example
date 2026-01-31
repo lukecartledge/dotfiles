@@ -1,5 +1,6 @@
 [user]
-        name = AUTHORNAME
-        email = AUTHOREMAIL
+	name = AUTHORNAME
+	email = AUTHOREMAIL
+	signingkey = /Users/USERNAME/.ssh/id_ed25519.pub
 [credential]
-        helper = GIT_CREDENTIAL_HELPER
+	helper = GIT_CREDENTIAL_HELPER
