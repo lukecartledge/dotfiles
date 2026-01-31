@@ -10,6 +10,9 @@
 // NOTE: Sensitive settings (API tokens, etc.) should be placed in
 // ~/.config/zed/settings.local.json which is not version controlled.
 {
+  "terminal": {
+    "font_family": "FiraCode Nerd Font Mono"
+  },
   "features": {
     "edit_prediction_provider": "copilot"
   },
@@ -20,7 +23,6 @@
     }
     // Add context servers with tokens in settings.local.json
   },
-  "buffer_font_weight": 300.0,
   "agent": {
     "inline_assistant_model": {
       "provider": "copilot_chat",
@@ -37,19 +39,21 @@
   "icon_theme": "Catppuccin Mocha",
   "base_keymap": "SublimeText",
   "theme": "Nightfox - opaque",
-  "experimental.theme_overrides": {
-    "syntax": {
-      "function": {
-        "font_style": "italic"
-      },
-      "comment": {
-        "font_style": "italic"
-      },
-      "constant": {
-        "font_style": "italic"
-      },
-      "type": {
-        "font_weight": 800
+  "theme_overrides": {
+    "Nightfox - opaque": {
+      "syntax": {
+        "function": {
+          "font_style": "italic"
+        },
+        "comment": {
+          "font_style": "italic"
+        },
+        "constant": {
+          "font_style": "italic"
+        },
+        "type": {
+          "font_weight": 800
+        }
       }
     }
   },
@@ -63,9 +67,9 @@
     "metrics": false
   },
   "ui_font_size": 16,
-  "ui_font_family": "FiraCode Nerd Font Mono",
-  "buffer_font_family": "JetBrains Mono",
-  "buffer_font_size": 14.0,
+  "ui_font_family": "Operator Mono Lig",
+  "buffer_font_family": "Operator Mono Lig",
+  "buffer_font_size": 15.0,
   "languages": {
     "Ruby": {
       "language_servers": ["ruby-lsp", "rubocop"]
