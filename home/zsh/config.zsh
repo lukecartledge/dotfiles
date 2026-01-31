@@ -10,9 +10,9 @@ export GPG_TTY=$(tty)
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
 fpath=(/usr/local/share/zsh-completions $fpath)
-fpath=($DOTFILES/functions $fpath)
+fpath=($DOTFILES/home/functions/zsh-functions $fpath)
 
-autoload -U $DOTFILES/functions/*(:t)
+autoload -U $DOTFILES/home/functions/zsh-functions/*(:t)
 
 # History options
 HIST_STAMPS="dd/mm/yyyy"

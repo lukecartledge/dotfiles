@@ -1,156 +1,216 @@
 #!/usr/bin/env bash
 #
-# bootstrap installs things.
+# bootstrap - Initial setup script for dotfiles
+#
+# This script:
+# 1. Creates the ~/.dotfiles symlink (if repo is elsewhere)
+# 2. Installs Homebrew (on macOS)
+# 3. Runs script/run to install packages and create symlinks
+#
+# Usage:
+#   script/bootstrap [flags]
+#
+# Flags:
+#   -n, --dry     Dry run - show what would be done
+#   -h, --help    Show this help screen
+
+set -e
 
 cd "$(dirname "$0")/.."
 DOTFILES_ROOT=$(pwd -P)
 
-set -e
-
 echo ''
 
+# Colors for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
+
 info () {
-  printf "\r  [ \033[00;34m..\033[0m ] $1\n"
+  printf "  ${BLUE}..${NC} %s\n" "$1"
 }
 
 user () {
-  printf "\r  [ \033[0;33m??\033[0m ] $1\n"
+  printf "  ${YELLOW}??${NC} %s\n" "$1"
 }
 
 success () {
-  printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $1\n"
+  printf "  ${GREEN}OK${NC} %s\n" "$1"
 }
 
 fail () {
-  printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $1\n"
+  printf "  ${RED}FAIL${NC} %s\n" "$1"
   echo ''
-  exit
+  exit 1
 }
 
-setup_gitconfig () {
-  if ! [ -f git/gitconfig.local.symlink ]
-  then
-    info 'setup gitconfig'
-
-    git_credential='cache'
-    if [ "$(uname -s)" == "Darwin" ]
-    then
-      git_credential='osxkeychain'
-    fi
-
-    user ' - What is your github author name?'
-    read -e git_authorname
-    user ' - What is your github author email?'
-    read -e git_authoremail
-
-    sed -e "s/AUTHORNAME/$git_authorname/g" -e "s/AUTHOREMAIL/$git_authoremail/g" -e "s/GIT_CREDENTIAL_HELPER/$git_credential/g" git/gitconfig.local.symlink.example > git/gitconfig.local.symlink
-
-    success 'gitconfig'
-  fi
+show_help () {
+  echo "bootstrap - Initial setup script for dotfiles"
+  echo ""
+  echo "Usage: script/bootstrap [flags]"
+  echo ""
+  echo "Flags:"
+  echo "  -n, --dry     Dry run - show what would be done"
+  echo "  -h, --help    Show this help screen"
+  exit 0
 }
 
+# Parse command line arguments
+dry_run=""
+while test $# -gt 0; do
+  case "$1" in
+    "-h"|"--help")
+      show_help
+      ;;
+    "-n"|"--dry")
+      dry_run="--dry"
+      ;;
+    *)
+      echo "Invalid option: $1"
+      show_help
+      ;;
+  esac
+  shift
+done
 
-link_file () {
-  local src=$1 dst=$2
-
-  local overwrite= backup= skip=
-  local action=
-
-  if [ -f "$dst" -o -d "$dst" -o -L "$dst" ]
-  then
-
-    if [ "$overwrite_all" == "false" ] && [ "$backup_all" == "false" ] && [ "$skip_all" == "false" ]
-    then
-
-      local currentSrc="$(readlink $dst)"
-
-      if [ "$currentSrc" == "$src" ]
-      then
-
-        skip=true;
-
-      else
-
-        user "File already exists: $dst ($(basename "$src")), what do you want to do?\n\
-        [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
-        read -n 1 action
-
-        case "$action" in
-          o )
-            overwrite=true;;
-          O )
-            overwrite_all=true;;
-          b )
-            backup=true;;
-          B )
-            backup_all=true;;
-          s )
-            skip=true;;
-          S )
-            skip_all=true;;
-          * )
-            ;;
-        esac
-
+# Create ~/.dotfiles symlink if needed
+link_dotfiles () {
+  if [[ "$DOTFILES_ROOT" != "$HOME/.dotfiles" ]]; then
+    if [[ -L "$HOME/.dotfiles" ]]; then
+      current_link=$(readlink "$HOME/.dotfiles")
+      if [[ "$current_link" == "$DOTFILES_ROOT" ]]; then
+        success "~/.dotfiles already linked to $DOTFILES_ROOT"
+        return 0
       fi
-
+      info "Updating ~/.dotfiles symlink"
+      rm "$HOME/.dotfiles"
+    elif [[ -e "$HOME/.dotfiles" ]]; then
+      info "Backing up existing ~/.dotfiles"
+      mv "$HOME/.dotfiles" "$HOME/.dotfiles.backup.$(date +%Y%m%d%H%M%S)"
     fi
 
-    overwrite=${overwrite:-$overwrite_all}
-    backup=${backup:-$backup_all}
-    skip=${skip:-$skip_all}
-
-    if [ "$overwrite" == "true" ]
-    then
-      rm -rf "$dst"
-      success "removed $dst"
-    fi
-
-    if [ "$backup" == "true" ]
-    then
-      mv "$dst" "${dst}.backup"
-      success "moved $dst to ${dst}.backup"
-    fi
-
-    if [ "$skip" == "true" ]
-    then
-      success "skipped $src"
-    fi
-  fi
-
-  if [ "$skip" != "true" ]  # "false" or empty
-  then
-    ln -s "$1" "$2"
-    success "linked $1 to $2"
-  fi
-}
-
-install_dotfiles () {
-  info 'installing dotfiles'
-
-  local overwrite_all=false backup_all=false skip_all=false
-
-  for src in $(find -H "$DOTFILES_ROOT" -maxdepth 2 -name '*.symlink' -not -path '*.git*')
-  do
-    dst="$HOME/.$(basename "${src%.*}")"
-    link_file "$src" "$dst"
-  done
-}
-
-setup_gitconfig
-install_dotfiles
-
-# If we're on a Mac, let's install and setup homebrew.
-if [ "$(uname -s)" == "Darwin" ]
-then
-  info "installing dependencies"
-  if source bin/dot | while read -r data; do info "$data"; done
-  then
-    success "dependencies installed"
+    ln -s "$DOTFILES_ROOT" "$HOME/.dotfiles"
+    success "Linked $DOTFILES_ROOT to ~/.dotfiles"
   else
-    fail "error installing dependencies"
+    success "Already at ~/.dotfiles"
   fi
-fi
+}
+
+# Install Homebrew on macOS
+install_homebrew () {
+  if [[ "$(uname -s)" != "Darwin" ]]; then
+    return 0
+  fi
+
+  if test ! "$(command -v brew)"; then
+    info "Installing Homebrew..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+    # Add Homebrew to PATH for Apple Silicon Macs
+    if [[ -f "/opt/homebrew/bin/brew" ]]; then
+      eval "$(/opt/homebrew/bin/brew shellenv)"
+    fi
+
+    success "Homebrew installed"
+  else
+    success "Homebrew already installed"
+  fi
+}
+
+# Install Brewfile packages
+install_brew_packages () {
+  if [[ "$(uname -s)" != "Darwin" ]]; then
+    return 0
+  fi
+
+  if [[ -f "$DOTFILES_ROOT/Brewfile" ]]; then
+    info "Installing Homebrew packages from Brewfile..."
+    brew bundle --file="$DOTFILES_ROOT/Brewfile"
+    success "Homebrew packages installed"
+  fi
+}
+
+# Check for host configuration
+check_host_config () {
+  local hostname
+  hostname=$("$DOTFILES_ROOT/bin/host")
+  local host_config="$DOTFILES_ROOT/hosts/$hostname.bash"
+
+  if [[ ! -f "$host_config" ]]; then
+    echo ""
+    user "No host configuration found for: $hostname"
+    echo ""
+    echo "  Please create: $host_config"
+    echo ""
+    echo "  Example content:"
+    echo '    export SYSTEM="macos"'
+    echo '    export PACKAGES=('
+    echo '      system'
+    echo '      zsh'
+    echo '      git'
+    echo '      vim'
+    echo '    )'
+    echo ""
+    echo "  Available packages in home/:"
+    ls -1 "$DOTFILES_ROOT/home" | sed 's/^/    /'
+    echo ""
+
+    user "Would you like to create a default configuration? [y/n]"
+    read -r -n 1 response
+    echo ""
+
+    if [[ "$response" == "y" || "$response" == "Y" ]]; then
+      cat > "$host_config" <<EOF
+# Host configuration for $hostname
+#
+# This file defines which packages to install and configure on this machine.
+
+export SYSTEM="macos"
+
+export PACKAGES=(
+  system
+  zsh
+  git
+  editors
+  vim
+  tmux
+  ruby
+)
+EOF
+      success "Created $host_config"
+      echo ""
+      info "Edit this file to customize packages for this machine"
+    else
+      fail "Cannot continue without host configuration"
+    fi
+  fi
+}
+
+echo '  Bootstrapping dotfiles...'
+echo ''
+
+# Step 1: Link dotfiles directory
+link_dotfiles
+
+# Step 2: Install Homebrew (macOS only)
+install_homebrew
+
+# Step 3: Install Brewfile packages (macOS only)
+install_brew_packages
+
+# Step 4: Check for host configuration
+check_host_config
+
+# Step 5: Run the main installation script
+echo ''
+info "Running dotfiles installation..."
+"$DOTFILES_ROOT/script/run" $dry_run
 
 echo ''
-echo '  All installed!'
+echo '  All bootstrapped!'
+echo ''
+echo '  You may need to restart your shell or run:'
+echo '    source ~/.zshrc'
+echo ''
