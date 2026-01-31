@@ -59,7 +59,5 @@
 	conflictstyle = zdiff3
 [commit]
 	gpgsign = true
-[user]
-	signingkey = /Users/luke.cartledge/.ssh/id_ed25519.pub
 [diff "sekrets"]
 	textconv = sekrets read

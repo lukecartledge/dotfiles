@@ -1,6 +1,15 @@
+# Local/private git config
+# Copy this file to ~/.gitconfig.local and update with your details
+#
+# This file is gitignored and should contain machine-specific settings
+# including your identity and signing key path.
+
 [user]
 	name = AUTHORNAME
 	email = AUTHOREMAIL
+	# Update USERNAME to match your home directory on this machine
+	# e.g., /Users/luke.cartledge/.ssh/id_ed25519.pub
 	signingkey = /Users/USERNAME/.ssh/id_ed25519.pub
+
 [credential]
 	helper = GIT_CREDENTIAL_HELPER
