@@ -1,0 +1,8 @@
+[tools]
+node = "22"
+python = "2.7.18"
+ruby = "latest"
+rust = "latest"
+
+[settings]
+idiomatic_version_file_enable_tools = ["ruby", "node"]

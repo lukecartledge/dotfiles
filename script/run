@@ -1,0 +1,126 @@
+#!/usr/bin/env bash
+#
+# run - Main dotfiles installation and linking script
+#
+# This script:
+# 1. Detects the current host
+# 2. Sources the host-specific package configuration
+# 3. Runs install.bash and link.bash for each package
+#
+# Usage:
+#   script/run [flags]
+#
+# Flags:
+#   -n, --dry     Dry run - show what would be done without doing it
+#   -h, --help    Show this help screen
+
+set -e
+
+# Get directory paths
+DOTFILES_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")"/.. &> /dev/null && pwd)
+HOME_DIR="$DOTFILES_DIR/home"
+HOSTS_DIR="$DOTFILES_DIR/hosts"
+SCRIPT_DIR="$DOTFILES_DIR/script"
+
+# Source common functions
+source "$SCRIPT_DIR/common.bash"
+
+# Get current hostname
+CURR_HOST=$("$DOTFILES_DIR/bin/host")
+
+function help {
+  echo "script/run [flags]"
+  echo ""
+  echo "Installs packages and creates symlinks based on host configuration."
+  echo ""
+  echo "Flags:"
+  echo "  -n, --dry     Dry run - show what would be done"
+  echo "  -h, --help    Show this help screen"
+  echo ""
+  echo "Current host: $CURR_HOST"
+  echo "Host config:  $HOSTS_DIR/$CURR_HOST.bash"
+}
+
+# Parse command line arguments
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    --dry|-n)
+      cmd="log"
+      dry="1"
+      ;;
+    --help|-h)
+      help
+      exit 0
+      ;;
+    *)
+      echo "Unknown option: $1"
+      help
+      exit 1
+      ;;
+  esac
+  shift
+done
+
+# Check if host config exists
+if [[ ! -f "$HOSTS_DIR/$CURR_HOST.bash" ]]; then
+  fail "No host configuration found for: $CURR_HOST"
+  echo ""
+  echo "Please create: $HOSTS_DIR/$CURR_HOST.bash"
+  echo ""
+  echo "Example content:"
+  echo '  export SYSTEM="macos"'
+  echo '  export PACKAGES=('
+  echo '    git'
+  echo '    zsh'
+  echo '    vim'
+  echo '  )'
+  exit 1
+fi
+
+info "Running dotfiles for host: $CURR_HOST"
+echo ""
+
+# Source host configuration to get PACKAGES array
+# shellcheck source=/dev/null
+source "$HOSTS_DIR/$CURR_HOST.bash"
+
+# Ensure dotfiles directory is symlinked to ~/.dotfiles
+if [[ "$DOTFILES_DIR" != "$HOME/.dotfiles" ]]; then
+  info "Linking dotfiles directory..."
+  link "$DOTFILES_DIR" "$HOME/.dotfiles"
+  echo ""
+fi
+
+# Process each package
+for package in "${PACKAGES[@]}"; do
+  package_dir="$HOME_DIR/$package"
+
+  if [[ ! -d "$package_dir" ]]; then
+    fail "Package directory not found: $package"
+    continue
+  fi
+
+  info "Processing: $package"
+
+  # Run install script if it exists
+  install_script="$package_dir/install.bash"
+  if [[ -f "$install_script" ]]; then
+    if [[ $dry == "1" ]]; then
+      log "Would run: $install_script"
+    else
+      # shellcheck source=/dev/null
+      source "$install_script"
+    fi
+  fi
+
+  # Run link script if it exists
+  link_script="$package_dir/link.bash"
+  if [[ -f "$link_script" ]]; then
+    # shellcheck source=/dev/null
+    source "$link_script"
+  fi
+
+  echo ""
+done
+
+success "Dotfiles installation complete!"

@@ -54,12 +54,18 @@
         new = green bold
         whitespace = red reverse
 [pull]
-	    rebase = false
+	rebase = false
+[gpg]
+	format = ssh
+[gpg "ssh"]
+	program = /usr/bin/ssh-keygen
 [fetch]
-	    prune = true
+	prune = true
 [merge]
         conflictstyle = zdiff3
 [commit]
-    	prune = true
+        gpgsign = true
+[user]
+	signingkey = ~/.ssh/id_ed25519.pub
 [diff "sekrets"]
 	textconv = sekrets read

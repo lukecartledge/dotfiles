@@ -1,0 +1,16 @@
+// Zed local settings (for sensitive configuration)
+//
+// Copy this file to settings.local.json and add your tokens/secrets.
+// This file is NOT tracked in git.
+//
+// These settings will be merged with settings.json
+{
+  "context_servers": {
+    "mcp-server-github": {
+      "enabled": true,
+      "settings": {
+        "github_personal_access_token": "YOUR_GITHUB_TOKEN_HERE"
+      }
+    }
+  }
+}

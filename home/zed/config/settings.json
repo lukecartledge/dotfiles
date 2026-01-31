@@ -1,0 +1,74 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run the `open default settings` command
+// from the command palette or from `Zed` application menu.
+//
+// NOTE: Sensitive settings (API tokens, etc.) should be placed in
+// ~/.config/zed/settings.local.json which is not version controlled.
+{
+  "features": {
+    "edit_prediction_provider": "copilot"
+  },
+  "context_servers": {
+    "terraform-context-server": {
+      "enabled": true,
+      "settings": {}
+    }
+    // Add context servers with tokens in settings.local.json
+  },
+  "buffer_font_weight": 300.0,
+  "agent": {
+    "inline_assistant_model": {
+      "provider": "copilot_chat",
+      "model": "claude-sonnet-4.5"
+    },
+    "always_allow_tool_actions": true,
+    "default_profile": "write",
+    "default_model": {
+      "provider": "copilot_chat",
+      "model": "claude-opus-4.5"
+    }
+  },
+  "autosave": "on_focus_change",
+  "icon_theme": "Catppuccin Mocha",
+  "base_keymap": "SublimeText",
+  "theme": "Nightfox - opaque",
+  "experimental.theme_overrides": {
+    "syntax": {
+      "function": {
+        "font_style": "italic"
+      },
+      "comment": {
+        "font_style": "italic"
+      },
+      "constant": {
+        "font_style": "italic"
+      },
+      "type": {
+        "font_weight": 800
+      }
+    }
+  },
+  "minimap": {
+    "show": "always",
+    "thumb_border": "full",
+    "current_line_highlight": "line"
+  },
+  "telemetry": {
+    "diagnostics": false,
+    "metrics": false
+  },
+  "ui_font_size": 16,
+  "ui_font_family": "FiraCode Nerd Font Mono",
+  "buffer_font_family": "JetBrains Mono",
+  "buffer_font_size": 14.0,
+  "languages": {
+    "Ruby": {
+      "language_servers": ["ruby-lsp", "rubocop"]
+    }
+  }
+}

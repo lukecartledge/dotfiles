@@ -2,9 +2,9 @@
 
 ## Repository Overview
 
-This is a **personal dotfiles repository** (forked from @holman/dotfiles) for managing macOS shell environment, application configurations, and system preferences. The repository is **~2.7MB** with **~462 files** organized into topic-based directories.
+This is a **personal dotfiles repository** for managing macOS shell environment, application configurations, and system preferences. The repository uses a **topic-based organization** with **per-host configuration** and **`~/.config` support**.
 
-**Primary Purpose**: Automated setup and synchronization of macOS development environment including zsh configuration, git settings, Homebrew packages, and system preferences.
+**Primary Purpose**: Automated setup and synchronization of macOS development environment across multiple machines.
 
 **Key Technologies**: 
 - Shell scripting (Bash/Zsh)
@@ -15,224 +15,244 @@ This is a **personal dotfiles repository** (forked from @holman/dotfiles) for ma
 
 ## Critical Architecture Principles
 
-### Topic-Based Organization
-Files are organized by topic (git, ruby, zsh, etc.). Each topic directory can contain:
-- `*.zsh` - Auto-loaded into shell environment
-- `path.zsh` - Loaded FIRST to setup PATH
-- `completion.zsh` - Loaded LAST for autocomplete
-- `*.symlink` - Symlinked to `$HOME` without extension during bootstrap
-- `install.sh` - Executed during `script/install` (NOT auto-loaded)
+### Directory Structure
+
+```
+.dotfiles/
+├── bin/                    # Executable utilities (added to $PATH)
+│   ├── dot                 # Update script - run periodically
+│   ├── host                # Returns current hostname
+│   └── ...
+├── home/                   # User configuration organized by app
+│   ├── git/
+│   │   ├── gitconfig       # → ~/.gitconfig
+│   │   ├── gitignore       # → ~/.gitignore
+│   │   ├── *.zsh           # Shell configuration (auto-sourced)
+│   │   ├── install.bash    # Setup script (e.g., prompt for credentials)
+│   │   └── link.bash       # Symlink definitions
+│   ├── zsh/
+│   │   ├── zshrc           # → ~/.zshrc
+│   │   └── *.zsh           # Additional shell config
+│   ├── zed/
+│   │   ├── config/         # → ~/.config/zed/
+│   │   └── link.bash
+│   └── {package}/          # Other packages follow same pattern
+├── hosts/                  # Per-machine package configuration
+│   └── {hostname}.bash     # Defines PACKAGES array for each machine
+├── macos/                  # macOS system preferences
+├── homebrew/               # Homebrew installation
+├── script/
+│   ├── bootstrap           # Initial setup script
+│   ├── run                 # Main installation script
+│   └── common.bash         # Shared functions (link, log, backup)
+└── Brewfile                # Homebrew packages
+```
+
+### Package Structure
+
+Each package in `home/{package}/` can contain:
+
+| File | Purpose |
+|------|---------|
+| `*.zsh` | Shell configuration (auto-sourced by zshrc) |
+| `path.zsh` | PATH setup (loaded first) |
+| `completion.zsh` | Autocompletion (loaded last) |
+| `install.bash` | One-time setup script |
+| `link.bash` | Symlink definitions |
+| Config files | Actual dotfiles |
+
+### Host Configuration
+
+Each machine has a config file in `hosts/{hostname}.bash`:
+
+```bash
+export SYSTEM="macos"
+export PACKAGES=(
+  system
+  zsh
+  git
+  vim
+  zed
+  tmux
+  ruby
+)
+```
+
+The hostname is determined by `bin/host` (runs `hostname -s`).
 
 ### Bootstrap Flow
-The repository uses a specific initialization sequence that MUST be followed:
 
-1. **Initial Setup**: `script/bootstrap` (one-time setup)
-   - Creates `git/gitconfig.local.symlink` if missing (prompts for git author name/email)
-   - Symlinks all `*.symlink` files to `$HOME/.{basename}`
-   - On macOS: runs `bin/dot` to install dependencies
+1. **Initial Setup**: `script/bootstrap`
+   - Creates `~/.dotfiles` symlink if repo is elsewhere
+   - Installs Homebrew (macOS)
+   - Installs Brewfile packages
+   - Checks for host configuration
+   - Runs `script/run`
 
-2. **Updates**: `bin/dot` (run periodically)
+2. **Updates**: `bin/dot`
    - Pulls latest changes from git
-   - Sets macOS defaults via `macos/set-defaults.sh`
-   - Fixes macOS hostname issues via `macos/set-hostname.sh`
-   - Installs/updates Homebrew
-   - Runs `script/install`
+   - Sets macOS defaults
+   - Updates Homebrew
+   - Runs `script/run`
 
-3. **Package Installation**: `script/install`
-   - Runs `brew bundle` to install Brewfile packages
-   - Executes all topic-level `install.sh` scripts
+3. **Package Installation**: `script/run`
+   - Sources host configuration
+   - For each package in PACKAGES array:
+     - Runs `install.bash` if exists
+     - Runs `link.bash` if exists
 
 ## Build & Validation Commands
 
 ### Setup (First Time)
 ```bash
-# Clone repository (if not already cloned)
 git clone https://github.com/lukecartledge/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
-
-# Run bootstrap - ALWAYS do this for initial setup
 script/bootstrap
-# This will:
-# - Prompt for git author name and email (required)
-# - Symlink configuration files to home directory
-# - Install Homebrew dependencies on macOS
 ```
 
 ### Update Environment
 ```bash
-# From anywhere (bin/dot is in PATH after bootstrap)
 dot
-
-# Or explicitly from dotfiles directory
-cd ~/.dotfiles
-bin/dot
 ```
 
-### Install/Update Packages
+### Dry Run (Preview Changes)
 ```bash
-cd ~/.dotfiles
-
-# Install Homebrew packages from Brewfile
-brew bundle
-
-# Run all topic install scripts
-script/install
+script/run --dry
+# or
+dot --dry
 ```
 
 ### Validation Steps
-**No formal test suite exists.** Validate changes manually:
 
-1. **After modifying shell files (*.zsh)**:
+1. **Test scripts without changes**:
    ```bash
-   # Source zshrc to test for syntax errors
-   source ~/.zshrc
+   script/run --dry
    ```
 
-2. **After modifying symlink files (*.symlink)**:
+2. **After modifying shell files (*.zsh)**:
    ```bash
-   # Re-run bootstrap to update symlinks
-   cd ~/.dotfiles
-   script/bootstrap
+   source ~/.zshrc
    ```
 
 3. **After modifying Brewfile**:
    ```bash
-   # Validate Brewfile syntax
    brew bundle check
-   
-   # Install new packages
    brew bundle
    ```
 
-4. **After modifying bin/ scripts**:
+4. **Verify host configuration**:
    ```bash
-   # Verify script is executable
-   ls -l ~/.dotfiles/bin/SCRIPT_NAME
-   
-   # Test script execution
-   SCRIPT_NAME --help  # or appropriate test
+   cat hosts/$(bin/host).bash
    ```
 
 ## Key File Locations
 
-### Core Setup Scripts
-- `script/bootstrap` - Initial setup script (156 lines)
-- `script/install` - Package installation script (13 lines)
-- `bin/dot` - Update/maintenance script (65 lines)
+### Core Scripts
+- `script/bootstrap` - Initial setup script
+- `script/run` - Main package installation/linking
+- `script/common.bash` - Shared functions (link, link_home, link_config, log, backup)
+- `bin/dot` - Update/maintenance script
+- `bin/host` - Returns current hostname
 
 ### Configuration Files
-- `Brewfile` - Homebrew package definitions (casks & formulae)
-- `git/gitconfig.symlink` - Global git configuration
-- `git/gitconfig.local.symlink` - Local git config (gitignored, auto-generated)
-- `git/gitconfig.local.symlink.example` - Template for local git config
-- `zsh/zshrc.symlink` - Main zsh configuration file
-- `zsh/oh-my-zsh.zsh` - Oh-My-Zsh plugin configuration
-- `zsh/p10k.zsh` - Powerlevel10k theme configuration
+- `Brewfile` - Homebrew package definitions
+- `hosts/{hostname}.bash` - Per-machine package lists
+- `home/zsh/zshrc` - Main zsh configuration
+- `home/git/gitconfig` - Global git configuration
 
-### System Configuration
-- `macos/set-defaults.sh` - macOS system preferences (Finder, Safari, dock, etc.)
-- `macos/set-hostname.sh` - Fixes macOS hostname numbering issue
-- `homebrew/install.sh` - Homebrew installation script
-- `system/_path.zsh` - Main PATH configuration
-- `editors/env.zsh` - Sets EDITOR='zed'
+### Link Script Functions
 
-### Utilities
-- `bin/` - 24 executable utilities added to PATH (git helpers, system tools)
-- `functions/` - Zsh completion functions and utilities
+Available in `link.bash` files (from `script/common.bash`):
+
+```bash
+# Link to home directory as dotfile
+link_home "$HOME_DIR/git/gitconfig" "gitconfig"   # → ~/.gitconfig
+
+# Link to ~/.config
+link_config "$HOME_DIR/zed/config" "zed"          # → ~/.config/zed
+
+# Generic link
+link "$source" "$destination"
+```
 
 ## Important Constraints & Gotchas
 
-### File Processing Order
-Zsh files load in this exact order (managed by `zsh/zshrc.symlink`):
-1. All `path.zsh` files
+### Zsh File Loading Order
+
+Files load in this order (managed by `home/zsh/zshrc`):
+1. All `path.zsh` files from `home/*/`
 2. All other `*.zsh` files (except path.zsh and completion.zsh)
 3. Zsh completion initialization
 4. All `completion.zsh` files
 
-**Always follow this order** when adding new zsh configuration.
+### Sensitive Data
 
-### Symlink Management
-- `script/bootstrap` prompts for action on existing files: [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all
-- Symlinks are created from `.dotfiles/topic/*.symlink` to `$HOME/.{basename}`
-- Example: `git/gitconfig.symlink` → `~/.gitconfig`
+- Files with `.local` suffix are gitignored
+- Use `*.local.json.example` templates for sensitive configs
+- Never commit API tokens or passwords
 
-### Git Configuration
-- `git/gitconfig.local.symlink` is gitignored and auto-generated
-- Contains user-specific settings (name, email, credential helper)
-- Created by `script/bootstrap` from `git/gitconfig.local.symlink.example` template
-- **Never commit** `git/gitconfig.local.symlink`
+Gitignored patterns:
+- `*.local`
+- `*.local.json`
+- `home/git/gitconfig.local`
+- `home/zed/config/settings.local.json`
 
-### macOS Specific Behavior
-- Bootstrap automatically runs `bin/dot` on macOS (Darwin)
-- `macos/set-defaults.sh` modifies system preferences via `defaults write`
-- Changes may require logout/restart to take effect
-- Hostname fix in `macos/set-hostname.sh` requires sudo (TouchID prompt)
+### Backup Behavior
+
+When linking, existing files are automatically backed up:
+```
+~/.gitconfig → ~/.gitconfig.backup.20240131120000
+```
+
+### macOS Specific
+
+- `macos/set-defaults.sh` modifies system preferences
+- Changes may require logout/restart
+- `bin/dot` only runs macOS-specific commands on Darwin
 
 ### Dependencies
+
 The repository assumes:
-- **macOS** (Darwin) - scripts check `uname -s`
+- **macOS** (Darwin)
 - **Homebrew** installed or installable
 - **Zsh** as shell
 - **Oh-My-Zsh** installed at `~/.oh-my-zsh`
-- External tools: `mise`, `zoxide`, `fzf`, `broot` (initialized in zshrc)
-
-### Hidden Dependencies in zshrc.symlink
-The main zshrc file sources these external tools (must be installed separately):
-```bash
-eval "$(mise activate zsh)"        # Runtime version manager
-source ~/.config/broot/launcher/zsh/br  # File navigator
-eval "$(zoxide init zsh)"          # Smart cd replacement
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh  # Fuzzy finder
-```
+- External tools: `mise`, `zoxide`, `fzf`, `broot` (optional, checked before sourcing)
 
 ## Common Modification Patterns
 
-### Adding a New Topic
-1. Create directory: `mkdir .dotfiles/newtopic`
-2. Add configuration files with appropriate extensions
-3. Run `script/bootstrap` to symlink any `*.symlink` files
-4. Source `~/.zshrc` to load `*.zsh` files
+### Adding a New Package
 
-### Adding Homebrew Packages
-1. Edit `Brewfile`
-2. Add `brew 'package-name'` or `cask 'app-name'`
-3. Run `brew bundle` from `.dotfiles` directory
-4. Commit changes to `Brewfile`
-5. **Do NOT commit** `Brewfile.lock.json` (gitignored)
+1. Create directory: `mkdir -p home/newpackage`
+2. Add configuration files
+3. Create `link.bash`:
+   ```bash
+   link_home "$HOME_DIR/newpackage/config" "newpackagerc"
+   ```
+4. Add to host configuration in `hosts/{hostname}.bash`
+5. Run `script/run`
 
-### Adding Shell Utilities
-1. Add executable script to `bin/` directory
-2. Make executable: `chmod +x bin/script-name`
-3. Script automatically available in PATH after shell reload
+### Adding ~/.config Support
 
-### Modifying System Preferences
-1. Edit `macos/set-defaults.sh`
-2. Use `defaults write` commands for preferences
-3. Run `bin/dot` or execute script directly
-4. May require logout/restart to see changes
-
-## Directory Structure Reference
-
+```bash
+# home/newapp/link.bash
+mkdir -p "$HOME/.config/newapp"
+link "$HOME_DIR/newapp/config/settings.json" "$HOME/.config/newapp/settings.json"
 ```
-.dotfiles/
-├── bin/              # 24 executable utilities (auto-added to PATH)
-├── editors/          # Editor configuration (env.zsh sets EDITOR)
-├── functions/        # Zsh completion functions
-├── git/              # Git configuration and aliases
-├── homebrew/         # Homebrew setup scripts
-├── macos/            # macOS system preference scripts
-├── ruby/             # Ruby/gem configuration and aliases
-├── script/           # Setup and installation scripts
-├── system/           # System-wide PATH and aliases
-├── tmux/             # tmux configuration
-├── vim/              # vim configuration
-├── yarn/             # Yarn configuration (commented out)
-├── zsh/              # Zsh configuration (20 .zsh files)
-├── Brewfile          # Homebrew package definitions
-├── README.md         # User documentation
-└── LICENSE.md        # MIT License
-```
+
+### Adding a New Machine
+
+1. Get hostname: `hostname -s`
+2. Create: `hosts/{hostname}.bash`
+3. Define PACKAGES array
+4. Run: `script/bootstrap`
+
+### Modifying Shell Configuration
+
+1. Edit files in `home/{package}/*.zsh`
+2. Source to test: `source ~/.zshrc`
+3. Commit changes
 
 ## Trust These Instructions
 
-This file has been thoroughly validated by exploring the codebase. **Trust these instructions** and only perform additional searches if information is incomplete or found to be incorrect. The repository has no CI/CD, no test suite, and no linting - validation is manual via shell sourcing and script execution.
+This file documents the current architecture. **Trust these instructions** and only perform additional searches if information is incomplete or found to be incorrect. The repository has no CI/CD or test suite - validation is manual via dry-run and shell sourcing.

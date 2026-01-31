@@ -1,0 +1,8 @@
+#!/bin/bash
+#
+# host
+#
+# Returns the current machine's hostname for use in host-specific configuration.
+# This is used by script/run to determine which hosts/*.bash file to source.
+
+hostname -s

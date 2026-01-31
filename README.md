@@ -1,43 +1,16 @@
-# @lukecartledge dotfiles
+# Dotfiles
 
-_this is a fork of [@holman/dotfiles](https://github.com/holman/dotfiles)_
+Personal dotfiles for macOS development environment. Originally forked from [@holman/dotfiles](https://github.com/holman/dotfiles), now restructured for better organization and `~/.config` support.
 
-## topical
+## Features
 
-Everything's built around topic areas. If you're adding a new area to your
-forked dotfiles — say, "Java" — you can simply add a `java` directory and put
-files in there. Anything with an extension of `.zsh` will get automatically
-included into your shell. Anything with an extension of `.symlink` will get
-symlinked without extension into `$HOME` when you run `script/bootstrap`.
+- **Topic-based organization** - Configuration grouped by application/tool
+- **Per-host configuration** - Different packages for different machines
+- **`~/.config` support** - Sync XDG-compliant app configs (Zed, etc.)
+- **Dry-run mode** - Preview changes before applying
+- **Automatic backups** - Existing files are backed up before replacing
 
-## what's inside
-
-A lot of stuff. Seriously, a lot of stuff. Check them out in the file browser
-above and see what components may mesh up with you.
-[Fork it](https://github.com/lukecartledge/dotfiles/fork), remove what you don't
-use, and build on what you do use.
-
-## components
-
-There's a few special files in the hierarchy.
-
-- **bin/**: Anything in `bin/` will get added to your `$PATH` and be made
-  available everywhere.
-- **topic/\*.zsh**: Any files ending in `.zsh` get loaded into your
-  environment.
-- **topic/path.zsh**: Any file named `path.zsh` is loaded first and is
-  expected to setup `$PATH` or similar.
-- **topic/completion.zsh**: Any file named `completion.zsh` is loaded
-  last and is expected to setup autocomplete.
-- **topic/install.sh**: Any file named `install.sh` is executed when you run `script/install`. To avoid being loaded automatically, its extension is `.sh`, not `.zsh`.
-- **topic/\*.symlink**: Any file ending in `*.symlink` gets symlinked into
-  your `$HOME`. This is so you can keep all of those versioned in your dotfiles
-  but still keep those autoloaded files in your home directory. These get
-  symlinked in when you run `script/bootstrap`.
-
-## install
-
-Run this:
+## Quick Start
 
 ```sh
 git clone https://github.com/lukecartledge/dotfiles.git ~/.dotfiles
@@ -45,13 +18,227 @@ cd ~/.dotfiles
 script/bootstrap
 ```
 
-This will symlink the appropriate files in `.dotfiles` to your home directory.
-Everything is configured and tweaked within `~/.dotfiles`.
+You can clone the repo anywhere; bootstrap will symlink it to `~/.dotfiles`.
 
-The main file you'll want to change right off the bat is `zsh/zshrc.symlink`,
-which sets up a few paths that'll be different on your particular machine.
+## Directory Structure
 
-`dot` is a simple script that installs some dependencies, sets sane macOS
-defaults, and so on. Tweak this script, and occasionally run `dot` from
-time to time to keep your environment fresh and up-to-date. You can find
-this script in `bin/`.
+```
+.dotfiles/
+├── bin/                    # Executable utilities (added to $PATH)
+│   ├── dot                 # Update script - run periodically
+│   ├── host                # Returns current hostname
+│   └── ...
+├── home/                   # User configuration organized by app
+│   ├── git/
+│   │   ├── gitconfig       # → ~/.gitconfig
+│   │   ├── gitignore       # → ~/.gitignore
+│   │   ├── *.zsh           # Shell configuration (auto-sourced)
+│   │   ├── install.bash    # Setup script (e.g., prompt for credentials)
+│   │   └── link.bash       # Symlink definitions
+│   ├── zsh/
+│   │   ├── zshrc           # → ~/.zshrc
+│   │   └── *.zsh           # Additional shell config
+│   ├── zed/
+│   │   ├── config/         # → ~/.config/zed/
+│   │   └── link.bash
+│   └── ...
+├── hosts/                  # Per-machine package configuration
+│   └── {hostname}.bash     # Defines PACKAGES array for each machine
+├── macos/                  # macOS system preferences
+├── homebrew/               # Homebrew installation
+├── script/
+│   ├── bootstrap           # Initial setup script
+│   ├── run                 # Main installation script
+│   └── common.bash         # Shared functions
+└── Brewfile                # Homebrew packages
+```
+
+## How It Works
+
+### Host Configuration
+
+Each machine has a configuration file in `hosts/{hostname}.bash` that defines which packages to install:
+
+```bash
+# hosts/My-MacBook-Pro.bash
+export SYSTEM="macos"
+
+export PACKAGES=(
+  system
+  zsh
+  git
+  vim
+  zed
+  tmux
+  ruby
+)
+```
+
+Find your hostname with: `hostname -s`
+
+### Package Structure
+
+Each package in `home/` can contain:
+
+| File | Purpose |
+|------|---------|
+| `*.zsh` | Shell configuration (auto-sourced by zshrc) |
+| `path.zsh` | PATH setup (loaded first) |
+| `completion.zsh` | Autocompletion (loaded last) |
+| `install.bash` | One-time setup (e.g., prompt for credentials) |
+| `link.bash` | Symlink definitions |
+| Config files | Actual dotfiles (gitconfig, vimrc, etc.) |
+
+### Link Scripts
+
+Link scripts define where files should be symlinked:
+
+```bash
+# home/git/link.bash
+link_home "$HOME_DIR/git/gitconfig" "gitconfig"    # → ~/.gitconfig
+link_home "$HOME_DIR/git/gitignore" "gitignore"    # → ~/.gitignore
+```
+
+For `~/.config` directories:
+
+```bash
+# home/zed/link.bash
+link "$HOME_DIR/zed/config/settings.json" "$HOME/.config/zed/settings.json"
+```
+
+## Commands
+
+### Initial Setup
+
+```sh
+script/bootstrap
+```
+
+Sets up everything: creates symlinks, installs Homebrew, runs package scripts.
+
+### Update Environment
+
+```sh
+dot
+```
+
+Pulls latest changes, updates Homebrew, sets macOS defaults, and runs `script/run`.
+
+### Dry Run
+
+Preview what would happen without making changes:
+
+```sh
+script/run --dry
+# or
+dot --dry
+```
+
+### Edit Dotfiles
+
+```sh
+dot --edit
+```
+
+Opens the dotfiles directory in your editor.
+
+## Adding New Packages
+
+1. Create a directory in `home/`:
+   ```sh
+   mkdir -p home/myapp/config
+   ```
+
+2. Add configuration files
+
+3. Create `link.bash`:
+   ```bash
+   # home/myapp/link.bash
+   link_home "$HOME_DIR/myapp/config" "myapprc"
+   # or for ~/.config:
+   link "$HOME_DIR/myapp/config" "$HOME/.config/myapp"
+   ```
+
+4. Add to your host configuration:
+   ```bash
+   # hosts/{hostname}.bash
+   export PACKAGES=(
+     ...
+     myapp
+   )
+   ```
+
+5. Run `script/run` to apply
+
+## Adding a New Machine
+
+1. Find your hostname:
+   ```sh
+   hostname -s
+   ```
+
+2. Create host configuration:
+   ```sh
+   cp hosts/Luke-Cartledge-MacBookPro.bash hosts/{your-hostname}.bash
+   ```
+
+3. Edit the packages list for your machine
+
+4. Run bootstrap:
+   ```sh
+   script/bootstrap
+   ```
+
+## Sensitive Data
+
+Files containing API tokens or secrets should use the `.local` pattern:
+
+- `settings.json` - Tracked in git (no secrets)
+- `settings.local.json` - Git-ignored (contains tokens)
+
+Example files are provided with `.example` suffix:
+```sh
+cp home/zed/config/settings.local.json.example home/zed/config/settings.local.json
+# Edit and add your tokens
+```
+
+## macOS Defaults
+
+System preferences are set via `macos/set-defaults.sh`. These are applied when running `dot` or `script/bootstrap`.
+
+Changes may require logout/restart to take effect.
+
+## Troubleshooting
+
+### "No host configuration found"
+
+Create a host file for your machine:
+```sh
+hostname -s  # Get your hostname
+cp hosts/Luke-Cartledge-MacBookPro.bash hosts/{your-hostname}.bash
+```
+
+### Symlink conflicts
+
+Existing files are automatically backed up with a timestamp:
+```
+~/.gitconfig.backup.20240131120000
+```
+
+To restore:
+```sh
+mv ~/.gitconfig.backup.20240131120000 ~/.gitconfig
+```
+
+### Shell not loading changes
+
+Source your zshrc:
+```sh
+source ~/.zshrc
+```
+
+Or restart your terminal.
+
+## License
+
+MIT

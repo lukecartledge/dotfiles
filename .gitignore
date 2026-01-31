@@ -1,2 +1,29 @@
+# Local git configuration (contains user-specific settings)
 git/gitconfig.local.symlink
+home/git/gitconfig.local
+
+# Homebrew lock file
 Brewfile.lock.json
+
+# Zed local settings (may contain API tokens)
+home/zed/config/settings.local.json
+
+# iTerm2 dynamic profile data
+home/iterm2/*.plist.lock
+
+# Local/machine-specific overrides
+*.local
+*.local.json
+!*.local.example
+!*.local.json.example
+
+# Editor and OS files
+.DS_Store
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+
+# Backup files created during linking
+*.backup.*
