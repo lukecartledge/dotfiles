@@ -75,7 +75,7 @@ bindkey "^[[B" down-line-or-beginning-search # Down
 
 eval "$(mise activate zsh)"
 
-source ~/.config/broot/launcher/zsh/br
+source ~/.config/broot/launcher/bash/br
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 
