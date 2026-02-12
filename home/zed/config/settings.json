@@ -10,11 +10,11 @@
 // NOTE: Sensitive settings (API tokens, etc.) should be placed in
 // ~/.config/zed/settings.local.json which is not version controlled.
 {
+  "edit_predictions": {
+    "provider": "copilot"
+  },
   "terminal": {
     "font_family": "FiraCode Nerd Font Mono"
-  },
-  "features": {
-    "edit_prediction_provider": "copilot"
   },
   "context_servers": {
     "terraform-context-server": {
