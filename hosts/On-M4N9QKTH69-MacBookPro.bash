@@ -32,6 +32,6 @@ export PACKAGES=(
   mise
   ruby
 
-  # AI
+  # AI Tools
   opencode
 )
