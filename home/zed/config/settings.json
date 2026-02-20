@@ -10,6 +10,11 @@
 // NOTE: Sensitive settings (API tokens, etc.) should be placed in
 // ~/.config/zed/settings.local.json which is not version controlled.
 {
+  "agent_servers": {
+    "opencode": {
+      "type": "registry"
+    }
+  },
   "edit_predictions": {
     "provider": "copilot"
   },
@@ -58,7 +63,7 @@
       "model": "claude-sonnet-4.5"
     },
     "always_allow_tool_actions": true,
-    "default_profile": "ask",
+    "default_profile": "write",
     "default_model": {
       "provider": "copilot_chat",
       "model": "claude-opus-4.6"
