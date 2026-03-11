@@ -1,6 +1,60 @@
 {
   "$schema": "https://opencode.ai/config.json",
+  "instructions": [
+    "skills/tdd-workflow.md",
+    "skills/verification-loop.md",
+    "skills/security-review.md",
+    "skills/coding-standards.md",
+    "skills/api-design.md"
+  ],
   "plugin": [
-    "oh-my-opencode@latest"
-  ]
+    "oh-my-opencode@latest",
+    "./plugins"
+  ],
+  "command": {
+    "tdd": {
+      "description": "Enforce TDD workflow with 80%+ coverage",
+      "template": "{file:commands/tdd.md}\n\n$ARGUMENTS"
+    },
+    "verify": {
+      "description": "Run verification loop to validate implementation",
+      "template": "{file:commands/verify.md}\n\n$ARGUMENTS"
+    }
+  },
+  "mcp": {
+    "atlassian": {
+      "type": "remote",
+      "url": "https://mcp.atlassian.com/v1/mcp"
+    },
+    "contentful": {
+      "type": "local",
+      "command": ["npx", "-y", "@contentful/mcp-server"],
+      "environment": {
+        "CONTENTFUL_MANAGEMENT_ACCESS_TOKEN": "{env:CONTENTFUL_MANAGEMENT_ACCESS_TOKEN}",
+        "SPACE_ID": "{env:CONTENTFUL_SPACE_ID}",
+        "ENVIRONMENT_ID": "master"
+      }
+    },
+    "github": {
+      "type": "remote",
+      "url": "https://api.githubcopilot.com/mcp/",
+      "headers": {
+        "Authorization": "Bearer {env:GITHUB_PERSONAL_ACCESS_TOKEN}"
+      }
+    },
+    "opslevel": {
+      "type": "local",
+      "command": ["opslevel-mcp"],
+      "environment": {
+        "OPSLEVEL_API_TOKEN": "{env:OPSLEVEL_API_TOKEN}"
+      }
+    },
+    "newrelic": {
+      "type": "remote",
+      "url": "https://mcp.newrelic.com/mcp/",
+      "headers": {
+        "api-key": "{env:NEWRELIC_API_KEY}"
+      }
+    }
+  }
 }
