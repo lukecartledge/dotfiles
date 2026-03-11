@@ -15,3 +15,16 @@ link "$HOME_DIR/opencode/config/opencode.json" "$HOME/.config/opencode/opencode.
 
 # Link oh-my-opencode.json (agent and category model configuration)
 link "$HOME_DIR/opencode/config/oh-my-opencode.json" "$HOME/.config/opencode/oh-my-opencode.json"
+
+# Link AGENTS.md (global agent instructions)
+link "$HOME_DIR/opencode/config/AGENTS.md" "$HOME/.config/opencode/AGENTS.md"
+
+# Link commands directory (custom slash commands)
+link "$HOME_DIR/opencode/config/commands" "$HOME/.config/opencode/commands"
+
+# Link plugins directory (custom opencode plugins)
+link "$HOME_DIR/opencode/config/plugins" "$HOME/.config/opencode/plugins"
+
+# Link skills directory (reusable skill definitions)
+link "$HOME/notes/dev/skills/custom" "$HOME/.config/opencode/skills/custom"
+link "$HOME/notes/dev/skills/gathered" "$HOME/.config/opencode/skills/gathered"

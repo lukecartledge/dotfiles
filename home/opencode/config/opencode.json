@@ -1,16 +1,21 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "instructions": [
-    "skills/tdd-workflow.md",
-    "skills/verification-loop.md",
-    "skills/security-review.md",
-    "skills/coding-standards.md",
-    "skills/api-design.md"
-  ],
-  "plugin": [
-    "oh-my-opencode@latest",
-    "./plugins"
-  ],
+  "instructions": ["~/.config/opencode/AGENTS.md"],
+  "plugin": ["oh-my-opencode@latest", "./plugins"],
+  "autoupdate": true,
+  "permission": {
+    "edit": "allow",
+    "bash": {
+      "git *": "allow",
+      "npm *": "allow",
+      "rm *": "ask",
+      "*": "ask"
+    },
+    "webfetch": "allow",
+    "skill": {
+      "*": "allow"
+    }
+  },
   "command": {
     "tdd": {
       "description": "Enforce TDD workflow with 80%+ coverage",
@@ -19,6 +24,18 @@
     "verify": {
       "description": "Run verification loop to validate implementation",
       "template": "{file:commands/verify.md}\n\n$ARGUMENTS"
+    },
+    "save-session": {
+      "description": "Save current session to Obsidian vault",
+      "template": "{file:commands/save-session.md}\n\n$ARGUMENTS"
+    },
+    "save-prompt": {
+      "description": "Save a reusable prompt to Obsidian vault",
+      "template": "{file:commands/save-prompt.md}\n\n$ARGUMENTS"
+    },
+    "new-skill": {
+      "description": "Scaffold a new skill in the Obsidian vault",
+      "template": "{file:commands/new-skill.md}\n\n$ARGUMENTS"
     }
   },
   "mcp": {
