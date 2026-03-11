@@ -16,12 +16,15 @@ You are working inside a personal dev vault. Notes and skills are stored in Obsi
 
 - /user:tdd — enforce TDD workflow with 80%+ coverage
 - /user:verify — run verification loop to validate implementation
+- /user:new-skill — scaffold a new skill in the Obsidian vault
+- /user:save-session — save session summary to the Obsidian vault
+- /user:save-prompt — save a reusable prompt to the Obsidian vault
 
 ## Skill locations
 
 Global skills: ~/.config/opencode/skills/
-Custom skills: ~/notes/dev-vault/skills/custom/
-Gathered skills: ~/notes/dev-vault/skills/gathered/
+Custom skills: ~/notes/dev/skills/custom/
+Gathered skills: ~/notes/dev/skills/gathered/
 
 ## MCP tools available
 
