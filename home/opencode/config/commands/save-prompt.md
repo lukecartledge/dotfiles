@@ -1,6 +1,6 @@
 Save a reusable prompt to the Obsidian vault.
 
-1. Create a new file at ~/notes/dev-vault/opencode/prompts/$ARGUMENTS.md
+1. Create a new file at ~/notes/dev/opencode/prompts/$ARGUMENTS.md
 2. Use this frontmatter:
 ---
 type: prompt

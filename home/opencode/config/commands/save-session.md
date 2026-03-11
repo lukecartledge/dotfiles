@@ -1,6 +1,6 @@
 Save this session to the Obsidian vault.
 
-1. Create a new file at ~/notes/dev-vault/opencode/sessions/{{date}}-$ARGUMENTS.md
+1. Create a new file at ~/notes/dev/opencode/sessions/{{date}}-$ARGUMENTS.md
 2. Use this frontmatter:
 ---
 type: session

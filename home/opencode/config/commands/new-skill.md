@@ -1,7 +1,7 @@
 Scaffold a new skill in the Obsidian vault.
 
-1. Create the folder ~/notes/dev-vault/skills/custom/$ARGUMENTS/
-2. Create ~/notes/dev-vault/skills/custom/$ARGUMENTS/SKILL.md with this frontmatter:
+1. Create the folder ~/notes/dev/skills/custom/$ARGUMENTS/
+2. Create ~/notes/dev/skills/custom/$ARGUMENTS/SKILL.md with this frontmatter:
 ---
 name: $ARGUMENTS
 description:
