@@ -22,6 +22,16 @@
     "font_family": "FiraCode Nerd Font Mono"
   },
   "context_servers": {
+    "mcp-server-shopify-dev": {
+      "enabled": false,
+      "remote": false,
+      "settings": {}
+    },
+    "mcp-server-sequential-thinking": {
+      "enabled": false,
+      "remote": false,
+      "settings": {}
+    },
     "mcp-server-context7": {
       "enabled": true,
       "remote": false,
@@ -37,12 +47,15 @@
       }
     },
     "terraform-context-server": {
-      "enabled": true,
+      "enabled": false,
       "settings": {}
     }
     // Add context servers with tokens in settings.local.json
   },
   "agent": {
+    "tool_permissions": {
+      "default": "allow"
+    },
     "favorite_models": [
       {
         "provider": "ollama",
@@ -69,7 +82,6 @@
       "provider": "copilot_chat",
       "model": "claude-sonnet-4.5"
     },
-    "always_allow_tool_actions": true,
     "default_profile": "write",
     "default_model": {
       "provider": "copilot_chat",
