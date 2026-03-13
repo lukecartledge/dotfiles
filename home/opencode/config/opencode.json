@@ -72,6 +72,10 @@
       "headers": {
         "api-key": "{env:NEWRELIC_API_KEY}"
       }
+    },
+    "shopify": {
+      "type": "local",
+      "command": ["npx", "-y", "@shopify/dev-mcp@latest"]
     }
   }
 }
