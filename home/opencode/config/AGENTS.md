@@ -17,6 +17,7 @@ You are working inside a personal dev vault. Notes and skills are stored in Obsi
 - /user:tdd — enforce TDD workflow with 80%+ coverage
 - /user:verify — run verification loop to validate implementation
 - /user:new-skill — scaffold a new skill in the Obsidian vault
+- /user:new-project — create a new project in the Obsidian vault with optional per-repo OpenCode config
 - /user:save-session — save session summary to the Obsidian vault
 - /user:save-prompt — save a reusable prompt to the Obsidian vault
 
@@ -31,5 +32,4 @@ Gathered skills: ~/notes/dev/skills/gathered/
 - atlassian — Jira and Confluence
 - contentful — CMS content management
 - github — repo and PR management
-- opslevel — service catalog
 - newrelic — observability and monitoring
