@@ -22,35 +22,43 @@
     "font_family": "FiraCode Nerd Font Mono"
   },
   "context_servers": {
-    "mcp-server-shopify-dev": {
-      "enabled": false,
-      "remote": false,
-      "settings": {}
-    },
-    "mcp-server-sequential-thinking": {
-      "enabled": false,
-      "remote": false,
-      "settings": {}
-    },
     "mcp-server-context7": {
       "enabled": true,
       "remote": false,
       "settings": {
-        "context7_api_key": "CONTEXT7_API_KEY"
+        "context7_api_key": "{env.CONTEXT7_API_KEY}"
       }
+    },
+    "mcp-server-shopify-dev": {
+      "enabled": true,
+      "remote": false,
+      "settings": {}
+    },
+    "mcp-server-sequential-thinking": {
+      "enabled": true,
+      "remote": false,
+      "settings": {}
     },
     "mcp-server-github": {
       "enabled": true,
       "remote": false,
       "settings": {
-        "github_personal_access_token": "GITHUB_PERSONAL_ACCESS_TOKEN"
+        "github_personal_access_token": "{env:GITHUB_PERSONAL_ACCESS_TOKEN}"
       }
     },
     "terraform-context-server": {
       "enabled": false,
       "settings": {}
+    },
+    "newrelic": {
+      "settings": {},
+
+      "enabled": true,
+      "url": "https://mcp.newrelic.com/mcp/",
+      "headers": {
+        "api-key": "{env:NEWRELIC_API_KEY}"
+      }
     }
-    // Add context servers with tokens in settings.local.json
   },
   "agent": {
     "tool_permissions": {
