@@ -8,7 +8,7 @@
     "plugin": "allow"
   },
   "dependencies": {
-    "@opencode-ai/plugin": "1.2.24"
+    "@opencode-ai/plugin": "1.2.27"
   },
   "mcp": {
     "context7": {
