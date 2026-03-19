@@ -2,20 +2,24 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>AI Timeout</key>
+	<integer>30</integer>
 	<key>AIFeatureFunctionCalling</key>
 	<true/>
 	<key>AIFeatureHostedCodeInterpeter</key>
-	<true/>
+	<false/>
 	<key>AIFeatureHostedFileSearch</key>
-	<true/>
+	<false/>
 	<key>AIFeatureHostedWebSearch</key>
-	<true/>
+	<false/>
 	<key>AIFeatureStreamingResponses</key>
 	<true/>
 	<key>AITermAPI</key>
-	<integer>2</integer>
+	<integer>5</integer>
 	<key>AIVectorStore</key>
 	<integer>0</integer>
+	<key>AIVendor</key>
+	<integer>3</integer>
 	<key>AboutToPasteTabsWithCancel</key>
 	<true/>
 	<key>AboutToPasteTabsWithCancel_selection</key>
@@ -23,13 +27,13 @@
 	<key>AdjustWindowForFontSizeChange</key>
 	<false/>
 	<key>AiMaxTokens</key>
-	<integer>400000</integer>
+	<integer>10000000</integer>
 	<key>AiModel</key>
-	<string>gpt-5.2</string>
+	<string>llama4:latest</string>
 	<key>AiResponseMaxTokens</key>
-	<integer>128000</integer>
+	<integer>10000000</integer>
 	<key>AitermURL</key>
-	<string>https://api.openai.com/v1/responses</string>
+	<string>http://localhost:11434/api/chat</string>
 	<key>AllowClipboardAccess</key>
 	<true/>
 	<key>AlternateMouseScroll</key>
