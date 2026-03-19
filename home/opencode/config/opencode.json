@@ -68,6 +68,10 @@
     "new-skill": {
       "description": "Scaffold a new skill in the Obsidian vault",
       "template": "{file:commands/new-skill.md}\n\n$ARGUMENTS"
+    },
+    "new-project": {
+      "description": "Create a new project in the Obsidian vault with optional per-repo OpenCode config",
+      "template": "{file:commands/new-project.md}\n\n$ARGUMENTS"
     }
   },
   "mcp": {
@@ -82,7 +86,8 @@
         "CONTENTFUL_MANAGEMENT_ACCESS_TOKEN": "{env:CONTENTFUL_MANAGEMENT_ACCESS_TOKEN}",
         "SPACE_ID": "{env:CONTENTFUL_SPACE_ID}",
         "ENVIRONMENT_ID": "master"
-      }
+      },
+      "enabled": false
     },
     "github": {
       "type": "local",
@@ -91,19 +96,13 @@
         "GITHUB_PERSONAL_ACCESS_TOKEN": "{env:GITHUB_PERSONAL_ACCESS_TOKEN}"
       }
     },
-    "opslevel": {
-      "type": "local",
-      "command": ["opslevel-mcp"],
-      "environment": {
-        "OPSLEVEL_API_TOKEN": "{env:OPSLEVEL_API_TOKEN}"
-      }
-    },
     "newrelic": {
       "type": "remote",
       "url": "https://mcp.newrelic.com/mcp/",
       "headers": {
         "api-key": "{env:NEWRELIC_API_KEY}"
-      }
+      },
+      "oauth": false
     },
     "shopify": {
       "type": "local",
