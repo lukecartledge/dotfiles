@@ -13,6 +13,9 @@ link "$HOME_DIR/opencode/config/package.json" "$HOME/.config/opencode/package.js
 # Link opencode.json (main opencode configuration)
 link "$HOME_DIR/opencode/config/opencode.json" "$HOME/.config/opencode/opencode.json"
 
+# Link tui.json (declares opencode terminal ui configuration)
+link "$HOME_DIR/opencode/config/tui.json" "$HOME/.config/opencode/tui.json"
+
 # Link oh-my-opencode.json (agent and category model configuration)
 link "$HOME_DIR/opencode/config/oh-my-opencode.json" "$HOME/.config/opencode/oh-my-opencode.json"
 
