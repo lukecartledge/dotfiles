@@ -1,7 +1,12 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "instructions": ["~/.config/opencode/AGENTS.md"],
-  "plugin": ["oh-my-opencode@latest", "./plugins", "superpowers@git+https://github.com/obra/superpowers.git"],
+  "plugin": [
+    "oh-my-opencode@latest",
+    "./plugins",
+    "superpowers@git+https://github.com/obra/superpowers.git",
+    "ecc-universal"
+  ],
   "autoupdate": true,
   "permission": {
     "read": "allow",
@@ -16,33 +21,13 @@
     "websearch": "allow",
     "codesearch": "allow",
     "bash": {
-      "git *": "allow",
-      "gh *": "allow",
-      "npm *": "allow",
-      "yarn *": "allow",
-      "node *": "allow",
-      "npx *": "allow",
-      "cat *": "allow",
-      "ls *": "allow",
-      "find *": "allow",
-      "which *": "allow",
-      "echo *": "allow",
-      "head *": "allow",
-      "tail *": "allow",
-      "wc *": "allow",
-      "sort *": "allow",
-      "grep *": "allow",
-      "rg *": "allow",
-      "jq *": "allow",
-      "pwd": "allow",
-      "env": "allow",
+      "*": "allow",
       "rm *": "ask",
       "mv *": "ask",
       "chmod *": "ask",
       "chown *": "ask",
-      "sudo *": "deny",
       "curl *": "ask",
-      "*": "ask"
+      "sudo *": "deny"
     },
     "skill": {
       "*": "allow"

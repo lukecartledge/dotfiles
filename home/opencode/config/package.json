@@ -1,12 +1,4 @@
 {
-  "permission": {
-    "websearch": "allow",
-    "question": "allow",
-    "code": "allow",
-    "file": "allow",
-    "terminal": "allow",
-    "plugin": "allow"
-  },
   "dependencies": {
     "@opencode-ai/plugin": "1.2.27"
   },
