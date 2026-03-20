@@ -28,6 +28,12 @@ link "$HOME_DIR/opencode/config/commands" "$HOME/.config/opencode/commands"
 # Link plugins directory (custom opencode plugins)
 link "$HOME_DIR/opencode/config/plugins" "$HOME/.config/opencode/plugins"
 
+# Link prompts directory (ECC agent prompt definitions)
+link "$HOME_DIR/opencode/config/prompts" "$HOME/.config/opencode/prompts"
+
+# Link instructions directory (ECC instruction files)
+link "$HOME_DIR/opencode/config/instructions" "$HOME/.config/opencode/instructions"
+
 # Link skills directory (reusable skill definitions)
 link "$HOME/notes/dev/skills/custom" "$HOME/.config/opencode/skills/custom"
 link "$HOME/notes/dev/skills/gathered" "$HOME/.config/opencode/skills/gathered"
