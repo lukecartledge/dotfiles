@@ -27,3 +27,8 @@ home/iterm2/*.plist.lock
 
 # Backup files created during linking
 *.backup.*
+
+# npm artifacts (from plugin installs)
+node_modules/
+package.json
+package-lock.json

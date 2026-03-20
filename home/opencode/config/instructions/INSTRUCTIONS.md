@@ -219,30 +219,6 @@ No user prompt needed:
 
 ## Performance Optimization
 
-### Model Selection Strategy
-
-**Haiku** (90% of Sonnet capability, 3x cost savings):
-- Lightweight agents with frequent invocation
-- Pair programming and code generation
-- Worker agents in multi-agent systems
-
-**Sonnet** (Best coding model):
-- Main development work
-- Orchestrating multi-agent workflows
-- Complex coding tasks
-
-**Opus** (Deepest reasoning):
-- Complex architectural decisions
-- Maximum reasoning requirements
-- Research and analysis tasks
-
-### Context Window Management
-
-Avoid last 20% of context window for:
-- Large-scale refactoring
-- Feature implementation spanning multiple files
-- Debugging complex interactions
-
 ### Build Troubleshooting
 
 If build fails:
@@ -296,34 +272,6 @@ interface Repository<T> {
   delete(id: string): Promise<void>
 }
 ```
-
----
-
-## OpenCode-Specific Notes
-
-Since OpenCode does not support hooks, the following actions that were automated in Claude Code must be done manually:
-
-### After Writing/Editing Code
-- Run `prettier --write <file>` to format JS/TS files
-- Run `npx tsc --noEmit` to check for TypeScript errors
-- Check for console.log statements and remove them
-
-### Before Committing
-- Run security checks manually
-- Verify no secrets in code
-- Run full test suite
-
-### Commands Available
-
-Use these commands in OpenCode:
-- `/plan` - Create implementation plan
-- `/tdd` - Enforce TDD workflow
-- `/code-review` - Review code changes
-- `/security` - Run security review
-- `/build-fix` - Fix build errors
-- `/e2e` - Generate E2E tests
-- `/refactor-clean` - Remove dead code
-- `/orchestrate` - Multi-agent workflow
 
 ---
 
