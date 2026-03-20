@@ -7,8 +7,7 @@
   "plugin": [
     "oh-my-opencode@latest",
     "./plugins",
-    "superpowers@git+https://github.com/obra/superpowers.git",
-    "ecc-universal"
+    "superpowers@git+https://github.com/obra/superpowers.git"
   ],
   "autoupdate": true,
   "permission": {
