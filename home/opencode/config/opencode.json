@@ -17,7 +17,20 @@
     "reserved": 10000
   },
   "permission": {
-    "read": "allow",
+    "read": {
+      "*": "allow",
+      "*.env": "deny",
+      "*.pem": "deny",
+      "*.key": "deny",
+      "*id_rsa*": "deny",
+      "*id_ed25519*": "deny",
+      "*credentials*": "deny",
+      "*.secret": "deny",
+      "*.keystore": "deny",
+      "*.jks": "deny",
+      "*.p12": "deny",
+      "*.pfx": "deny"
+    },
     "edit": "allow",
     "glob": "allow",
     "grep": "allow",
@@ -35,7 +48,8 @@
       "chmod *": "ask",
       "chown *": "ask",
       "curl *": "allow",
-      "sudo *": "deny"
+      "sudo *": "deny",
+      "doom_loop": "ask"
     },
     "skill": {
       "*": "allow"
