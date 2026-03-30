@@ -428,11 +428,8 @@
       "enabled": false
     },
     "github": {
-      "type": "local",
-      "command": ["npx", "-y", "@modelcontextprotocol/server-github"],
-      "environment": {
-        "GITHUB_PERSONAL_ACCESS_TOKEN": "{env:GITHUB_PERSONAL_ACCESS_TOKEN}"
-      }
+      "type": "remote",
+      "url": "https://api.githubcopilot.com/mcp/"
     },
     "newrelic": {
       "type": "remote",
