@@ -424,6 +424,10 @@
     "shopify": {
       "type": "local",
       "command": ["npx", "-y", "@shopify/dev-mcp@latest"]
+    },
+    "incident-io": {
+      "type": "remote",
+      "url": "https://mcp.incident.io/mcp"
     }
   }
 }
