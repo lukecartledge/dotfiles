@@ -412,10 +412,14 @@
       "subtask": true
     }
   },
+  "skills": {
+    "urls": ["https://dev-tooling.on.com/skills/"]
+  },
   "mcp": {
     "atlassian": {
       "type": "remote",
-      "url": "https://mcp.atlassian.com/v1/mcp"
+      "url": "https://mcp.atlassian.com/v1/mcp",
+      "enabled": true
     },
     "contentful": {
       "type": "local",
