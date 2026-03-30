@@ -442,9 +442,8 @@
       },
       "oauth": false
     },
-    "shopify": {
-      "type": "local",
-      "command": ["npx", "-y", "@shopify/dev-mcp@latest"]
+    "shopify-dev": {
+      "enabled": true
     },
     "incident-io": {
       "type": "remote",
