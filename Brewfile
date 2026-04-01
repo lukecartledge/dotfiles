@@ -1,7 +1,6 @@
 cask_args appdir: '/Applications'
 
 # Taps
-tap '1password/tap'
 tap 'anomalyco/tap'
 tap 'aws/tap'
 tap 'bufbuild/buf'
