@@ -40,7 +40,6 @@ This is a **personal dotfiles repository** for managing macOS shell environment,
 ├── hosts/                  # Per-machine package configuration
 │   └── {hostname}.bash     # Defines PACKAGES array for each machine
 ├── macos/                  # macOS system preferences
-├── homebrew/               # Homebrew installation
 ├── script/
 │   ├── bootstrap           # Initial setup script
 │   ├── run                 # Main installation script
