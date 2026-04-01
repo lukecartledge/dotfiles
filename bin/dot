@@ -58,9 +58,6 @@ if [ "$(uname -s)" == "Darwin" ]; then
 	# Set macOS hostname
 	$ZSH/macos/set-hostname.sh
 
-	# Install homebrew
-	$ZSH/homebrew/install.sh 2>&1
-
 	# Upgrade homebrew
 	echo "› brew update"
 	brew update
