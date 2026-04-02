@@ -17,7 +17,7 @@
       "model": "github-copilot/claude-sonnet-4.6"
     },
     "explore": {
-      "model": "github-copilot/gpt-5-mini"
+      "model": "github-copilot/claude-sonnet-4.6"
     },
     "multimodal-looker": {
       "model": "github-copilot/gemini-3-flash-preview"

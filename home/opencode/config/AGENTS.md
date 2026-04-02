@@ -33,3 +33,28 @@ Gathered skills: ~/notes/dev/skills/gathered/
 - contentful — CMS content management
 - github — repo and PR management
 - newrelic — observability and monitoring
+- context-mode — context window optimization and session continuity
+
+## context-mode — MANDATORY routing rules
+
+You have context-mode MCP tools available. These rules protect your context window from flooding. A single unrouted command can dump 56 KB into context and waste the entire session.
+
+### BLOCKED commands — do NOT attempt these
+
+- **curl / wget** — intercepted and blocked by context-mode plugin. Use `context-mode_ctx_fetch_and_index(url, source)` or `context-mode_ctx_execute(language: "javascript", code: "const r = await fetch(...)")` instead.
+- **Inline HTTP** — `fetch('http`, `requests.get(`, etc. blocked in shell. Use `context-mode_ctx_execute(language, code)` instead.
+- **Direct web fetching** — Use `context-mode_ctx_fetch_and_index(url, source)` then `context-mode_ctx_search(queries)`.
+
+### REDIRECTED tools — use sandbox equivalents
+
+- **Shell (>20 lines output)** — Shell is ONLY for: `git`, `mkdir`, `rm`, `mv`, `cd`, `ls`, `npm install`, `pip install`, and other short-output commands. For everything else use `context-mode_ctx_batch_execute` or `context-mode_ctx_execute`.
+- **File reading (for analysis)** — If reading to **edit**, reading is correct. If reading to **analyze/summarize**, use `context-mode_ctx_execute_file(path, language, code)` instead.
+- **grep / search (large results)** — Use `context-mode_ctx_execute(language: "shell", code: "grep ...")` for large search results.
+
+### Tool selection hierarchy
+
+1. **GATHER**: `context-mode_ctx_batch_execute(commands, queries)` — Primary tool. ONE call replaces 30+ individual calls.
+2. **FOLLOW-UP**: `context-mode_ctx_search(queries)` — Query indexed content. Pass ALL questions as array in ONE call.
+3. **PROCESSING**: `context-mode_ctx_execute(language, code)` | `context-mode_ctx_execute_file(path, language, code)` — Sandbox execution.
+4. **WEB**: `context-mode_ctx_fetch_and_index(url, source)` then `context-mode_ctx_search(queries)`.
+5. **INDEX**: `context-mode_ctx_index(content, source)` — Store content in FTS5 knowledge base.
