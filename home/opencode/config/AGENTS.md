@@ -2,6 +2,15 @@
 
 You are working inside a personal dev vault. Notes and skills are stored in Obsidian at ~/notes/dev.
 
+## Projects
+
+All projects are tracked in ~/notes/dev/projects/. Key projects:
+- lukecartledge-website — personal portfolio site
+- dtc-platform — DTC platform work
+- shopify-apps — Shopify app development
+- dotfiles — personal dotfiles
+- infrastructure — infra configs
+
 ## General rules
 
 - Check for a relevant SKILL.md before starting any complex or repeatable task

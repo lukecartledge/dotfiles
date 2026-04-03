@@ -58,6 +58,13 @@
       "headers": {
         "api-key": "{env:NEWRELIC_API_KEY}"
       }
+    },
+    "Sanity": {
+      "headers": {
+        "Authorization": "Bearer {env:SANITY_API_TOKEN}"
+      },
+      "settings": {},
+      "url": "https://mcp.sanity.io"
     }
   },
   "agent": {

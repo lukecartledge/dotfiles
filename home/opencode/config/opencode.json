@@ -457,6 +457,13 @@
     "context-mode": {
       "type": "local",
       "command": ["context-mode"]
+    },
+    "Sanity": {
+      "headers": {
+        "Authorization": "Bearer {env:SANITY_API_TOKEN}"
+      },
+      "type": "remote",
+      "url": "https://mcp.sanity.io"
     }
   }
 }
