@@ -1,0 +1,9 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "atlassian": { "enabled": false },
+    "newrelic": { "enabled": false },
+    "shopify-dev": { "enabled": false },
+    "incident-io": { "enabled": false }
+  }
+}

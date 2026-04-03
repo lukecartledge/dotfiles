@@ -34,6 +34,15 @@ link "$HOME_DIR/opencode/config/prompts" "$HOME/.config/opencode/prompts"
 # Link instructions directory (ECC instruction files)
 link "$HOME_DIR/opencode/config/instructions" "$HOME/.config/opencode/instructions"
 
+# Link per-machine MCP overlay
+# Work machines (On-*) get noop overlay; personal machines disable work MCPs
+# Set OPENCODE_CONFIG=$HOME/.config/opencode/opencode.local.json in your .localrc
+if [[ "$CURR_HOST" == On-* ]]; then
+  link "$HOME_DIR/opencode/config/opencode.work.json" "$HOME/.config/opencode/opencode.local.json"
+else
+  link "$HOME_DIR/opencode/config/opencode.personal.json" "$HOME/.config/opencode/opencode.local.json"
+fi
+
 # Link skills directory (reusable skill definitions)
 link "$HOME/notes/dev/skills/custom" "$HOME/.config/opencode/skills/custom"
 link "$HOME/notes/dev/skills/gathered" "$HOME/.config/opencode/skills/gathered"
