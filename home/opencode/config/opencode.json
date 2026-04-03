@@ -11,6 +11,7 @@
     "context-mode"
   ],
   "autoupdate": true,
+  "small_model": "github-copilot/claude-haiku-4.5",
   "enabled_providers": ["github-copilot"],
   "share": "disabled",
   "compaction": {
