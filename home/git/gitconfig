@@ -53,6 +53,7 @@
 	format = ssh
 [gpg "ssh"]
 	program = /usr/bin/ssh-keygen
+	allowedSignersFile = /Users/lukecartledge/.ssh/allowed_signers
 [fetch]
 	prune = true
 [merge]
@@ -61,3 +62,5 @@
 	gpgsign = true
 [diff "sekrets"]
 	textconv = sekrets read
+[user]
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPc+UMPe79yKGlUowXaiT9DntI4Drm+7aRdGe5p1LTQj

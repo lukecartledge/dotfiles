@@ -36,7 +36,7 @@ Review the full conversation and extract:
 
 ## Step 6: Create the session file
 
-Create a new file at `~/notes/dev/opencode/sessions/{{date}}-$ARGUMENTS.md` with this content:
+Create a new file at `~/notes/dev/opencode/sessions/{{year}}/{{month}}/{{date}}-$ARGUMENTS.md` with this content (create the year/month directories if they don't exist):
 
 ```yaml
 ---

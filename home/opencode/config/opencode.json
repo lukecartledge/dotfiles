@@ -459,12 +459,11 @@
       "type": "local",
       "command": ["context-mode"]
     },
-    "Sanity": {
-      "headers": {
-        "Authorization": "Bearer {env:SANITY_API_TOKEN}"
-      },
+
+    "cloudflare": {
       "type": "remote",
-      "url": "https://mcp.sanity.io"
+      "url": "https://mcp.cloudflare.com/mcp",
+      "enabled": true
     }
   }
 }
