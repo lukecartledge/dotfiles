@@ -459,11 +459,15 @@
       "type": "local",
       "command": ["context-mode"]
     },
-
     "cloudflare": {
       "type": "remote",
       "url": "https://mcp.cloudflare.com/mcp",
       "enabled": true
+    },
+    "Sanity": {
+      "type": "remote",
+      "url": "https://mcp.sanity.io",
+      "enabled": false
     }
   }
 }
