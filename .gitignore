@@ -8,7 +8,8 @@ Brewfile.lock.json
 # Zed local settings (may contain API tokens)
 home/zed/config/settings.local.json
 
-# iTerm2 dynamic profile data
+# iTerm2 live preferences (managed via defaults write in install.bash)
+home/iterm2/com.googlecode.iterm2.plist
 home/iterm2/*.plist.lock
 
 # Local/machine-specific overrides
