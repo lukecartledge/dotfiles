@@ -12,6 +12,7 @@ export PACKAGES=(
   # Core system
   system
   functions
+  ssh
 
   # Shell
   zsh
