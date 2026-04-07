@@ -49,6 +49,10 @@
 	whitespace = red reverse
 [pull]
 	rebase = false
+# SSH commit signing — each machine uses its own native key via ssh-agent.
+# Per-machine signingkey lives in ~/.gitconfig.local (gitignored).
+# Verified signatures require ~/.ssh/allowed_signers on each machine.
+# See: gitconfig.local.example for setup instructions.
 [gpg]
 	format = ssh
 [gpg "ssh"]
