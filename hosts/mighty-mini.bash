@@ -1,4 +1,4 @@
-# Host configuration for Luke's MacBook Pro
+# Host configuration for Mighty Mini
 #
 # This file defines which packages to install and configure on this machine.
 # The PACKAGES array determines which home/{package} directories will be
