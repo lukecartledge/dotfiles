@@ -11,6 +11,21 @@ All projects are tracked in ~/notes/dev/projects/. Key projects:
 - dotfiles — personal dotfiles
 - infrastructure — infra configs
 
+### On AG work repos (~/code/onag/)
+
+These repos use the COP Jira project. Branch names and PR titles **must**
+start with the Jira ticket key:
+
+- Branch format: `COP-XXX/<short-slug>`
+- PR title format: `COP-XXX: <imperative description>`
+- A GitHub Action validates the prefix and auto-links the Jira ticket.
+- Do **not** use Conventional Commit prefixes (`feat(…)`, `chore(…)`) in
+  branch names or PR titles — those are for commit messages only.
+
+### Personal repos
+
+No Jira ticket prefix required. Use descriptive branch names freely.
+
 ## General rules
 
 - Check for a relevant SKILL.md before starting any complex or repeatable task
