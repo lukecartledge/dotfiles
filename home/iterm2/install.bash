@@ -98,16 +98,48 @@ defaults write $DOMAIN LoadPrefsFromCustomFolder -bool false
 success "Wrote iTerm2 global preferences"
 
 # ---------------------------------------------------------------------------
-# Dynamic Profiles (profiles + color schemes)
+# Dynamic Profiles directory (profiles symlinked via link.bash)
 # ---------------------------------------------------------------------------
 
 mkdir -p "$DYNAMIC_PROFILES_DIR"
 
-if [[ -f "$ITERM2_DIR/profiles.plist" ]]; then
-  cp "$ITERM2_DIR/profiles.plist" "$DYNAMIC_PROFILES_DIR/dotfiles-profiles.plist"
-  success "Installed Dynamic Profiles"
-else
-  fail "profiles.plist not found in $ITERM2_DIR"
+# ---------------------------------------------------------------------------
+# Remove static profiles that conflict with Dynamic Profiles
+# ---------------------------------------------------------------------------
+
+PREFS_PLIST="$HOME/Library/Preferences/$DOMAIN.plist"
+if /usr/libexec/PlistBuddy -c "Print ':New Bookmarks'" "$PREFS_PLIST" &>/dev/null; then
+  DYNAMIC_GUIDS=()
+  if [[ -f "$ITERM2_DIR/profiles.plist" ]]; then
+    i=0
+    while guid=$(/usr/libexec/PlistBuddy -c "Print ':Profiles:${i}:Guid'" "$ITERM2_DIR/profiles.plist" 2>/dev/null); do
+      DYNAMIC_GUIDS+=("$guid")
+      (( i++ ))
+    done
+  fi
+
+  if [[ ${#DYNAMIC_GUIDS[@]} -gt 0 ]]; then
+    removed=0
+    idx=0
+    while /usr/libexec/PlistBuddy -c "Print ':New Bookmarks:${idx}'" "$PREFS_PLIST" &>/dev/null; do
+      (( idx++ ))
+    done
+
+    while (( idx-- > 0 )); do
+      static_guid=$(/usr/libexec/PlistBuddy -c "Print ':New Bookmarks:${idx}:Guid'" "$PREFS_PLIST" 2>/dev/null)
+      for dg in "${DYNAMIC_GUIDS[@]}"; do
+        if [[ "$static_guid" == "$dg" ]]; then
+          /usr/libexec/PlistBuddy -c "Delete ':New Bookmarks:${idx}'" "$PREFS_PLIST"
+          (( removed++ ))
+          break
+        fi
+      done
+    done
+
+    if (( removed > 0 )); then
+      success "Removed $removed static profile(s) that conflict with Dynamic Profiles"
+    fi
+  fi
 fi
 
 # ---------------------------------------------------------------------------
