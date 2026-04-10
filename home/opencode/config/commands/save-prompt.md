@@ -17,7 +17,7 @@ Extract the complete prompt text, preserving all formatting, variables, and stru
 
 ## Step 2: Determine the source session
 
-- Check if a session file was recently saved to `~/notes/dev/opencode/sessions/`.
+- Check if a session file was recently saved to `~/notes/brain/20-work/sessions/`.
 - If found, record the session filename (e.g., `2026-03-17-my-task.md`).
 - If no recent session exists, leave `source-session` empty.
 
@@ -39,7 +39,7 @@ Determine the prompt category based on type and content:
 
 ## Step 4: Create the prompt file
 
-Create a new file at `~/notes/dev/opencode/prompts/$ARGUMENTS.md` (use kebab-case for the filename; transform $ARGUMENTS if needed).
+Create a new file at `~/notes/brain/20-work/prompts/$ARGUMENTS.md` (use kebab-case for the filename; transform $ARGUMENTS if needed).
 
 Use this frontmatter:
 

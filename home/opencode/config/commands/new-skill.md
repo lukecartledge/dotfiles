@@ -4,8 +4,8 @@ The skill name is: $ARGUMENTS
 
 ## Step 1: Create the skill folder and file
 
-1. Create the folder `~/notes/dev/skills/custom/$ARGUMENTS/`
-2. Create `~/notes/dev/skills/custom/$ARGUMENTS/SKILL.md` with this frontmatter:
+1. Create the folder `~/notes/brain/40-skills/custom/$ARGUMENTS/`
+2. Create `~/notes/brain/40-skills/custom/$ARGUMENTS/SKILL.md` with this frontmatter:
 
 ```yaml
 ---
@@ -62,10 +62,10 @@ related-skills: []
 
 ## Step 3: Symlink check
 
-- Check if the symlink `~/.config/opencode/skills/custom` → `~/notes/dev/skills/custom` exists.
+- Check if the symlink `~/.config/opencode/skills/custom` → `~/notes/brain/40-skills/custom` exists.
 - If not, warn the user and suggest running:
   ```sh
-  ln -sfn ~/notes/dev/skills/custom ~/.config/opencode/skills/custom
+  ln -sfn ~/notes/brain/40-skills/custom ~/.config/opencode/skills/custom
   ```
 
 ## Step 4: Confirm

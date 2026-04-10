@@ -4,8 +4,8 @@ The project name is: $ARGUMENTS
 
 ## Step 1: Create the Obsidian project note
 
-1. Create the folder `~/notes/dev/projects/$ARGUMENTS/`
-2. Create `~/notes/dev/projects/$ARGUMENTS/$ARGUMENTS.md` with this frontmatter:
+1. Create the folder `~/notes/brain/20-work/projects/$ARGUMENTS/`
+2. Create `~/notes/brain/20-work/projects/$ARGUMENTS/$ARGUMENTS.md` with this frontmatter:
 
 ```yaml
 ---

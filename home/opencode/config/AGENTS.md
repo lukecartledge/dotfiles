@@ -1,10 +1,10 @@
 ## Identity
 
-You are working inside a personal dev vault. Notes and skills are stored in Obsidian at ~/notes/dev.
+You are working inside a personal dev vault. Notes and skills are stored in Obsidian at ~/notes/brain.
 
 ## Projects
 
-All projects are tracked in ~/notes/dev/projects/. Key projects:
+All projects are tracked in ~/notes/brain/20-work/projects/. Key projects:
 - lukecartledge-website — personal portfolio site
 - dtc-platform — DTC platform work
 - shopify-apps — Shopify app development
@@ -30,7 +30,7 @@ No Jira ticket prefix required. Use descriptive branch names freely.
 
 - Check for a relevant SKILL.md before starting any complex or repeatable task
 - If a task produces a reusable pattern, flag it for promotion to a skill
-- Save session outputs to ~/notes/dev-vault/opencode/sessions/ when asked
+- Save session outputs to ~/notes/brain/20-work/sessions/ when asked
 - Keep AGENTS.md files concise — instructions only, no explanations
 - Always run verification after implementation using the verify command
 - Follow TDD workflow for all new code — tests first, then implementation
@@ -41,15 +41,15 @@ No Jira ticket prefix required. Use descriptive branch names freely.
 - /user:tdd — enforce TDD workflow with 80%+ coverage
 - /user:verify — run verification loop to validate implementation
 - /user:new-skill — scaffold a new skill in the Obsidian vault
-- /user:new-project — create a new project in the Obsidian vault with optional per-repo OpenCode config
+- /user:new-project — create a new project in the Obsidian vault at ~/notes/brain/20-work/projects/ with optional per-repo OpenCode config
 - /user:save-session — save session summary to the Obsidian vault
 - /user:save-prompt — save a reusable prompt to the Obsidian vault
 
 ## Skill locations
 
 Global skills: ~/.config/opencode/skills/
-Custom skills: ~/notes/dev/skills/custom/
-Gathered skills: ~/notes/dev/skills/gathered/
+Custom skills: ~/notes/brain/40-skills/custom/
+Gathered skills: ~/notes/brain/40-skills/gathered/
 
 ## MCP tools available
 

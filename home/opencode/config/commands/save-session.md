@@ -5,7 +5,7 @@ The session topic is: $ARGUMENTS
 ## Step 1: Determine the project name
 
 - Check the current working directory for a git remote. Extract the repo name (e.g. `onrunning/shopify-promotion-extensions` → `shopify-promotion-extensions`).
-- Check if a project note exists at `~/notes/dev/projects/<repo-name>/`. If it does, use that as the project name.
+- Check if a project note exists at `~/notes/brain/20-work/projects/<repo-name>/`. If it does, use that as the project name.
 - If no git remote or no matching project note, ask the user for the project name.
 
 ## Step 2: Determine the model
@@ -20,8 +20,8 @@ Review the full conversation and extract:
 2. **Summary** — What actually happened: key decisions, changes made, PRs opened, tickets updated. Include links to PRs, Jira tickets, or other artifacts.
 3. **What worked** — Specific techniques, tools, prompts, or approaches that were effective. Be concrete enough that they could be repeated.
 4. **What didn't work** — Friction points, dead ends, tool limitations, things that wasted time.
-5. **Prompts worth keeping** — Reusable prompts or prompt patterns that produced good results. Include the actual prompt text or structure. These are candidates for promotion to `~/notes/dev/opencode/prompts/`.
-6. **Patterns worth turning into a skill** — Repeatable workflows that emerged naturally during the session. These are candidates for promotion to `~/notes/dev/skills/custom/`.
+5. **Prompts worth keeping** — Reusable prompts or prompt patterns that produced good results. Include the actual prompt text or structure. These are candidates for promotion to `~/notes/brain/20-work/prompts/`.
+6. **Patterns worth turning into a skill** — Repeatable workflows that emerged naturally during the session. These are candidates for promotion to `~/notes/brain/40-skills/custom/`.
 7. **Follow-up tasks** — Concrete next steps as checklist items.
 
 ## Step 4: Determine skills used
@@ -36,7 +36,7 @@ Review the full conversation and extract:
 
 ## Step 6: Create the session file
 
-Create a new file at `~/notes/dev/opencode/sessions/{{year}}/{{month}}/{{date}}-$ARGUMENTS.md` with this content (create the year/month directories if they don't exist):
+Create a new file at `~/notes/brain/20-work/sessions/{{year}}/{{month}}/{{date}}-$ARGUMENTS.md` with this content (create the year/month directories if they don't exist):
 
 ```yaml
 ---
@@ -90,4 +90,4 @@ Tell the user:
 - The file path created
 - The detected project name
 - How many prompts and patterns were flagged for promotion
-- Remind them to review and promote any prompts to `~/notes/dev/opencode/prompts/` via `/save-prompt`
+- Remind them to review and promote any prompts to `~/notes/brain/20-work/prompts/` via `/save-prompt`
