@@ -5,7 +5,7 @@
     "instructions/INSTRUCTIONS.md"
   ],
   "plugin": [
-    "oh-my-opencode@latest",
+    "oh-my-openagent@latest",
     "./plugins",
     "superpowers@git+https://github.com/obra/superpowers.git",
     "context-mode"
