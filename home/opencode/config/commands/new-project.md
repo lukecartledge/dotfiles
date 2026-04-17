@@ -17,9 +17,15 @@ tags: []
 github-repo:
 jira-project:
 related-skills: []
+related-knowledge: []
 opencode-agents-md: false
 ---
 ```
+
+**IMPORTANT — Wiki-link rules for backlinks:**
+- `related-skills:` entries MUST be wiki-links: `["[[skill-name]]"]` (e.g. `["[[incident-response]]", "[[tdd-workflow]]"]`). This creates backlinks from skill notes to this project.
+- `related-knowledge:` entries MUST be wiki-links: `["[[knowledge-note]]"]` (e.g. `["[[kafka-consumer-patterns]]"]`).
+- The `## Related` section at the bottom MUST contain wiki-links to any related MOCs, knowledge notes, or skills.
 
 3. Add these sections to the file:
 
@@ -62,6 +68,13 @@ FROM "opencode/sessions"
 WHERE project = "$ARGUMENTS"
 SORT date DESC
 \```
+
+## Related
+
+<!-- Wiki-links to related vault notes. These create backlinks in Obsidian's graph. -->
+- Skills: 
+- Knowledge: 
+- MOC: 
 
 ## Notes
 ```

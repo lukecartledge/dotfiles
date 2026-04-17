@@ -27,7 +27,7 @@ Review the full conversation and extract:
 ## Step 4: Determine skills used
 
 - Review the conversation for any skills that were loaded (via `/user:tdd`, `/user:verify`, or explicit skill loading).
-- List them in the `skills-used` array.
+- List them in the `skills-used` array as wiki-links: `["[[skill-name]]"]` (e.g. `["[[incident-response]]", "[[tdd-workflow]]"]`).
 
 ## Step 5: Determine tags
 
@@ -42,14 +42,19 @@ Create a new file at `~/notes/brain/20-work/sessions/{{year}}/{{month}}/{{date}}
 ---
 type: session
 date: {{date}}
-project: <detected-project-name>
+project: "[[<detected-project-name>]]"
 model: <current-model>
-skills-used: [<detected-skills>]
+skills-used: [<detected-skills-as-wiki-links>]
 tags: [<detected-tags>]
 prompts-extracted: false
 status: unprocessed
 ---
 ```
+
+**IMPORTANT — Wiki-link rules for backlinks:**
+- `project:` MUST be a wiki-link: `"[[project-name]]"` (e.g. `"[[dtc-platform]]"`). This creates a backlink from the project note to this session.
+- `skills-used:` entries MUST be wiki-links: `["[[skill-name]]"]` (e.g. `["[[incident-response]]", "[[tdd-workflow]]"]`).
+- The `## Related` section at the bottom MUST contain wiki-links to the project and any related knowledge notes or MOCs discovered during the session.
 
 Then write each section:
 
@@ -82,6 +87,13 @@ Then write each section:
 
 - [ ] <task-1>
 - [ ] <task-2>
+
+## Related
+
+<!-- Wiki-links to related notes. These create backlinks in Obsidian's graph. -->
+- Project: [[<detected-project-name>]]
+- Knowledge: <!-- wiki-links to any knowledge notes referenced or created -->
+- MOC: <!-- wiki-links to any relevant MOCs -->
 ```
 
 ## Step 7: Confirm

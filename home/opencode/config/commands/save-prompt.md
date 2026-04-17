@@ -18,8 +18,8 @@ Extract the complete prompt text, preserving all formatting, variables, and stru
 ## Step 2: Determine the source session
 
 - Check if a session file was recently saved to `~/notes/brain/20-work/sessions/`.
-- If found, record the session filename (e.g., `2026-03-17-my-task.md`).
-- If no recent session exists, leave `source-session` empty.
+- If found, record the session as a wiki-link: `"[[2026-03-17-my-task]]"` (without `.md` extension).
+- If no recent session exists, leave `source-session` as an empty string `""`.
 
 ## Step 3: Gather metadata
 
@@ -50,10 +50,15 @@ name: $ARGUMENTS
 created: {{date}}
 tags: [<detected-tags>]
 category: <detected-category>
-source-session: <detected-session-filename-or-empty>
+source-session: "<detected-session-as-wiki-link-or-empty>"
 status: untested
 ---
 ```
+
+**IMPORTANT — Wiki-link rules for backlinks:**
+- `source-session:` MUST be a wiki-link if a source session exists: `"[[2026-03-17-my-task]]"` (without `.md`). This creates a backlink from the session to this prompt.
+- If no source session, use `""`.
+- The `## Related` section at the bottom MUST contain wiki-links to the source session, project, and any related knowledge notes.
 
 Write these sections:
 
@@ -77,6 +82,13 @@ Write these sections:
 ## Notes
 
 <!-- Edge cases, model-specific behavior, or tips for best results. -->
+
+## Related
+
+<!-- Wiki-links to related sessions, projects, knowledge notes, or other prompts. -->
+- Source session: [[<source-session-name>]]
+- Project: [[<project-name>]]
+- Knowledge: 
 ```
 
 ## Step 5: Confirm
