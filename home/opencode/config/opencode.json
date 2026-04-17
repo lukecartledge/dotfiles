@@ -74,7 +74,7 @@
     "architect": {
       "description": "Software architecture specialist for system design, scalability, and technical decision-making.",
       "mode": "subagent",
-      "model": "github-copilot/claude-opus-4.6",
+      "model": "github-copilot/claude-opus-4.7",
       "prompt": "{file:prompts/agents/architect.txt}",
       "tools": {
         "read": true,
@@ -98,7 +98,7 @@
     "security-reviewer": {
       "description": "Security vulnerability detection and remediation specialist. Use after writing code that handles user input, authentication, API endpoints, or sensitive data.",
       "mode": "subagent",
-      "model": "github-copilot/claude-opus-4.6",
+      "model": "github-copilot/claude-opus-4.7",
       "prompt": "{file:prompts/agents/security-reviewer.txt}",
       "tools": {
         "read": true,
@@ -158,7 +158,7 @@
     "refactor-cleaner": {
       "description": "Dead code cleanup and consolidation specialist. Use for removing unused code, duplicates, and refactoring.",
       "mode": "subagent",
-      "model": "github-copilot/claude-opus-4.6",
+      "model": "github-copilot/claude-opus-4.7",
       "prompt": "{file:prompts/agents/refactor-cleaner.txt}",
       "tools": {
         "read": true,
@@ -194,7 +194,7 @@
     "database-reviewer": {
       "description": "PostgreSQL database specialist for query optimization, schema design, security, and performance. Incorporates Supabase best practices.",
       "mode": "subagent",
-      "model": "github-copilot/claude-opus-4.6",
+      "model": "github-copilot/claude-opus-4.7",
       "prompt": "{file:prompts/agents/database-reviewer.txt}",
       "tools": {
         "read": true,
@@ -206,7 +206,7 @@
     "rust-reviewer": {
       "description": "Expert Rust code reviewer specializing in ownership, lifetimes, trait design, and performance.",
       "mode": "subagent",
-      "model": "github-copilot/claude-opus-4.6",
+      "model": "github-copilot/claude-opus-4.7",
       "prompt": "{file:prompts/agents/rust-reviewer.txt}",
       "tools": {
         "read": true,
