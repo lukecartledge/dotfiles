@@ -2,13 +2,30 @@
 
 You are working inside a personal dev vault. Notes and skills are stored in Obsidian at ~/notes/brain.
 
+## Filesystem topology
+
+All configuration and knowledge lives in two managed locations:
+
+- **Dotfiles** (`~/.dotfiles`) — Source of truth for all machine config. Synced via GitHub (`lukecartledge/dotfiles`). OpenCode config lives at `~/.dotfiles/home/opencode/config/` and is symlinked into `~/.config/opencode/` by the dotfiles `link.bash` script. When editing opencode config, always edit the symlinked file (changes propagate to dotfiles automatically).
+- **Knowledge base** (`~/notes/brain`) — Obsidian vault with projects, sessions, skills, and notes. Synced separately.
+  - Sessions: `~/notes/brain/20-work/sessions/`
+  - Skills (custom): `~/notes/brain/40-skills/custom/` → symlinked to `~/.config/opencode/skills/custom`
+  - Skills (gathered): `~/notes/brain/40-skills/gathered/` → symlinked to `~/.config/opencode/skills/gathered`
+- **Machine-specific overrides** use `opencode.local.json` (symlinked per-host from dotfiles: `opencode.work.json` on On-* hosts, `opencode.personal.json` otherwise).
+
+## Model preferences
+
+- **Stay on claude-opus-4.6** — do not upgrade to 4.7 unless explicitly asked. The OMO config (`oh-my-openagent.json`) pins all Claude agents to 4.6.
+- On GitHub Copilot: Claude models support `low`, `medium`, `high` variants only (no `max` or `xhigh`). GPT models support `low`, `medium`, `high`, `xhigh`.
+- `claude-opus-4.7` on Copilot only supports `medium` — avoid it.
+
 ## Projects
 
 All projects are tracked in ~/notes/brain/20-work/projects/. Key projects:
 - lukecartledge-website — personal portfolio site
 - dtc-platform — DTC platform work
 - shopify-apps — Shopify app development
-- dotfiles — personal dotfiles
+- dotfiles — personal dotfiles (`~/.dotfiles`, GitHub: lukecartledge/dotfiles)
 - infrastructure — infra configs
 
 ### On AG work repos (~/code/onag/)
