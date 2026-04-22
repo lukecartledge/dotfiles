@@ -448,9 +448,6 @@
       },
       "oauth": false
     },
-    "shopify-dev": {
-      "enabled": true
-    },
     "incident-io": {
       "type": "remote",
       "url": "https://mcp.incident.io/mcp"
@@ -462,11 +459,6 @@
     "cloudflare": {
       "type": "remote",
       "url": "https://mcp.cloudflare.com/mcp",
-      "enabled": true
-    },
-    "Sanity": {
-      "type": "remote",
-      "url": "https://mcp.sanity.io",
       "enabled": false
     }
   }
