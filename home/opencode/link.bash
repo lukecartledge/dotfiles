@@ -44,5 +44,5 @@ else
 fi
 
 # Link skills directory (reusable skill definitions)
-link "$HOME/notes/dev/skills/custom" "$HOME/.config/opencode/skills/custom"
-link "$HOME/notes/dev/skills/gathered" "$HOME/.config/opencode/skills/gathered"
+link "$HOME/notes/brain/40-skills/custom" "$HOME/.config/opencode/skills/custom"
+link "$HOME/notes/brain/40-skills/gathered" "$HOME/.config/opencode/skills/gathered"
