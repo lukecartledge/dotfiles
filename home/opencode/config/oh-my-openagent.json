@@ -31,7 +31,7 @@
       "variant": "high"
     },
     "momus": {
-      "model": "github-copilot/gpt-5.2",
+      "model": "github-copilot/gpt-5.4",
       "variant": "medium"
     },
     "atlas": {
@@ -49,7 +49,7 @@
     },
     "deep": {
       "model": "github-copilot/gpt-5.3-codex",
-      "variant": "medium"
+      "variant": "high"
     },
     "artistry": {
       "model": "github-copilot/claude-opus-4.6",
