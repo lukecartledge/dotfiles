@@ -15,9 +15,9 @@ All configuration and knowledge lives in two managed locations:
 
 ## Model preferences
 
-- **Stay on claude-opus-4.6** — do not upgrade to 4.7 unless explicitly asked. The OMO config (`oh-my-openagent.json`) pins all Claude agents to 4.6.
+- **Primary model: claude-opus-4.6** — high-IQ agents (sisyphus, prometheus, metis, visual-engineering, artistry) run on opus 4.6 high.
 - On GitHub Copilot: Claude models support `low`, `medium`, `high` variants only (no `max` or `xhigh`). GPT models support `low`, `medium`, `high`, `xhigh`.
-- `claude-opus-4.7` on Copilot only supports `medium` — avoid it.
+- `claude-opus-4.7` on Copilot supports `low`, `medium`, `high` (full variant range as of May 2026).
 
 ## Projects
 
