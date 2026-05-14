@@ -1,0 +1,16 @@
+# ShellCheck configuration — lenient baseline
+# Tighten incrementally; track changes in vault decisions log.
+
+shell=bash
+
+# SC1091: Can't follow non-constant source — common.bash is sourced at runtime
+disable=SC1091
+
+# SC2034: Variable appears unused — vars are consumed by sourcing scripts
+disable=SC2034
+
+# SC2154: Variable referenced but not assigned — dry/cmd set by sourcing script
+disable=SC2154
+
+# SC2155: Declare and assign separately — existing codebase style, tighten later
+disable=SC2155
