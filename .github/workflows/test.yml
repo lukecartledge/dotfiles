@@ -1,0 +1,28 @@
+name: Test
+
+on: [push, pull_request]
+
+jobs:
+  shellcheck:
+    name: ShellCheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run ShellCheck
+        run: |
+          find . -type f \( -name '*.sh' -o -name '*.bash' \) \
+            -not -path './.git/*' \
+            -not -path './test/test_helper/*' \
+            | xargs shellcheck --severity=warning
+
+  bats:
+    name: BATS
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+      - name: Install bats-core
+        run: sudo apt-get update && sudo apt-get install -y bats
+      - name: Run BATS tests
+        run: bats test/
