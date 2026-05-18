@@ -1,5 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-openagent/master/assets/oh-my-opencode.schema.json",
+  "disabled_mcps": ["context7"],
   "agents": {
     "sisyphus": {
       "model": "github-copilot/claude-opus-4.6",
