@@ -458,7 +458,7 @@
       "oauth": false
     },
     "shopify-dev": {
-      "enabled": true
+      "enabled": false
     },
     "incident-io": {
       "type": "remote",
@@ -473,7 +473,7 @@
     "cloudflare": {
       "type": "remote",
       "url": "https://mcp.cloudflare.com/mcp",
-      "enabled": true
+      "enabled": false
     },
     "Sanity": {
       "type": "remote",
