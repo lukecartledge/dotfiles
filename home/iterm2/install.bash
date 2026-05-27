@@ -114,7 +114,7 @@ if /usr/libexec/PlistBuddy -c "Print ':New Bookmarks'" "$PREFS_PLIST" &>/dev/nul
     i=0
     while guid=$(/usr/libexec/PlistBuddy -c "Print ':Profiles:${i}:Guid'" "$ITERM2_DIR/profiles.plist" 2>/dev/null); do
       DYNAMIC_GUIDS+=("$guid")
-      (( i++ ))
+      i=$((i + 1))
     done
   fi
 
@@ -122,7 +122,7 @@ if /usr/libexec/PlistBuddy -c "Print ':New Bookmarks'" "$PREFS_PLIST" &>/dev/nul
     removed=0
     idx=0
     while /usr/libexec/PlistBuddy -c "Print ':New Bookmarks:${idx}'" "$PREFS_PLIST" &>/dev/null; do
-      (( idx++ ))
+      idx=$((idx + 1))
     done
 
     while (( idx-- > 0 )); do
@@ -130,7 +130,7 @@ if /usr/libexec/PlistBuddy -c "Print ':New Bookmarks'" "$PREFS_PLIST" &>/dev/nul
       for dg in "${DYNAMIC_GUIDS[@]}"; do
         if [[ "$static_guid" == "$dg" ]]; then
           /usr/libexec/PlistBuddy -c "Delete ':New Bookmarks:${idx}'" "$PREFS_PLIST"
-          (( removed++ ))
+          removed=$((removed + 1))
           break
         fi
       done
