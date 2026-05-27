@@ -28,6 +28,7 @@ export PACKAGES=(
   # Terminal
   tmux
   iterm2
+  ghostty
 
   # Languages & Tools
   mise
