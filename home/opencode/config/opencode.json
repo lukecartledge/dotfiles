@@ -469,6 +469,9 @@
       "type": "remote",
       "url": "https://mcp.sanity.io",
       "enabled": false
+    },
+    "google-drive": {
+      "enabled": false
     }
   }
 }
