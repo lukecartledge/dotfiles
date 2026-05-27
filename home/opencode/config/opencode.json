@@ -12,9 +12,7 @@
   ],
   "autoupdate": true,
   "small_model": "github-copilot/claude-haiku-4.5",
-  "enabled_providers": [
-    "github-copilot"
-  ],
+  "enabled_providers": ["github-copilot"],
   "share": "disabled",
   "compaction": {
     "auto": true,
@@ -417,9 +415,7 @@
     }
   },
   "skills": {
-    "urls": [
-      "https://dev-tooling.on.com/skills/"
-    ]
+    "urls": ["https://dev-tooling.on.com/skills/"]
   },
   "mcp": {
     "atlassian": {
@@ -429,11 +425,7 @@
     },
     "contentful": {
       "type": "local",
-      "command": [
-        "npx",
-        "-y",
-        "@contentful/mcp-server"
-      ],
+      "command": ["npx", "-y", "@contentful/mcp-server"],
       "environment": {
         "CONTENTFUL_MANAGEMENT_ACCESS_TOKEN": "{env:CONTENTFUL_MANAGEMENT_TOKEN}",
         "SPACE_ID": "{env:CONTENTFUL_SPACE_ID}",
@@ -466,9 +458,7 @@
     },
     "context-mode": {
       "type": "local",
-      "command": [
-        "context-mode"
-      ]
+      "command": ["context-mode"]
     },
     "cloudflare": {
       "type": "remote",
