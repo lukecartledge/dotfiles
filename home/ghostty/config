@@ -1,0 +1,76 @@
+# Ghostty config — migrated from iTerm2 "Personal" profile
+# Location: ~/.config/ghostty/config
+
+# ── Font ──────────────────────────────────────────────────────────────────────
+font-family = Operator Mono Lig
+font-family-bold = Operator Mono Lig
+font-family-italic = Operator Mono Lig
+font-family-bold-italic = Operator Mono Lig
+font-size = 15
+font-feature = +liga
+font-feature = +calt
+adjust-cell-height = 10%
+
+# ── Colors (Cobalt2-derived "Personal" palette) ──────────────────────────────
+background = 1b2935
+foreground = ffffff
+cursor-color = f1cc09
+selection-background = 18344f
+selection-foreground = f8f8f8
+
+# ANSI normal
+palette = 0=#000000
+palette = 1=#ff0000
+palette = 2=#38de21
+palette = 3=#ff7420
+palette = 4=#1478db
+palette = 5=#ff005d
+palette = 6=#00c5c7
+palette = 7=#ffffff
+
+# ANSI bright
+palette = 8=#e6e6e6
+palette = 9=#f50d0e
+palette = 10=#3bcd1d
+palette = 11=#ffed78
+palette = 12=#6871ff
+palette = 13=#ff77ff
+palette = 14=#6ae3fa
+palette = 15=#ffffff
+
+# Bold color
+bold-is-bright = false
+
+# ── Cursor ────────────────────────────────────────────────────────────────────
+cursor-style = bar
+cursor-style-blink = true
+
+# ── Window / Appearance ───────────────────────────────────────────────────────
+background-opacity = 0.98
+background-blur = 23
+window-padding-x = 0
+window-padding-y = 0
+macos-titlebar-style = hidden
+window-theme = dark
+scrollbar = never
+
+# ── Terminal Behavior ─────────────────────────────────────────────────────────
+scrollback-limit = 0
+term = xterm-256color
+working-directory = ~/code
+mouse-scroll-multiplier = 3
+
+# ── Shell Integration ─────────────────────────────────────────────────────────
+shell-integration = detect
+shell-integration-features = cursor,sudo,title,ssh-env,ssh-terminfo
+
+# ── Quick Terminal (replaces iTerm2 Ctrl+X hotkey window) ─────────────────────
+quick-terminal-screen = macos-menu-bar
+keybind = global:ctrl+x=toggle_quick_terminal
+
+# ── Keybindings (macOS defaults are mostly fine, these add iTerm2 habits) ─────
+keybind = super+d=new_split:right
+keybind = super+shift+d=new_split:down
+keybind = super+equal=increase_font_size:1
+keybind = super+minus=decrease_font_size:1
+keybind = super+zero=reset_font_size
