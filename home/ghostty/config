@@ -10,6 +10,7 @@ font-size = 15
 font-feature = +liga
 font-feature = +calt
 adjust-cell-height = 10%
+adjust-cell-width = 10%
 
 # ── Colors (Cobalt2-derived "Personal" palette) ──────────────────────────────
 background = 1b2935
@@ -67,6 +68,8 @@ shell-integration-features = cursor,sudo,title,ssh-env,ssh-terminfo
 # ── Quick Terminal (replaces iTerm2 Ctrl+X hotkey window) ─────────────────────
 quick-terminal-screen = macos-menu-bar
 keybind = global:ctrl+x=toggle_quick_terminal
+quick-terminal-size = 60%
+quick-terminal-autohide = false
 
 # ── Keybindings (macOS defaults are mostly fine, these add iTerm2 habits) ─────
 keybind = super+d=new_split:right
