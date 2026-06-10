@@ -5,7 +5,6 @@ tap 'anomalyco/tap'
 tap 'aws/tap'
 tap 'bufbuild/buf'
 tap 'common-fate/granted'
-tap 'homebrew/services'
 tap 'mike-engel/jwt-cli'
 tap 'oven-sh/bun'
 tap 'pkgxdev/made'
@@ -69,7 +68,7 @@ brew 'minikube'
 
 # Databases
 brew 'mysql@8.4', restart_service: :changed
-brew 'postgresql@14'
+brew 'postgresql@17', restart_service: :changed
 brew 'redis', restart_service: :changed
 
 # Dev tools
