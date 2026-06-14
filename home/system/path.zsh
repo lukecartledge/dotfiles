@@ -1,1 +1,1 @@
-export PATH="/opt/homebrew/opt/openssl@1.1/bin:/usr/local/opt/curl/bin:/opt/homebrew/opt/mysql@5.7/bin:/opt/homebrew/opt/mysql-client/bin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin:$DOTFILES/bin:$PATH"
+export PATH="/usr/local/opt/curl/bin:/opt/homebrew/opt/mysql-client/bin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin:$DOTFILES/bin:$PATH"
