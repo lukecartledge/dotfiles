@@ -1,0 +1,24 @@
+# ~/.zprofile
+#
+# Sourced by zsh on login shells (before zshrc).
+# Purpose: set up PATH for tools that must be on PATH before zshrc runs.
+#
+# This file is symlinked from home/zsh/zprofile by home/zsh/link.bash.
+
+# --- Homebrew ---------------------------------------------------------
+# Apple Silicon installs to /opt/homebrew; Intel to /usr/local. Detect
+# and source whichever exists. brew shellenv exports HOMEBREW_PREFIX,
+# HOMEBREW_CELLAR, HOMEBREW_REPOSITORY, MANPATH, INFOPATH, and prepends
+# the brew bin/sbin to PATH.
+if [[ -x /opt/homebrew/bin/brew ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [[ -x /usr/local/bin/brew ]]; then
+  eval "$(/usr/local/bin/brew shellenv)"
+fi
+
+# --- pipx -------------------------------------------------------------
+# pipx installs Python apps to ~/.local/bin. Use $HOME for portability
+# across machines with different usernames.
+if [[ -d "$HOME/.local/bin" ]]; then
+  export PATH="$PATH:$HOME/.local/bin"
+fi

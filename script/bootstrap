@@ -57,6 +57,111 @@ show_help () {
   exit 0
 }
 
+# Install Xcode Command Line Tools (macOS only)
+install_xcode_clt () {
+  if [[ "$(uname -s)" != "Darwin" ]]; then
+    return 0
+  fi
+
+  if xcode-select -p &>/dev/null; then
+    success "Xcode Command Line Tools already installed"
+    return 0
+  fi
+
+  info "Installing Xcode Command Line Tools (a GUI dialog will appear)..."
+  xcode-select --install >/dev/null 2>&1 || true
+
+  info "Waiting for Xcode CLT install to complete..."
+  until xcode-select -p &>/dev/null; do
+    sleep 5
+  done
+  success "Xcode Command Line Tools installed"
+}
+
+# Install Rosetta 2 (Apple Silicon only)
+install_rosetta () {
+  if [[ "$(uname -s)" != "Darwin" ]]; then
+    return 0
+  fi
+  if [[ "$(uname -m)" != "arm64" ]]; then
+    return 0
+  fi
+
+  if pkgutil --pkg-info=com.apple.pkg.RosettaUpdateAuto &>/dev/null; then
+    success "Rosetta 2 already installed"
+    return 0
+  fi
+
+  info "Installing Rosetta 2..."
+  softwareupdate --install-rosetta --agree-to-license
+  success "Rosetta 2 installed"
+}
+
+# Enable Touch ID for sudo via /etc/pam.d/sudo_local
+enable_touchid_sudo () {
+  if [[ "$(uname -s)" != "Darwin" ]]; then
+    return 0
+  fi
+
+  local sudo_local=/etc/pam.d/sudo_local
+
+  if [[ -f "$sudo_local" ]] && grep -q pam_tid "$sudo_local" 2>/dev/null; then
+    success "Touch ID for sudo already enabled"
+    return 0
+  fi
+
+  info "Enabling Touch ID for sudo..."
+  echo "auth       sufficient     pam_tid.so" | sudo tee -a "$sudo_local" >/dev/null
+  success "Touch ID for sudo enabled"
+}
+
+# Enable application firewall
+enable_firewall () {
+  if [[ "$(uname -s)" != "Darwin" ]]; then
+    return 0
+  fi
+
+  if /usr/libexec/ApplicationFirewall/socketfilterfw --getglobalstate 2>/dev/null \
+       | grep -q enabled; then
+    success "Application firewall already enabled"
+    return 0
+  fi
+
+  info "Enabling application firewall..."
+  sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setglobalstate on >/dev/null
+  success "Application firewall enabled"
+}
+
+# Print final manual-steps reminder (TCC, etc. that cannot be scripted)
+print_manual_steps () {
+  if [[ "$(uname -s)" != "Darwin" ]]; then
+    return 0
+  fi
+
+  cat <<'EOF'
+
+  Manual steps required (cannot be scripted):
+
+  System Settings > Privacy & Security:
+    [ ] Screen Recording   ->  Ghostty, Raycast
+    [ ] Accessibility      ->  Raycast, Karabiner (if installed)
+    [ ] Full Disk Access   ->  Ghostty, backup tools
+    [ ] Input Monitoring   ->  Karabiner (if installed)
+
+  1Password:
+    [ ] Settings > Developer > Enable SSH Agent
+    [ ] Settings > Developer > Enable CLI biometric unlock
+
+  Authenticate:
+    [ ] gh auth login
+    [ ] op signin
+
+  Verify the install:
+    bin/check-baseline
+
+EOF
+}
+
 # Parse command line arguments
 dry_run=""
 while test $# -gt 0; do
@@ -194,16 +299,25 @@ echo ''
 # Step 1: Link dotfiles directory
 link_dotfiles
 
-# Step 2: Install Homebrew (macOS only)
+# Step 2: Pre-Homebrew prerequisites (Xcode CLT, Rosetta)
+install_xcode_clt
+install_rosetta
+
+# Step 3: Install Homebrew (macOS only)
 install_homebrew
 
-# Step 3: Install Brewfile packages (macOS only)
+# Step 4: macOS hardening (Touch ID for sudo, firewall) - early so
+#         brew bundle's sudo prompts use Touch ID instead of password
+enable_touchid_sudo
+enable_firewall
+
+# Step 5: Install Brewfile packages (macOS only)
 install_brew_packages
 
-# Step 4: Check for host configuration
+# Step 6: Check for host configuration
 check_host_config
 
-# Step 5: Run the main installation script
+# Step 7: Run the main installation script
 echo ''
 info "Running dotfiles installation..."
 "$DOTFILES_ROOT/script/run" $dry_run
@@ -213,4 +327,6 @@ echo '  All bootstrapped!'
 echo ''
 echo '  You may need to restart your shell or run:'
 echo '    source ~/.zshrc'
-echo ''
+
+# Step 8: Print manual-steps reminder
+print_manual_steps

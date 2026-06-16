@@ -44,5 +44,17 @@ else
 fi
 
 # Link skills directory (reusable skill definitions)
-link "$HOME/notes/brain/40-skills/custom" "$HOME/.config/opencode/skills/custom"
-link "$HOME/notes/brain/40-skills/gathered" "$HOME/.config/opencode/skills/gathered"
+# Skills live in the Obsidian vault at ~/notes/brain — must be cloned
+# separately. Skip with a clear warning if the vault isn't present, so
+# bootstrap doesn't silently leave opencode without skills.
+BRAIN_SKILLS="$HOME/notes/brain/40-skills"
+if [[ -d "$BRAIN_SKILLS" ]]; then
+  link "$BRAIN_SKILLS/custom" "$HOME/.config/opencode/skills/custom"
+  link "$BRAIN_SKILLS/gathered" "$HOME/.config/opencode/skills/gathered"
+else
+  # shellcheck disable=SC2088  # tilde in user-facing string is intentional
+  fail "~/notes/brain not found — opencode skills NOT linked"
+  info "Clone the brain vault then re-run script/run to enable skills:"
+  # shellcheck disable=SC2088  # tilde in user-facing string is intentional
+  info "  git clone <brain-vault-remote> ~/notes/brain"
+fi

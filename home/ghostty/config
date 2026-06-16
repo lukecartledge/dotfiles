@@ -66,6 +66,15 @@ shell-integration = detect
 shell-integration-features = cursor,sudo,title,ssh-env,ssh-terminfo
 
 # ── Quick Terminal (replaces iTerm2 Ctrl+X hotkey window) ─────────────────────
+# Keep Ghostty running in the background so the Quick Terminal stays
+# accessible via the global hotkey even after closing all regular windows.
+# (Default is already false on macOS; set explicitly for documentation.)
+quit-after-last-window-closed = false
+
+# Don't open a regular window on launch — Quick Terminal hotkey is the
+# only entry point. Pair with a Login Item to have it ready at boot.
+initial-window = false
+
 quick-terminal-screen = macos-menu-bar
 keybind = global:ctrl+x=toggle_quick_terminal
 quick-terminal-size = 60%

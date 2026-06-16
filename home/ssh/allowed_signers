@@ -1,0 +1,15 @@
+# SSH allowed_signers — committed reference / disaster-recovery copy
+#
+# This file is INTENTIONALLY NOT SYMLINKED to ~/.ssh/allowed_signers.
+# The reason: home/git/install.bash auto-generates the live file from
+# `git config user.email` + ~/.ssh/id_ed25519.pub on each new machine.
+# A symlink here would prevent regeneration with the correct (work
+# vs personal) email on the new machine.
+#
+# Treat this as a backup of all known signing identities for cross-
+# referencing if the live file is ever lost or corrupted.
+#
+# Format: <principal-spec> <key-type> <base64-key> [<comment>]
+# Reference: man ssh-keygen, "ALLOWED SIGNERS"
+
+luke@lukecartledge.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPc+UMPe79yKGlUowXaiT9DntI4Drm+7aRdGe5p1LTQj luke@lukecartledge.com
