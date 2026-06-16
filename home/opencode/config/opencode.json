@@ -219,30 +219,6 @@
         "edit": true,
         "bash": true
       }
-    },
-    "rust-reviewer": {
-      "description": "Expert Rust code reviewer specializing in ownership, lifetimes, trait design, and performance.",
-      "mode": "subagent",
-      "model": "github-copilot/claude-opus-4.6",
-      "prompt": "{file:prompts/agents/rust-reviewer.txt}",
-      "tools": {
-        "read": true,
-        "bash": true,
-        "write": false,
-        "edit": false
-      }
-    },
-    "rust-build-resolver": {
-      "description": "Rust build and compilation error resolution specialist. Fixes cargo build errors with minimal changes.",
-      "mode": "subagent",
-      "model": "github-copilot/claude-opus-4.6",
-      "prompt": "{file:prompts/agents/rust-build-resolver.txt}",
-      "tools": {
-        "read": true,
-        "write": true,
-        "edit": true,
-        "bash": true
-      }
     }
   },
   "command": {
@@ -411,24 +387,6 @@
     "model-route": {
       "description": "Route to optimal model for task",
       "template": "{file:commands/model-route.md}\n\n$ARGUMENTS"
-    },
-    "rust-review": {
-      "description": "Rust code review",
-      "template": "{file:commands/rust-review.md}\n\n$ARGUMENTS",
-      "agent": "rust-reviewer",
-      "subtask": true
-    },
-    "rust-build": {
-      "description": "Fix Rust build errors",
-      "template": "{file:commands/rust-build.md}\n\n$ARGUMENTS",
-      "agent": "rust-build-resolver",
-      "subtask": true
-    },
-    "rust-test": {
-      "description": "Rust TDD workflow",
-      "template": "{file:commands/rust-test.md}\n\n$ARGUMENTS",
-      "agent": "tdd-guide",
-      "subtask": true
     }
   },
   "skills": {
