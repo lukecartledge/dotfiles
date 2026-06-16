@@ -1,5 +1,9 @@
 Include ~/.colima/ssh_config
 
+Host truenas
+  HostName 192.168.1.20
+  User lukecartledge
+
 Host *
   AddKeysToAgent yes
   UseKeychain yes
