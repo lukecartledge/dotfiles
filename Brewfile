@@ -94,6 +94,7 @@ brew 'yt-dlp'
 brew 'bluetoothconnector'
 brew 'gnupg'
 brew 'hostess'
+brew 'pam-reattach'
 brew 'pinentry-mac'
 brew 'wakeonlan'
 
