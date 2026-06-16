@@ -1,0 +1,135 @@
+#!/usr/bin/env bash
+#
+# bin/check-baseline - Verify the dev environment is healthy
+#
+# Runs a series of smoke tests after bootstrap. Prints colored pass/fail
+# per check. Optional checks emit warnings but don't fail.
+#
+# Exits 0 if all hard checks pass, 1 otherwise.
+
+set -uo pipefail
+
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+YELLOW='\033[0;33m'
+BLUE='\033[0;34m'
+NC='\033[0m'
+
+passed=0
+failed=0
+warned=0
+
+check () {
+  local name="$1"
+  shift
+  if "$@" &>/dev/null; then
+    printf "  ${GREEN}✓${NC} %s\n" "$name"
+    passed=$((passed+1))
+  else
+    printf "  ${RED}✗${NC} %s\n" "$name"
+    failed=$((failed+1))
+  fi
+}
+
+warn () {
+  local name="$1"
+  shift
+  if "$@" &>/dev/null; then
+    printf "  ${GREEN}✓${NC} %s\n" "$name"
+    passed=$((passed+1))
+  else
+    printf "  ${YELLOW}!${NC} %s\n" "$name"
+    warned=$((warned+1))
+  fi
+}
+
+section () {
+  printf "\n${BLUE}== %s ==${NC}\n" "$1"
+}
+
+section "Tools on PATH"
+check "brew"  command -v brew
+check "git"   command -v git
+check "gh"    command -v gh
+check "mise"  command -v mise
+check "fzf"   command -v fzf
+check "zsh"   command -v zsh
+check "rg"    command -v rg
+check "jq"    command -v jq
+check "bat"   command -v bat
+warn  "ghostty (cask)" test -d "/Applications/Ghostty.app"
+
+section "Symlinks: home directory"
+check "~/.zshrc"        test -L "$HOME/.zshrc"
+check "~/.zprofile"     test -L "$HOME/.zprofile"
+check "~/.p10k.zsh"     test -L "$HOME/.p10k.zsh"
+check "~/.gitconfig"    test -L "$HOME/.gitconfig"
+check "~/.gitignore"    test -L "$HOME/.gitignore"
+check "~/.tmux.conf"    test -L "$HOME/.tmux.conf"
+check "~/.vimrc"        test -L "$HOME/.vimrc"
+check "~/.gemrc"        test -L "$HOME/.gemrc"
+check "~/.ssh/config"   test -L "$HOME/.ssh/config"
+
+section "Symlinks: ~/.config"
+check "~/.config/mise/config.toml"             test -L "$HOME/.config/mise/config.toml"
+check "~/.config/zed/settings.json"            test -L "$HOME/.config/zed/settings.json"
+check "~/.config/opencode/opencode.json"       test -L "$HOME/.config/opencode/opencode.json"
+check "~/.config/opencode/opencode.local.json" test -L "$HOME/.config/opencode/opencode.local.json"
+warn  "~/.config/ghostty/config (work hosts)"  test -L "$HOME/.config/ghostty/config"
+
+section "Identity & secrets"
+check "~/.gitconfig.local"             test -f "$HOME/.gitconfig.local"
+check "git user.name set"              test -n "$(git config user.name 2>/dev/null)"
+check "git user.email set"             test -n "$(git config user.email 2>/dev/null)"
+check "SSH key (id_ed25519) present"   test -f "$HOME/.ssh/id_ed25519"
+check "~/.ssh/allowed_signers exists"  test -f "$HOME/.ssh/allowed_signers"
+check "~/.localrc exists"              test -f "$HOME/.localrc"
+warn  "OPENCODE_CONFIG set"            test -n "${OPENCODE_CONFIG:-}"
+warn  "gh authenticated"               gh auth status
+
+section "Cross-repo dependencies"
+check "~/notes/brain vault present"                            test -d "$HOME/notes/brain"
+check "~/.config/opencode/skills/custom resolves"   test -e "$HOME/.config/opencode/skills/custom"
+check "~/.config/opencode/skills/gathered resolves" test -e "$HOME/.config/opencode/skills/gathered"
+
+section "Shell framework"
+check "oh-my-zsh installed"            test -d "$HOME/.oh-my-zsh"
+check "powerlevel10k installed"        test -d "$HOME/.oh-my-zsh/custom/themes/powerlevel10k"
+check "zsh-autosuggestions plugin"     test -d "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
+check "zsh-syntax-highlighting plugin" test -d "$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
+
+section "Mise-managed runtimes"
+if command -v mise &>/dev/null; then
+  check "node available via mise" mise which node
+  check "ruby available via mise" mise which ruby
+  check "bun available via mise"  mise which bun
+else
+  warn "mise not on PATH" false
+fi
+
+section "macOS hardening"
+if [[ "$(uname -s)" == "Darwin" ]]; then
+  warn "Touch ID for sudo enabled" \
+    sh -c '[[ -f /etc/pam.d/sudo_local ]] && grep -q pam_tid /etc/pam.d/sudo_local 2>/dev/null'
+  warn "Application firewall enabled" \
+    sh -c '/usr/libexec/ApplicationFirewall/socketfilterfw --getglobalstate 2>/dev/null | grep -q enabled'
+  warn "Rosetta 2 (Apple Silicon)" \
+    sh -c '[[ "$(uname -m)" != "arm64" ]] || pkgutil --pkg-info=com.apple.pkg.RosettaUpdateAuto >/dev/null 2>&1'
+fi
+
+echo ""
+echo "  Passed: $passed"
+echo "  Warned: $warned"
+echo "  Failed: $failed"
+echo ""
+
+if [[ $failed -gt 0 ]]; then
+  printf "  ${RED}FAIL${NC}: %d hard check(s) failed\n\n" "$failed"
+  exit 1
+elif [[ $warned -gt 0 ]]; then
+  printf "  ${YELLOW}OK with warnings${NC}: %d optional check(s) need attention\n\n" "$warned"
+  exit 0
+else
+  printf "  ${GREEN}PASS${NC}: all checks passed\n\n"
+  exit 0
+fi
