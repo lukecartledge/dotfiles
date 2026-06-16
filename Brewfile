@@ -2,13 +2,13 @@ cask_args appdir: '/Applications'
 
 # Taps
 tap 'anomalyco/tap'
-tap 'aws/tap'
 tap 'bufbuild/buf'
 tap 'common-fate/granted'
 tap 'mike-engel/jwt-cli'
 tap 'oven-sh/bun'
 tap 'pkgxdev/made'
 tap 'shopify/shopify'
+tap 'stripe/stripe-cli'
 
 # CLI essentials
 brew 'bat'
@@ -16,12 +16,12 @@ brew 'broot'
 brew 'coreutils'
 brew 'diff-so-fancy'
 brew 'direnv'
+brew 'duf'
 brew 'fzf'
 brew 'htop'
 brew 'jq'
 brew 'prettyping'
 brew 'ripgrep'
-brew 'the_silver_searcher'
 brew 'thefuck'
 brew 'tree'
 brew 'wget'
@@ -39,23 +39,21 @@ brew 'git-filter-repo'
 # Editors & terminal
 brew 'tmux'
 brew 'vim'
-brew 'zellij'
 
 # Languages & runtimes
 brew 'deno'
 brew 'go'
 brew 'mise'
 brew 'node-build'
-brew 'php', restart_service: :changed
+brew 'pipx'
 brew 'ruby-build'
-brew 'rust'
-brew 'rustup'
+brew 'yarn'
 brew 'oven-sh/bun/bun'
 
 # Cloud & infrastructure
-brew 'aws-sam-cli'
 brew 'awscli'
 brew 'cloudflared'
+brew 'flyctl'
 brew 'sops'
 brew 'common-fate/granted/granted'
 brew 'onrunning/on/mfaws'
@@ -72,31 +70,36 @@ brew 'postgresql@17', restart_service: :changed
 brew 'redis', restart_service: :changed
 
 # Dev tools
+brew 'bats-core'
 brew 'bufbuild/buf/buf'
 brew 'cmake'
 brew 'cookiecutter'
 brew 'ctags'
 brew 'mike-engel/jwt-cli/jwt-cli'
-brew 'phrase-cli'
+brew 'shellcheck'
 brew 'shopify/shopify/shopify-cli'
+brew 'stripe/stripe-cli/stripe'
 brew 'pkgxdev/made/pkgx'
 
 # AI tools
 brew 'anomalyco/tap/opencode'
+brew 'llm'
 cask 'claude-code'
 
 # Image & media
-brew 'imagemagick'
-brew 'spaceman-diff'
-brew 'spark'
+brew 'exiftool'
+brew 'ffmpeg'
 brew 'highlight'
+brew 'imagemagick'
+brew 'poppler'
+brew 'spark'
+brew 'yt-dlp'
 
 # Networking & system
-brew 'ack'
 brew 'bluetoothconnector'
 brew 'gnupg'
-brew 'gping'
 brew 'hostess'
+brew 'mosh'
 brew 'pinentry-mac'
 brew 'wakeonlan'
 
