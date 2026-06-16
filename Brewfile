@@ -83,6 +83,7 @@ brew 'pkgxdev/made/pkgx'
 
 # AI tools
 brew 'anomalyco/tap/opencode'
+cask 'claude-code'
 
 # Image & media
 brew 'imagemagick'

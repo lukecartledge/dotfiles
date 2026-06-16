@@ -37,4 +37,5 @@ export PACKAGES=(
 
   # AI
   opencode
+  claude
 )
