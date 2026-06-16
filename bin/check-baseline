@@ -109,8 +109,18 @@ fi
 
 section "macOS hardening"
 if [[ "$(uname -s)" == "Darwin" ]]; then
-  warn "Touch ID for sudo enabled" \
-    sh -c '[[ -f /etc/pam.d/sudo_local ]] && grep -q pam_tid /etc/pam.d/sudo_local 2>/dev/null'
+  warn "Touch ID for sudo (tmux-aware)" \
+    sh -c '
+      [ -f /etc/pam.d/sudo_local ] || exit 1
+      grep -q pam_tid /etc/pam.d/sudo_local 2>/dev/null || exit 1
+      # When pam_reattach is installed, sudo_local must load it so Touch ID
+      # works inside tmux. Machines without the module only need pam_tid.
+      if [ -e /opt/homebrew/lib/pam/pam_reattach.so ] \
+         || [ -e /usr/local/lib/pam/pam_reattach.so ]; then
+        grep -q pam_reattach /etc/pam.d/sudo_local 2>/dev/null || exit 1
+      fi
+      exit 0
+    '
   warn "Application firewall enabled" \
     sh -c '/usr/libexec/ApplicationFirewall/socketfilterfw --getglobalstate 2>/dev/null | grep -q enabled'
   warn "Rosetta 2 (Apple Silicon)" \
