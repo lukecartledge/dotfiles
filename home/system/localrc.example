@@ -1,0 +1,47 @@
+# ~/.localrc — local-only environment overrides
+#
+# Copy this file to ~/.localrc and populate with values from 1Password.
+# DO NOT commit ~/.localrc — it is gitignored via the *.local* pattern.
+#
+# Sourced by ~/.zshrc on shell startup. All exports below are required
+# unless marked optional. Sentinel value "" prevents downstream tools
+# from receiving "TOKEN_VALUE_HERE" literals.
+
+# === OpenCode ========================================================
+# Required. Path (not a secret). Without this, opencode does NOT load
+# the per-host MCP overlay (opencode.work.json on On-* hosts,
+# opencode.personal.json otherwise). The symlink itself is created by
+# home/opencode/link.bash; this env var tells opencode to read it.
+export OPENCODE_CONFIG="$HOME/.config/opencode/opencode.local.json"
+
+# === GitHub ==========================================================
+# Personal Access Token (classic or fine-grained).
+# Used by: opencode `github` MCP server, Zed `github` MCP, generic gh
+# CLI fallback when not authenticated via `gh auth login`.
+# Generate at: https://github.com/settings/tokens
+# 1Password item: "GitHub PAT (lukecartledge)"
+export GITHUB_PERSONAL_ACCESS_TOKEN=""
+
+# === New Relic =======================================================
+# User API key (NRAK-...).
+# Used by: opencode `newrelic` MCP, Zed `newrelic` MCP.
+# Generate at: New Relic UI → Profile → API keys → User key.
+# 1Password item: "New Relic User API Key (work)"
+export NEWRELIC_API_KEY=""
+
+# === Contentful ======================================================
+# Content management token (work only — On's CMS).
+# Used by: opencode `contentful` MCP.
+# Generate at: app.contentful.com → Settings → API keys → Content
+#               management tokens.
+# 1Password item: "Contentful management token (on)"
+export CONTENTFUL_SPACE_ID=""
+export CONTENTFUL_MANAGEMENT_TOKEN=""
+
+# === Mealie ==========================================================
+# Self-hosted recipe manager — personal-only.
+# Used by: opencode mealie skill (~/.config/opencode/skills/custom/
+#          mealie-recipe-management).
+# 1Password item: "Mealie API token"
+export MEALIE_URL=""
+export MEALIE_API_TOKEN=""
