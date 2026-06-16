@@ -13,6 +13,7 @@ export PACKAGES=(
   system
   functions
   ssh
+  smb
 
   # Shell
   zsh

@@ -13,6 +13,7 @@ export PACKAGES=(
   system
   functions
   ssh
+  smb
 
   # Shell
   zsh
@@ -28,6 +29,7 @@ export PACKAGES=(
   # Terminal
   tmux
   iterm2
+  ghostty
 
   # Languages & Tools
   mise
