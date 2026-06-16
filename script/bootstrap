@@ -98,20 +98,33 @@ install_rosetta () {
 }
 
 # Enable Touch ID for sudo via /etc/pam.d/sudo_local
+#
+# pam_reattach is loaded before pam_tid so Touch ID also works inside tmux
+# (and other session multiplexers). It is declared "optional", so sudo still
+# works if the module is missing or fails to load. The Homebrew prefix is
+# detected at runtime (Apple Silicon vs Intel). sudo_local is Apple's
+# supported override file and survives macOS updates.
 enable_touchid_sudo () {
   if [[ "$(uname -s)" != "Darwin" ]]; then
     return 0
   fi
 
   local sudo_local=/etc/pam.d/sudo_local
+  local brew_prefix
+  brew_prefix=$(brew --prefix 2>/dev/null || echo /opt/homebrew)
 
-  if [[ -f "$sudo_local" ]] && grep -q pam_tid "$sudo_local" 2>/dev/null; then
+  if [[ -f "$sudo_local" ]] \
+       && grep -q pam_tid "$sudo_local" 2>/dev/null \
+       && grep -q pam_reattach "$sudo_local" 2>/dev/null; then
     success "Touch ID for sudo already enabled"
     return 0
   fi
 
-  info "Enabling Touch ID for sudo..."
-  echo "auth       sufficient     pam_tid.so" | sudo tee -a "$sudo_local" >/dev/null
+  info "Enabling Touch ID for sudo (works inside tmux)..."
+  sudo tee "$sudo_local" >/dev/null <<EOF
+auth       optional       $brew_prefix/lib/pam/pam_reattach.so
+auth       sufficient     pam_tid.so
+EOF
   success "Touch ID for sudo enabled"
 }
 
