@@ -119,6 +119,11 @@ If any answer is **no**, split the commit.
 - Run `git diff --staged` before every commit to confirm scope.
 - Never commit unrelated changes together.
 
+### PR branch work
+
+- When addressing PR review feedback or working on an open PR branch, commit and push after verification passes — don't wait for an explicit push request.
+- The intent "address PR comments" implies shipping the result.
+
 ## General rules
 
 - Check for a relevant SKILL.md before starting any complex or repeatable task.
