@@ -53,7 +53,6 @@ brew 'awscli'
 brew 'cloudflared'
 brew 'sops'
 brew 'common-fate/granted/granted'
-brew 'onrunning/on/mfaws'
 
 # Containers & orchestration
 brew 'colima', restart_service: :changed
