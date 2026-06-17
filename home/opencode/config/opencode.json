@@ -20,8 +20,8 @@
         "baseURL": "http://localhost:11434/v1"
       },
       "models": {
-        "gemma4:12b": {
-          "name": "Gemma 4 12B",
+        "gemma4-32k:12b": {
+          "name": "Gemma 4 12B (32K)",
           "limit": {
             "context": 32768,
             "output": 8192
