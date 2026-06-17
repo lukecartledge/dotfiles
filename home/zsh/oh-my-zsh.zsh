@@ -6,8 +6,6 @@ plugins=(
   bundler
   colored-man-pages
   direnv
-  docker
-  docker-compose
   git
   github
   gpg-agent
