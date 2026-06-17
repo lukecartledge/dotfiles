@@ -54,6 +54,14 @@ These rules apply to every code change. Bias toward caution over speed — for t
 - If a simpler approach exists, say so. Push back when warranted.
 - If something is unclear, stop. Name the confusion. Ask.
 
+### Verify before investing
+
+- Run the cheapest possible test that would disprove your assumption before building on it.
+- At integration boundaries: confirm the API/system actually behaves as docs claim. One probe call before full implementation.
+- At delivery boundaries: verify arrival, not just dispatch. Upstream 2xx does not mean downstream received.
+- At environment level: confirm ambient state (tunnel alive, deps fresh, CI convention matched) before debugging code.
+- If something "should work" but doesn't after 3 attempts, stop and isolate — you're likely testing the wrong layer.
+
 ### Simplicity first
 
 - Write the minimum code that solves the problem. Nothing speculative.
