@@ -79,7 +79,6 @@ brew 'pkgxdev/made/pkgx'
 
 # AI tools
 brew 'anomalyco/tap/opencode'
-cask 'claude-code@latest'
 
 # Image & media
 brew 'exiftool'
