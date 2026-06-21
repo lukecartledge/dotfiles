@@ -4,6 +4,25 @@
     "atlassian": { "enabled": false },
     "newrelic": { "enabled": false },
     "shopify-dev": { "enabled": false },
-    "incident-io": { "enabled": false }
+    "incident-io": { "enabled": false },
+    "garmin": {
+      "type": "local",
+      "command": [
+        "uvx",
+        "--python",
+        "3.12",
+        "--from",
+        "git+https://github.com/Taxuspt/garmin_mcp",
+        "garmin-mcp"
+      ]
+    },
+    "strava": {
+      "type": "local",
+      "command": ["npx", "-y", "@r-huijts/strava-mcp-server"],
+      "environment": {
+        "STRAVA_CLIENT_ID": "{env:STRAVA_CLIENT_ID}",
+        "STRAVA_CLIENT_SECRET": "{env:STRAVA_CLIENT_SECRET}"
+      }
+    }
   }
 }
