@@ -1,0 +1,111 @@
+---
+description: Create a new project note in the Obsidian vault and optionally scaffold Claude config
+argument-hint: project name (kebab-case)
+---
+
+Create a new project in the Obsidian vault and optionally scaffold Claude config in the current repo.
+
+The project name is: $ARGUMENTS
+
+## Step 1: Create the Obsidian project note
+
+1. Create the folder `~/notes/brain/20-work/projects/$ARGUMENTS/`
+2. Create `~/notes/brain/20-work/projects/$ARGUMENTS/$ARGUMENTS.md` with this frontmatter:
+
+```yaml
+---
+type: project
+name: $ARGUMENTS
+created: {{date}}
+status: active
+tags: []
+github-repo:
+jira-project:
+related-skills: []
+related-knowledge: []
+agents-md: false
+---
+```
+
+**IMPORTANT — Wiki-link rules for backlinks:**
+- `related-skills:` entries MUST be wiki-links: `["[[skill-name]]"]` (e.g. `["[[incident-response]]", "[[tdd-workflow]]"]`). This creates backlinks from skill notes to this project.
+- `related-knowledge:` entries MUST be wiki-links: `["[[knowledge-note]]"]` (e.g. `["[[kafka-consumer-patterns]]"]`).
+- The `## Related` section at the bottom MUST contain wiki-links to any related MOCs, knowledge notes, or skills.
+
+3. Add these sections to the file:
+
+```markdown
+## Goal
+
+<!-- What does done look like? One or two sentences. -->
+
+## Context
+
+<!-- Background, constraints, dependencies, links to relevant notes or Confluence pages. -->
+
+## Links
+
+| Resource | URL |
+|----------|-----|
+| GitHub repo | |
+| Jira board | |
+| Confluence | |
+
+## Claude setup
+
+- [ ] CLAUDE.md created
+- [ ] Skills linked
+
+## Decisions
+
+<!-- Key technical or architectural decisions made during this project. Date them. -->
+
+## Tasks
+
+- [ ]
+
+## Sessions
+
+\```dataview
+TABLE date, model, skills-used
+FROM "opencode/sessions"
+WHERE project = "$ARGUMENTS"
+SORT date DESC
+\```
+
+## Related
+
+<!-- Wiki-links to related vault notes. These create backlinks in Obsidian's graph. -->
+- Skills: 
+- Knowledge: 
+- MOC: 
+
+## Notes
+```
+
+## Step 2: Detect project metadata
+
+- Check the current working directory for a `.git` remote — if found, extract the GitHub repo URL and fill in the `github-repo` frontmatter field and the Links table.
+- Ask the user for the Jira project key (e.g. "COP") if not provided as part of $ARGUMENTS. Fill in `jira-project` and the Jira board link (`https://onrunning.atlassian.net/jira/software/projects/<KEY>/board`).
+
+## Step 3: Offer to scaffold per-repo Claude config
+
+Ask the user: "Do you want me to create a CLAUDE.md in the current repo for this project?"
+
+If yes:
+
+1. Create `CLAUDE.md` in the repo root with:
+   - A one-line project description header
+   - A STRUCTURE section with key directories
+   - A WHERE TO LOOK section mapping tasks to file locations
+   - A Code Style & Conventions section noting any linter/formatter config present
+   - Reference to relevant skills from `~/.config/opencode/skills/`
+
+2. Update the Obsidian project note: set `agents-md: true` and check off the Claude setup items.
+
+## Step 4: Confirm
+
+Tell the user:
+- The Obsidian project note path
+- Whether per-repo config was created
+- Remind them to fill in the Goal and Context sections
