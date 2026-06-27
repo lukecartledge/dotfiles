@@ -1,0 +1,101 @@
+{
+  "_comment": "Template for Claude Desktop config. Live file is ~/Library/Application Support/Claude/claude_desktop_config.json and is managed locally (not committed). Reconstruct on new machines using _setup commands, then verify with jq empty.",
+  "_setup": [
+    "DESKTOP_CONFIG=\"$HOME/Library/Application Support/Claude/claude_desktop_config.json\"",
+    "cp \"$DESKTOP_CONFIG\" \"${DESKTOP_CONFIG}.bak-t10\"",
+    "jq '.mcpServers += {\"atlassian\":{\"type\":\"http\",\"url\":\"https://mcp.atlassian.com/v1/mcp\"},\"contentful\":{\"command\":\"npx\",\"args\":[\"-y\",\"@contentful/mcp-server\"],\"env\":{\"CONTENTFUL_MANAGEMENT_TOKEN\":\"${CONTENTFUL_MANAGEMENT_TOKEN}\",\"CONTENTFUL_SPACE_ID\":\"${CONTENTFUL_SPACE_ID}\"}},\"github\":{\"type\":\"http\",\"url\":\"https://api.githubcopilot.com/mcp/\",\"headers\":{\"Authorization\":\"Bearer ${GITHUB_TOKEN}\"}},\"newrelic\":{\"type\":\"http\",\"url\":\"https://mcp.newrelic.com/mcp/\",\"headers\":{\"api-key\":\"${NEW_RELIC_API_KEY}\"}},\"context-mode\":{\"command\":\"context-mode\"}}' \"$DESKTOP_CONFIG\" > /tmp/desktop_config_merged.json",
+    "jq empty /tmp/desktop_config_merged.json && cp /tmp/desktop_config_merged.json \"$DESKTOP_CONFIG\"",
+    "jq empty \"$DESKTOP_CONFIG\""
+  ],
+  "mcpServers": {
+    "garmin": {
+      "command": "uvx",
+      "args": [
+        "--python",
+        "3.12",
+        "--from",
+        "git+https://github.com/Taxuspt/garmin_mcp",
+        "garmin-mcp"
+      ]
+    },
+    "atlassian": {
+      "type": "http",
+      "url": "https://mcp.atlassian.com/v1/mcp"
+    },
+    "contentful": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@contentful/mcp-server"
+      ],
+      "env": {
+        "CONTENTFUL_MANAGEMENT_TOKEN": "${CONTENTFUL_MANAGEMENT_TOKEN}",
+        "CONTENTFUL_SPACE_ID": "${CONTENTFUL_SPACE_ID}"
+      }
+    },
+    "github": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/",
+      "headers": {
+        "Authorization": "Bearer ${GITHUB_TOKEN}"
+      }
+    },
+    "newrelic": {
+      "type": "http",
+      "url": "https://mcp.newrelic.com/mcp/",
+      "headers": {
+        "api-key": "${NEW_RELIC_API_KEY}"
+      }
+    },
+    "context-mode": {
+      "command": "context-mode"
+    }
+  },
+  "coworkUserFilesPath": "/Users/lukecartledge/Documents/Claude",
+  "preferences": {
+    "localAgentModeTrustedFolders": [
+      "/Users/lukecartledge/notes/personal",
+      "/Users/lukecartledge/Documents"
+    ],
+    "allowAllBrowserActions": true,
+    "coworkScheduledTasksEnabled": true,
+    "coworkHipaaRestricted": false,
+    "ccdScheduledTasksEnabled": true,
+    "sidebarMode": "task",
+    "bypassPermissionsGateByAccount": {
+      "112ea4b0-3db7-430e-b89f-2bc93cd5d451": false
+    },
+    "coworkWebSearchEnabled": true,
+    "coworkModelAutoFallbackByAccount": {
+      "112ea4b0-3db7-430e-b89f-2bc93cd5d451": true
+    },
+    "keepAwakeEnabled": true,
+    "chicagoEnabled": true,
+    "remoteToolsDeviceName": "mighty-mini-home",
+    "epitaxyPrefs": {
+      "starred-local-code-sessions": [],
+      "starred-cowork-spaces": [],
+      "starred-session-groups": [],
+      "dframe-local-slice": {
+        "pinnedOrder": [],
+        "customGroupAssignments": {},
+        "customGroupOrder": {}
+      },
+      "desktop-frame.paneStore.v1": {
+        "state": {
+          "extraPanesByMode": {},
+          "colWeightsByMode": {},
+          "rowSplit": 0.5,
+          "draftNonce": 0
+        },
+        "version": 4
+      },
+      "ccd-sessions-filter": {
+        "state": {
+          "selectedProjects": []
+        },
+        "version": 0
+      }
+    }
+  }
+}
