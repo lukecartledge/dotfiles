@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "_comment": "Personal machine overrides — symlinked to ~/.claude/settings.local.json on non-work hosts",
+  "_personalMachineMcpSetup": [
+    "Personal-only MCPs (garmin, strava) are configured via claude mcp add, not settings.json.",
+    "Run on personal machines only:",
+    "claude mcp add --scope user garmin -- uvx --python 3.12 --from git+https://github.com/Taxuspt/garmin_mcp garmin-mcp",
+    "claude mcp add --scope user strava -- npx -y @r-huijts/strava-mcp-server",
+    "Keep secrets out of dotfiles and use environment variables at runtime."
+  ]
+}

@@ -35,6 +35,14 @@ link "$HOME_DIR/claude/CLAUDE.md" "$HOME/.claude/CLAUDE.md"
 # Settings
 link "$HOME_DIR/claude/settings.json" "$HOME/.claude/settings.json"
 
+# Per-machine settings override (work vs personal)
+# Mirrors opencode.local.json → work/personal pattern
+if [[ "$CURR_HOST" == On-* ]]; then
+  link "$HOME_DIR/claude/settings.work.json" "$HOME/.claude/settings.local.json"
+else
+  link "$HOME_DIR/claude/settings.personal.json" "$HOME/.claude/settings.local.json"
+fi
+
 # Agents and commands directories
 link "$HOME_DIR/claude/agents" "$HOME/.claude/agents"
 link "$HOME_DIR/claude/commands" "$HOME/.claude/commands"
