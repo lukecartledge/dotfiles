@@ -1,0 +1,14 @@
+{
+  "_comment": "MCP servers configured at user scope via `claude mcp add --scope user`. This is a template only — actual config lives in ~/.claude.json (not committed). Run each command with env vars exported to configure.",
+  "_commands": {
+    "atlassian": "claude mcp add --scope user --transport http atlassian https://mcp.atlassian.com/v1/mcp",
+    "contentful": "claude mcp add --scope user contentful -e 'CONTENTFUL_MANAGEMENT_ACCESS_TOKEN=${CONTENTFUL_MANAGEMENT_TOKEN}' -e 'SPACE_ID=${CONTENTFUL_SPACE_ID}' -e 'ENVIRONMENT_ID=master' -- npx -y @contentful/mcp-server",
+    "github": "claude mcp add --scope user --transport http github https://api.githubcopilot.com/mcp/ --header 'Authorization: Bearer ${GITHUB_PERSONAL_ACCESS_TOKEN}'",
+    "newrelic": "claude mcp add --scope user --transport http newrelic https://mcp.newrelic.com/mcp/ --header 'api-key: ${NEWRELIC_API_KEY}'",
+    "context-mode": "claude mcp add --scope user context-mode -- context-mode"
+  },
+  "_notes": {
+    "secrets": "Use only ${VAR} placeholders. Do not hardcode token values.",
+    "scope": "User scope applies across projects."
+  }
+}
