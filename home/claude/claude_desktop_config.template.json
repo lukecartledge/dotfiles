@@ -27,10 +27,7 @@
         "-y",
         "@contentful/mcp-server"
       ],
-      "env": {
-        "CONTENTFUL_MANAGEMENT_TOKEN": "${CONTENTFUL_MANAGEMENT_TOKEN}",
-        "CONTENTFUL_SPACE_ID": "${CONTENTFUL_SPACE_ID}"
-      }
+      "_env_note": "No env block needed — requires CONTENTFUL_MANAGEMENT_ACCESS_TOKEN, SPACE_ID, ENVIRONMENT_ID set in launchd (launchctl setenv) so GUI apps inherit them. Claude Desktop does NOT expand ${VAR} shell syntax."
     },
     "context-mode": {
       "command": "context-mode"
