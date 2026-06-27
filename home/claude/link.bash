@@ -31,3 +31,10 @@ done
 
 # Link the adapted CLAUDE.md (Claude Code reads this at session start)
 link "$HOME_DIR/claude/CLAUDE.md" "$HOME/.claude/CLAUDE.md"
+
+# Settings
+link "$HOME_DIR/claude/settings.json" "$HOME/.claude/settings.json"
+
+# Agents and commands directories
+link "$HOME_DIR/claude/agents" "$HOME/.claude/agents"
+link "$HOME_DIR/claude/commands" "$HOME/.claude/commands"
