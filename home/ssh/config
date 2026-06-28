@@ -1,6 +1,6 @@
 Include ~/.colima/ssh_config
 
-Host truenas
+Host homelab truenas
   HostName 192.168.1.20
   User lukecartledge
 
