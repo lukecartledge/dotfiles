@@ -449,6 +449,15 @@
     },
     "google-drive": {
       "enabled": false
+    },
+    "google-gmail": {
+      "enabled": true
+    },
+    "slack": {
+      "type": "remote",
+      "url": "https://mcp.slack.com/mcp",
+      "enabled": false,
+      "oauth": { "clientId": "2540541395.10827271922499" }
     }
   }
 }
