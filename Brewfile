@@ -20,6 +20,7 @@ brew 'htop'
 brew 'jq'
 brew 'prettyping'
 brew 'ripgrep'
+brew 'rsync'
 brew 'thefuck'
 brew 'tree'
 brew 'wget'
@@ -44,6 +45,7 @@ brew 'go'
 brew 'mise'
 brew 'node-build'
 brew 'pipx'
+brew 'pnpm'
 brew 'ruby-build'
 brew 'yarn'
 brew 'oven-sh/bun/bun'
@@ -52,16 +54,19 @@ brew 'oven-sh/bun/bun'
 brew 'awscli'
 brew 'cloudflared'
 brew 'sops'
+brew 'terraform'
 brew 'common-fate/granted/granted'
 
 # Containers & orchestration
 brew 'colima', restart_service: :changed
 brew 'docker'
 brew 'docker-compose'
+brew 'helm'
 brew 'minikube'
 
 # Databases
 brew 'mysql@8.4', restart_service: :changed
+brew 'mysql-client'
 brew 'postgresql@17', restart_service: :changed
 brew 'redis', restart_service: :changed
 
@@ -69,6 +74,7 @@ brew 'redis', restart_service: :changed
 brew 'bats-core'
 brew 'bufbuild/buf/buf'
 brew 'cmake'
+brew 'contentful-cli'
 brew 'cookiecutter'
 brew 'ctags'
 brew 'mike-engel/jwt-cli/jwt-cli'
@@ -91,6 +97,7 @@ brew 'yt-dlp'
 # Networking & system
 brew 'bluetoothconnector'
 brew 'gnupg'
+brew 'gping'
 brew 'hostess'
 brew 'pam-reattach'
 brew 'pinentry-mac'
