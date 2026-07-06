@@ -66,6 +66,11 @@
 [diff "sekrets"]
 	textconv = sekrets read
 [user]
+# Route onrunning org over SSH. The gh OAuth token used by the github.com
+# credential helper below is not SAML-authorized for onrunning, so HTTPS
+# access 403s (e.g. Homebrew tap fetches). The SSH key is authorized.
+[url "git@github.com:onrunning/"]
+	insteadOf = https://github.com/onrunning/
 [credential "https://github.com"]
 	helper = 
 	helper = !/opt/homebrew/bin/gh auth git-credential
