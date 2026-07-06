@@ -5,7 +5,7 @@
 # Many later scripts depend on ~/.ssh/id_ed25519 existing:
 #   - home/git/install.bash skips signingkey + allowed_signers if absent
 #   - GitHub HTTPS git operations rely on gh credential helper
-#   - 1Password SSH agent auth requires a key in the OS keychain
+#   - SSH auth + commit signing use this key via the macOS keychain agent
 #
 # Idempotent: skips if a key already exists.
 
