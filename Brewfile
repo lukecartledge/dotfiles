@@ -5,7 +5,6 @@ tap 'anomalyco/tap'
 tap 'bufbuild/buf'
 tap 'common-fate/granted'
 tap 'mike-engel/jwt-cli'
-tap 'oven-sh/bun'
 tap 'pkgxdev/made'
 tap 'shopify/shopify'
 
@@ -48,7 +47,7 @@ brew 'pipx'
 brew 'pnpm'
 brew 'ruby-build'
 brew 'yarn'
-brew 'oven-sh/bun/bun'
+brew 'bun'
 
 # Cloud & infrastructure
 brew 'awscli'
