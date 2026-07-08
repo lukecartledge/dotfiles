@@ -53,7 +53,10 @@ brew 'bun'
 brew 'awscli'
 brew 'cloudflared'
 brew 'sops'
-brew 'terraform'
+# terraform was relicensed (BSL) and removed from homebrew-core, which aborts
+# the whole `brew bundle`. Install pinned 1.5.7 (last open-source) via tfenv or
+# mise to match the existing machine instead of taking BSL latest from a tap.
+# brew 'terraform'
 brew 'common-fate/granted/granted'
 
 # Containers & orchestration
