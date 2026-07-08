@@ -171,7 +171,6 @@ print_manual_steps () {
     [ ] Input Monitoring   ->  Karabiner (if installed)
 
   1Password:
-    [ ] Settings > Developer > Enable SSH Agent
     [ ] Settings > Developer > Enable CLI biometric unlock
 
   Authenticate:
