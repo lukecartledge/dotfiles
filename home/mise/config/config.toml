@@ -4,6 +4,7 @@ node = "22"
 python = "latest"
 ruby = "latest"
 rust = "latest"
+terraform = "1.5.7"
 
 [settings]
 legacy_version_file = true
