@@ -451,7 +451,7 @@
       "enabled": false
     },
     "google-gmail": {
-      "enabled": true
+      "enabled": false
     },
     "slack": {
       "type": "remote",
