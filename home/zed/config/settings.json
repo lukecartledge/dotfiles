@@ -110,6 +110,7 @@
     },
     "default_profile": "write",
     "default_model": {
+      "enable_thinking": true,
       "effort": "high",
       "provider": "copilot_chat",
       "model": "claude-opus-4.8"
