@@ -65,6 +65,10 @@ if [ "$(uname -s)" == "Darwin" ]; then
 	echo "› brew upgrade"
 	brew upgrade
 
+	# Strip the shopify tap's broken legacy casks (restored by `brew update`
+	# above) before bundling, or `brew bundle` aborts on the disabled cask syntax.
+	rm -f "$(brew --repository)/Library/Taps/shopify/homebrew-shopify/casks/zulu-jdk"*.rb 2>/dev/null || true
+
 	echo "› brew bundle"
 	brew bundle --file="$ZSH/Brewfile"
 fi

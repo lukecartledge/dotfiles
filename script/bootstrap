@@ -252,11 +252,32 @@ install_brew_packages () {
     return 0
   fi
 
-  if [[ -f "$DOTFILES_ROOT/Brewfile" ]]; then
-    info "Installing Homebrew packages from Brewfile..."
-    brew bundle --file="$DOTFILES_ROOT/Brewfile"
-    success "Homebrew packages installed"
+  [[ -f "$DOTFILES_ROOT/Brewfile" ]] || return 0
+
+  # Newer Homebrew refuses to load formulae from third-party taps until they
+  # are explicitly trusted, which aborts `brew bundle`. Trust every tap declared
+  # in the Brewfile up front. `brew trust` only exists on newer Homebrew, so
+  # guard on its availability.
+  if brew trust --help &>/dev/null; then
+    grep -E "^tap '" "$DOTFILES_ROOT/Brewfile" \
+      | sed -E "s/^tap '([^']+)'.*/\1/" \
+      | while read -r brewtap; do
+          info "Trusting tap: $brewtap"
+          brew trust "$brewtap" &>/dev/null || true
+        done
   fi
+
+  # The shopify tap ships legacy Zulu JDK casks that newer Homebrew rejects,
+  # aborting `brew bundle` even though we only need the shopify-cli formula.
+  # Tap it (ignoring the cask validation failure) and strip the broken casks.
+  if grep -q "^tap 'shopify/shopify'" "$DOTFILES_ROOT/Brewfile"; then
+    brew tap shopify/shopify &>/dev/null || true
+    rm -f "$(brew --repository)/Library/Taps/shopify/homebrew-shopify/casks/zulu-jdk"*.rb 2>/dev/null || true
+  fi
+
+  info "Installing Homebrew packages from Brewfile..."
+  brew bundle --file="$DOTFILES_ROOT/Brewfile"
+  success "Homebrew packages installed"
 }
 
 # Check for host configuration
