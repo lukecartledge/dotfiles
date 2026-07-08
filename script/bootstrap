@@ -112,19 +112,28 @@ enable_touchid_sudo () {
   local sudo_local=/etc/pam.d/sudo_local
   local brew_prefix
   brew_prefix=$(brew --prefix 2>/dev/null || echo /opt/homebrew)
+  local reattach="$brew_prefix/lib/pam/pam_reattach.so"
 
-  if [[ -f "$sudo_local" ]] \
-       && grep -q pam_tid "$sudo_local" 2>/dev/null \
-       && grep -q pam_reattach "$sudo_local" 2>/dev/null; then
+  # Only reference pam_reattach when the module is actually present. A missing
+  # module path in sudo_local breaks PAM entirely (sudo stops working), and
+  # pam-reattach is installed later by brew bundle. On the first run we write
+  # pam_tid only; a later run (after the Brewfile installs pam-reattach)
+  # upgrades sudo_local to add the tmux-aware pam_reattach line.
+  local desired
+  if [[ -e "$reattach" ]]; then
+    desired="auth       optional       $reattach
+auth       sufficient     pam_tid.so"
+  else
+    desired="auth       sufficient     pam_tid.so"
+  fi
+
+  if [[ -f "$sudo_local" && "$(cat "$sudo_local" 2>/dev/null)" == "$desired" ]]; then
     success "Touch ID for sudo already enabled"
     return 0
   fi
 
-  info "Enabling Touch ID for sudo (works inside tmux)..."
-  sudo tee "$sudo_local" >/dev/null <<EOF
-auth       optional       $brew_prefix/lib/pam/pam_reattach.so
-auth       sufficient     pam_tid.so
-EOF
+  info "Enabling Touch ID for sudo..."
+  printf '%s\n' "$desired" | sudo tee "$sudo_local" >/dev/null
   success "Touch ID for sudo enabled"
 }
 
