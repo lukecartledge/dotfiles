@@ -27,9 +27,13 @@ if [[ ! -d "$TPM_DIR" ]]; then
     || fail "TPM clone failed — run: git clone https://github.com/tmux-plugins/tpm $TPM_DIR"
 fi
 
-if [[ -x "$TPM_DIR/bin/install_plugins" ]]; then
+if command -v tmux &>/dev/null && [[ -x "$TPM_DIR/bin/install_plugins" ]]; then
   info "Installing tmux plugins..."
+  # install_plugins reads TPM's TMUX_PLUGIN_MANAGER_PATH from a running server
+  # that has sourced tmux.conf — start a throwaway session so the var gets set.
+  tmux new-session -d -s __tpm_install 2>/dev/null
   "$TPM_DIR/bin/install_plugins" >/dev/null 2>&1 \
     && success "tmux plugins installed" \
     || fail "Some tmux plugins failed — open tmux and run: prefix + I"
+  tmux kill-session -t __tpm_install 2>/dev/null
 fi
