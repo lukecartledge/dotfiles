@@ -42,7 +42,8 @@ function fail {
 function backup {
   local target=$1
   if [[ -e "$target" || -L "$target" ]]; then
-    local backup_path="${target}.backup.$(date +%Y%m%d%H%M%S)"
+    local backup_path
+    backup_path="${target}.backup.$(date +%Y%m%d%H%M%S)"
     if [[ $dry == "1" ]]; then
       log "Would backup $target to $backup_path"
     else
