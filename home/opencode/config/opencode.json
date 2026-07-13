@@ -14,24 +14,7 @@
   "autoupdate": true,
   "model": "github-copilot/claude-opus-4.8",
   "small_model": "github-copilot/claude-haiku-4.5",
-  "enabled_providers": ["github-copilot", "ollama"],
-  "provider": {
-    "ollama": {
-      "name": "Ollama (local)",
-      "options": {
-        "baseURL": "http://localhost:11434/v1"
-      },
-      "models": {
-        "gemma4-32k:12b": {
-          "name": "Gemma 4 12B (32K)",
-          "limit": {
-            "context": 32768,
-            "output": 8192
-          }
-        }
-      }
-    }
-  },
+  "enabled_providers": ["github-copilot"],
   "share": "disabled",
   "compaction": {
     "auto": true,
