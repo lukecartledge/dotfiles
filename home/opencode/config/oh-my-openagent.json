@@ -10,17 +10,17 @@
       "variant": "medium"
     },
     "oracle": {
-      "model": "github-copilot/gpt-5.4",
+      "model": "github-copilot/gpt-5.6-terra",
       "variant": "high"
     },
     "librarian": {
-      "model": "github-copilot/claude-sonnet-4.6"
+      "model": "github-copilot/claude-sonnet-5"
     },
     "explore": {
       "model": "github-copilot/claude-haiku-4.5"
     },
     "multimodal-looker": {
-      "model": "github-copilot/claude-sonnet-4.6"
+      "model": "github-copilot/claude-sonnet-5"
     },
     "prometheus": {
       "model": "github-copilot/claude-opus-4.8",
@@ -31,11 +31,11 @@
       "variant": "high"
     },
     "momus": {
-      "model": "github-copilot/gpt-5.4",
+      "model": "github-copilot/gpt-5.6-terra",
       "variant": "medium"
     },
     "atlas": {
-      "model": "github-copilot/claude-sonnet-4.6"
+      "model": "github-copilot/claude-sonnet-5"
     }
   },
   "browser_automation_engine": {
@@ -65,10 +65,10 @@
       "model": "github-copilot/claude-haiku-4.5"
     },
     "unspecified-high": {
-      "model": "github-copilot/claude-sonnet-4.6"
+      "model": "github-copilot/claude-sonnet-5"
     },
     "writing": {
-      "model": "github-copilot/claude-sonnet-4.6"
+      "model": "github-copilot/claude-sonnet-5"
     }
   }
 }
