@@ -60,6 +60,18 @@ source $DOTFILES/home/zsh/oh-my-zsh.zsh
 
 source $ZSH/oh-my-zsh.sh
 
+# ls family via eza (modern, Rust-based ls). Defined here, after oh-my-zsh,
+# so they override omz's built-in ls/l/ll/la aliases (lib/directories.zsh and
+# lib/theme-and-appearance.zsh), which would otherwise clobber them.
+if command -v eza &>/dev/null; then
+  alias ls='eza --group-directories-first --icons=auto -1'
+  alias l='eza --group-directories-first --icons=auto --all'
+  alias ll='eza --group-directories-first --icons=auto --all --long --git'
+  alias la='eza --group-directories-first --icons=auto'
+  alias lc='eza --group-directories-first --icons=auto --all --long'
+  alias lt='eza --group-directories-first --icons=auto --tree --level=2'
+fi
+
 # Better history
 # Credits to https://coderwall.com/p/jpj_6q/zsh-better-history-searching-with-arrow-keys
 autoload -U up-line-or-beginning-search
