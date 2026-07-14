@@ -33,3 +33,6 @@ home/iterm2/*.plist.lock
 node_modules/
 package.json
 package-lock.json
+
+# OMO (oh-my-openagent) runtime state
+.omo/
