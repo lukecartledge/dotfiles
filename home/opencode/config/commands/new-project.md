@@ -64,7 +64,7 @@ opencode-agents-md: false
 
 \```dataview
 TABLE date, model, skills-used
-FROM "opencode/sessions"
+FROM "20-work/sessions"
 WHERE project = "$ARGUMENTS"
 SORT date DESC
 \```
