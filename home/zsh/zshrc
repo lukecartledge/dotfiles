@@ -37,12 +37,11 @@ done
 
 typeset -aU path
 
-# initialize autocomplete here, otherwise functions won't be loaded
+# Add Homebrew's completions to fpath before oh-my-zsh runs compinit.
+# compinit itself is run once by oh-my-zsh (source $ZSH/oh-my-zsh.sh below);
+# running it here too caused a second compdump write every startup.
 if type brew &>/dev/null; then
     FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
-
-    autoload -Uz compinit
-    compinit
 fi
 
 # load every completion after autocomplete loads
