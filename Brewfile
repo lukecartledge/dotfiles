@@ -5,7 +5,6 @@ tap 'anomalyco/tap'
 tap 'bufbuild/buf'
 tap 'common-fate/granted'
 tap 'mike-engel/jwt-cli'
-tap 'pkgxdev/made'
 tap 'shopify/shopify'
 
 # CLI essentials
@@ -20,7 +19,6 @@ brew 'jq'
 brew 'prettyping'
 brew 'ripgrep'
 brew 'rsync'
-brew 'thefuck'
 brew 'tree'
 brew 'wget'
 brew 'yq'
@@ -82,7 +80,6 @@ brew 'ctags'
 brew 'mike-engel/jwt-cli/jwt-cli'
 brew 'shellcheck'
 brew 'shopify/shopify/shopify-cli'
-brew 'pkgxdev/made/pkgx'
 
 # AI tools
 brew 'anomalyco/tap/opencode'

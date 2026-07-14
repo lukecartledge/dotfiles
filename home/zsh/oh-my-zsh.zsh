@@ -1,15 +1,14 @@
-export TERM="xterm-256color"
-
 ZSH_THEME="powerlevel10k/powerlevel10k"
+
+# Skip oh-my-zsh's auto-update check on every startup. Update manually with `omz update`.
+zstyle ':omz:update' mode disabled
 
 plugins=(
   bundler
   colored-man-pages
   direnv
   git
-  github
   gpg-agent
-  node
   rake
   rails
   ruby
