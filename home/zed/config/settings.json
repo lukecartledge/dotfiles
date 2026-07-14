@@ -117,6 +117,21 @@
     }
   },
   "autosave": "on_focus_change",
+  "auto_install_extensions": {
+    "astro": true,
+    "catppuccin": true,
+    "catppuccin-icons": true,
+    "graphql": true,
+    "html": true,
+    "make": true,
+    "mcp-server-context7": true,
+    "mcp-server-github": true,
+    "nvim-nightfox": true,
+    "rainbow-csv": true,
+    "ruby": true,
+    "terraform": true,
+    "toml": true
+  },
   "icon_theme": "Catppuccin Latte",
   "base_keymap": "SublimeText",
   "theme": "Nightfox - opaque",
