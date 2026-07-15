@@ -81,9 +81,11 @@ zle -N down-line-or-beginning-search
 bindkey "^[[A" up-line-or-beginning-search # Up
 bindkey "^[[B" down-line-or-beginning-search # Down
 
-# enables fzf fuzzy searching
+# enables fzf fuzzy searching (keybindings + completion)
 # this needs to be done after zsh is loaded
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+if command -v fzf &> /dev/null; then
+  source <(fzf --zsh)
+fi
 
 # mise (runtime version manager)
 if command -v mise &> /dev/null; then
