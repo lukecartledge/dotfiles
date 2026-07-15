@@ -1,10 +1,12 @@
 [tools]
 bun = "latest"
 node = "22"
+"npm:@shopify/cli" = "latest"
 python = "latest"
 ruby = "latest"
 rust = "latest"
 terraform = "1.5.7"
+"npm:contentful-cli" = "latest"
 
 [settings]
 legacy_version_file = true
