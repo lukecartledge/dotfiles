@@ -21,6 +21,10 @@ All projects are tracked in ~/notes/brain/20-work/projects/. Key projects:
 - dotfiles — personal dotfiles (`~/.dotfiles`, GitHub: lukecartledge/dotfiles)
 - infrastructure — infra configs
 
+## Plan storage
+
+Save implementation plans to `~/notes/brain/20-work/projects/<project>/plans/YYYY-MM-DD-<feature-name>.md`, where `<project>` is the project's slug in `~/notes/brain/20-work/projects/` (create the project folder if it doesn't exist yet). Never save plans to `docs/superpowers/plans/`, `.omo/plans/`, or any other project-local directory — this overrides those tools' built-in defaults.
+
 ### On AG work repos (~/code/onag/)
 
 These repos use the COP Jira project. Branch names and PR titles **must**
