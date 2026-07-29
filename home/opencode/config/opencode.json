@@ -12,7 +12,7 @@
     "context-mode"
   ],
   "autoupdate": true,
-  "model": "github-copilot/claude-opus-4.8",
+  "model": "github-copilot/claude-sonnet-5",
   "small_model": "github-copilot/claude-haiku-4.5",
   "enabled_providers": ["github-copilot"],
   "share": "disabled",
