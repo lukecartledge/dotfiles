@@ -1,8 +1,5 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "skills": {
-    "urls": ["github:onrunning/purchase-team-toolkit"]
-  },
   "mcp": {
     "shopify-dev": { "enabled": false },
     "talon-one": {
