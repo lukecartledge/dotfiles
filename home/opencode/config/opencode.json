@@ -15,6 +15,12 @@
   "model": "github-copilot/claude-sonnet-5",
   "small_model": "github-copilot/claude-haiku-4.5",
   "enabled_providers": ["github-copilot"],
+  "lsp": {
+    "marksman": {
+      "command": ["marksman", "server"],
+      "extensions": [".md", ".markdown"]
+    }
+  },
   "share": "disabled",
   "compaction": {
     "auto": true,
