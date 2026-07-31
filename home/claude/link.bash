@@ -51,3 +51,6 @@ link "$HOME_DIR/claude/commands" "$HOME/.claude/commands"
 # so these files shape behaviour as much as CLAUDE.md does. Previously they lived
 # only in ~/.claude/rules with no version control or backup.
 link "$HOME_DIR/claude/rules" "$HOME/.claude/rules"
+
+# Keybindings
+link "$HOME_DIR/claude/keybindings.json" "$HOME/.claude/keybindings.json"
