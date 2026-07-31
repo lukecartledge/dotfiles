@@ -46,3 +46,8 @@ fi
 # Agents and commands directories
 link "$HOME_DIR/claude/agents" "$HOME/.claude/agents"
 link "$HOME_DIR/claude/commands" "$HOME/.claude/commands"
+
+# Rules directory — Claude Code auto-loads rules/common/*.md into every session,
+# so these files shape behaviour as much as CLAUDE.md does. Previously they lived
+# only in ~/.claude/rules with no version control or backup.
+link "$HOME_DIR/claude/rules" "$HOME/.claude/rules"
