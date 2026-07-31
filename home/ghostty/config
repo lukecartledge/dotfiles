@@ -76,6 +76,15 @@ quit-after-last-window-closed = false
 initial-window = false
 
 quick-terminal-screen = macos-menu-bar
+# NOTE: `global:` hotkeys need Accessibility permission (System Settings →
+# Privacy & Security → Accessibility → enable Ghostty). This is per-machine
+# and does NOT survive a new laptop or major macOS upgrade — re-grant it there.
+# If the hotkey works only when Ghostty is focused, the grant is stale/missing:
+#   1. Remove Ghostty from the Accessibility list, then `killall ghostty`
+#   2. `sudo tccutil reset All com.mitchellh.ghostty`
+#   3. Relaunch Ghostty and approve the prompt.
+# (Ghostty ≤1.3.1 on macOS Tahoe can also silently disable the event tap after
+#  sleep/unlock; a restart restores it until the post-1.3.1 fix ships.)
 keybind = global:ctrl+x=toggle_quick_terminal
 quick-terminal-size = 60%
 quick-terminal-autohide = false
@@ -86,3 +95,11 @@ keybind = super+shift+d=new_split:down
 keybind = super+equal=increase_font_size:1
 keybind = super+minus=decrease_font_size:1
 keybind = super+zero=reset_font_size
+
+# The `global:ctrl+x` Quick Terminal hotkey above consumes ctrl+x system-wide,
+# so no terminal app ever receives it. Claude Code needs a literal ctrl+x to
+# delete a session from its /resume picker (press twice to confirm), and that
+# handler is hardcoded — it has no action in ~/.claude/keybindings.json to
+# remap. Send the raw ctrl+x byte (ASCII 0x18, CAN) instead, which leaves the
+# global hotkey untouched.
+keybind = super+shift+x=text:\x18
