@@ -260,10 +260,34 @@ else
   log_warn "jq not installed — skipping opencode instruction reference check"
 fi
 
-# 7. Symlinks wired by link.bash
+# 7. Rules — Claude Code auto-loads these into every session, so they must be
+#    version-controlled in dotfiles rather than living only in ~/.claude.
+echo
+echo "── Rules ──"
+RULES_DIR="$HOME/.dotfiles/home/claude/rules"
+EXPECTED_RULES=(
+  common/coding-style.md
+  common/git-workflow.md
+  common/testing.md
+  common/performance.md
+  common/patterns.md
+  common/hooks.md
+  common/development-workflow.md
+  common/agents.md
+  common/security.md
+)
+for r in "${EXPECTED_RULES[@]}"; do
+  if [ -f "$RULES_DIR/$r" ]; then
+    log_pass "$r"
+  else
+    log_fail "$r missing from $RULES_DIR"
+  fi
+done
+
+# 8. Symlinks wired by link.bash
 echo
 echo "── Config symlinks ──"
-for target in settings.json agents commands; do
+for target in settings.json agents commands rules keybindings.json; do
   claude_path="$HOME/.claude/$target"
   if [ -L "$claude_path" ]; then
     dest="$(readlink "$claude_path" 2>/dev/null || true)"
