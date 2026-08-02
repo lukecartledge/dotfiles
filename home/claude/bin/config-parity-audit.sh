@@ -426,6 +426,17 @@ else
 
   [ "$DECLARED_PLUGINS" -eq 0 ] && log_warn "no plugins declared in settings.json"
 
+  # Plugins declared false are off on purpose. Report them so an intentional
+  # opt-out stays visible and is not mistaken for one that went missing.
+  while IFS= read -r plug; do
+    [ -n "$plug" ] || continue
+    if [ -f "$INSTALLED_PLUGINS" ] && jq -e --arg p "$plug" '.plugins | has($p)' "$INSTALLED_PLUGINS" >/dev/null 2>&1; then
+      log_pass "plugin: $plug (disabled by default — enable per project when needed)"
+    else
+      log_warn "plugin '$plug' is declared disabled but is not installed — enabling it will require a download"
+    fi
+  done < <(jq -r '(.enabledPlugins // {}) | to_entries[] | select(.value | not) | .key' "$CC_SETTINGS" 2>/dev/null || true)
+
   # Installed but undeclared plugins will not survive a rebuild from dotfiles.
   if [ -f "$INSTALLED_PLUGINS" ]; then
     while IFS= read -r plug; do
