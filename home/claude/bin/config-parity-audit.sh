@@ -1,5 +1,15 @@
 #!/usr/bin/env bash
 # config-parity-audit.sh — detect drift between OpenCode and Claude Code configs
+#
+# Model: "sync what you author, diverge what you consume."
+#
+#   PARITY   — things authored here (custom skills, agents, commands, rules,
+#              instructions, MCP). These must match across both harnesses.
+#   LEGACY   — gathered/ skills copied from upstream. Being retired in favour of
+#              Claude Code plugins; reported for visibility, never a hard fail.
+#   CLAUDE-ONLY — the plugin layer. No OpenCode equivalent exists, so it is
+#              presence-checked against dotfiles settings.json and never
+#              compared against OpenCode.
 set -euo pipefail
 
 PASS=0
@@ -57,7 +67,9 @@ OC_GATHERED_DIR="$HOME/.config/opencode/skills/gathered"
 CC_VAULT_DIR="$HOME/.claude/skills/vault/skills"
 
 # 1. Skill counts + parity by name
-echo "── Skills ──"
+#    custom/ is authored here and must match everywhere. gathered/ is upstream
+#    material on its way out, so it is counted but never failed on.
+echo "── Skills (parity: custom) ──"
 
 mapfile -t VAULT_CUSTOM_NAMES < <(list_skill_names "$VAULT_CUSTOM_DIR" | sort)
 mapfile -t VAULT_GATHERED_NAMES < <(list_skill_names "$VAULT_GATHERED_DIR" | sort)
@@ -73,26 +85,72 @@ CC_TOTAL="${#CC_SKILL_NAMES[@]}"
 
 log_pass "Vault skills: ${VAULT_CUSTOM_COUNT} custom + ${VAULT_GATHERED_COUNT} gathered = ${VAULT_TOTAL}"
 
+# custom/ is the authored surface — strict parity on both harnesses.
+if [ "${#OC_CUSTOM_NAMES[@]}" -eq "$VAULT_CUSTOM_COUNT" ]; then
+  log_pass "OpenCode sees all ${VAULT_CUSTOM_COUNT} custom skills"
+else
+  log_fail "OpenCode sees ${#OC_CUSTOM_NAMES[@]} custom skills (expected ${VAULT_CUSTOM_COUNT})"
+fi
+
+MISSING_CUSTOM_CC=0
+for name in ${VAULT_CUSTOM_NAMES[@]+"${VAULT_CUSTOM_NAMES[@]}"}; do
+  in_list "$name" ${CC_SKILL_NAMES[@]+"${CC_SKILL_NAMES[@]}"} || MISSING_CUSTOM_CC=$((MISSING_CUSTOM_CC + 1))
+done
+if [ "$MISSING_CUSTOM_CC" -eq 0 ]; then
+  log_pass "Claude Code sees all ${VAULT_CUSTOM_COUNT} custom skills"
+else
+  log_fail "Claude Code missing ${MISSING_CUSTOM_CC} custom skill(s)"
+fi
+
 if [ "$CC_TOTAL" -eq "$VAULT_TOTAL" ]; then
-  log_pass "Claude Code sees all ${CC_TOTAL} skills"
+  log_pass "Claude Code link count matches vault (${CC_TOTAL})"
 else
-  log_fail "Claude Code sees ${CC_TOTAL} (expected ${VAULT_TOTAL})"
+  log_fail "Claude Code sees ${CC_TOTAL} skill links (expected ${VAULT_TOTAL}) — re-run link.bash"
 fi
 
-if [ "$OC_TOTAL" -eq "$VAULT_TOTAL" ]; then
-  log_pass "OpenCode sees all ${OC_TOTAL} skills"
-else
-  log_warn "OpenCode sees ${OC_TOTAL} (expected ${VAULT_TOTAL})"
+# gathered/ is upstream material being replaced by plugins. Shrinking is the
+# goal, so report the number without judging it.
+echo
+echo "── Skills (legacy: gathered) ──"
+log_pass "gathered/ holds ${VAULT_GATHERED_COUNT} upstream skill(s) — retire as plugins cover them"
+if [ "${#OC_GATHERED_NAMES[@]}" -ne "$VAULT_GATHERED_COUNT" ]; then
+  log_warn "OpenCode gathered/ count differs (${#OC_GATHERED_NAMES[@]} vs ${VAULT_GATHERED_COUNT}) — expected while diverging"
 fi
 
+# Skill health — a directory is not a skill. Catches empty stubs and skills
+# whose frontmatter name disagrees with the directory Claude Code keys on.
+echo
+echo "── Skill health ──"
+EMPTY_SKILLS=0
+NAME_MISMATCH=0
+for skill_dir in "$VAULT_CUSTOM_DIR"/*/ "$VAULT_GATHERED_DIR"/*/; do
+  [ -d "$skill_dir" ] || continue
+  skill_name="$(basename "$skill_dir")"
+  skill_md="${skill_dir}SKILL.md"
+  if [ ! -s "$skill_md" ]; then
+    log_fail "$skill_name has an empty or missing SKILL.md"
+    EMPTY_SKILLS=$((EMPTY_SKILLS + 1))
+    continue
+  fi
+  fm_name="$(grep -m1 '^name:' "$skill_md" 2>/dev/null | sed 's/^name:[[:space:]]*//' | tr -d '"' || true)"
+  if [ -n "$fm_name" ] && [ "$fm_name" != "$skill_name" ]; then
+    log_warn "$skill_name: frontmatter name is '$fm_name' (harnesses may disagree on the key)"
+    NAME_MISMATCH=$((NAME_MISMATCH + 1))
+  fi
+done
+[ "$EMPTY_SKILLS" -eq 0 ] && log_pass "All skills have a non-empty SKILL.md"
+[ "$NAME_MISMATCH" -eq 0 ] && log_pass "All skill directory names match their frontmatter"
+
+echo
+echo "── Link integrity ──"
 MISSING_FROM_CC=0
-for name in "${VAULT_CUSTOM_NAMES[@]}" "${VAULT_GATHERED_NAMES[@]}"; do
-  in_list "$name" "${CC_SKILL_NAMES[@]}" || MISSING_FROM_CC=$((MISSING_FROM_CC + 1))
+for name in ${VAULT_CUSTOM_NAMES[@]+"${VAULT_CUSTOM_NAMES[@]}"} ${VAULT_GATHERED_NAMES[@]+"${VAULT_GATHERED_NAMES[@]}"}; do
+  in_list "$name" ${CC_SKILL_NAMES[@]+"${CC_SKILL_NAMES[@]}"} || MISSING_FROM_CC=$((MISSING_FROM_CC + 1))
 done
 
 UNEXPECTED_IN_CC=0
-for name in "${CC_SKILL_NAMES[@]}"; do
-  in_list "$name" "${VAULT_CUSTOM_NAMES[@]}" "${VAULT_GATHERED_NAMES[@]}" || UNEXPECTED_IN_CC=$((UNEXPECTED_IN_CC + 1))
+for name in ${CC_SKILL_NAMES[@]+"${CC_SKILL_NAMES[@]}"}; do
+  in_list "$name" ${VAULT_CUSTOM_NAMES[@]+"${VAULT_CUSTOM_NAMES[@]}"} ${VAULT_GATHERED_NAMES[@]+"${VAULT_GATHERED_NAMES[@]}"} || UNEXPECTED_IN_CC=$((UNEXPECTED_IN_CC + 1))
 done
 
 if [ "$MISSING_FROM_CC" -eq 0 ] && [ "$UNEXPECTED_IN_CC" -eq 0 ]; then
@@ -299,6 +357,55 @@ for target in settings.json agents commands rules keybindings.json; do
     log_fail "$HOME/.claude/$target is not a symlink"
   fi
 done
+
+# 9. Plugin layer — Claude Code only. OpenCode has no plugin/marketplace
+#    equivalent, so this is deliberately NOT compared against it. We only assert
+#    that what dotfiles declares is what the machine actually has.
+echo
+echo "── Plugin layer (Claude Code only) ──"
+CC_SETTINGS="$HOME/.dotfiles/home/claude/settings.json"
+INSTALLED_PLUGINS="$HOME/.claude/plugins/installed_plugins.json"
+KNOWN_MARKETPLACES="$HOME/.claude/plugins/known_marketplaces.json"
+
+if ! command -v jq >/dev/null 2>&1; then
+  log_warn "jq not installed — skipping plugin layer check"
+elif [ ! -f "$CC_SETTINGS" ]; then
+  log_fail "settings.json missing: $CC_SETTINGS"
+else
+  # Every marketplace declared in dotfiles must be registered locally.
+  while IFS= read -r mkt; do
+    [ -n "$mkt" ] || continue
+    if [ -f "$KNOWN_MARKETPLACES" ] && jq -e --arg m "$mkt" 'has($m)' "$KNOWN_MARKETPLACES" >/dev/null 2>&1; then
+      log_pass "marketplace: $mkt"
+    else
+      log_fail "marketplace '$mkt' declared in dotfiles but not registered — run: claude plugin marketplace add"
+    fi
+  done < <(jq -r '(.extraKnownMarketplaces // {}) | keys[]' "$CC_SETTINGS" 2>/dev/null || true)
+
+  # Every plugin enabled in dotfiles must actually be installed.
+  DECLARED_PLUGINS=0
+  while IFS= read -r plug; do
+    [ -n "$plug" ] || continue
+    DECLARED_PLUGINS=$((DECLARED_PLUGINS + 1))
+    if [ -f "$INSTALLED_PLUGINS" ] && jq -e --arg p "$plug" '.plugins | has($p)' "$INSTALLED_PLUGINS" >/dev/null 2>&1; then
+      log_pass "plugin: $plug"
+    else
+      log_fail "plugin '$plug' enabled in dotfiles but not installed — run: claude plugin install $plug"
+    fi
+  done < <(jq -r '(.enabledPlugins // {}) | to_entries[] | select(.value) | .key' "$CC_SETTINGS" 2>/dev/null || true)
+
+  [ "$DECLARED_PLUGINS" -eq 0 ] && log_warn "no plugins declared in settings.json"
+
+  # Installed but undeclared plugins will not survive a rebuild from dotfiles.
+  if [ -f "$INSTALLED_PLUGINS" ]; then
+    while IFS= read -r plug; do
+      [ -n "$plug" ] || continue
+      if ! jq -e --arg p "$plug" '(.enabledPlugins // {}) | has($p)' "$CC_SETTINGS" >/dev/null 2>&1; then
+        log_warn "plugin '$plug' installed but not declared in dotfiles — it will not survive a fresh machine"
+      fi
+    done < <(jq -r '.plugins | keys[]' "$INSTALLED_PLUGINS" 2>/dev/null || true)
+  fi
+fi
 
 echo
 echo "══════════════════════════════════════"

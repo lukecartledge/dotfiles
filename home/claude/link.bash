@@ -29,6 +29,19 @@ for skill_dir in "$HOME/notes/brain/40-skills/custom"/*/ \
   link "${skill_dir%/}" "$PLUGIN_DIR/skills/$skill_name"
 done
 
+# Prune links whose vault skill has been retired. Without this, deleting a skill
+# from the vault leaves a dangling symlink that Claude Code still enumerates.
+for existing in "$PLUGIN_DIR/skills"/*; do
+  [[ -L "$existing" ]] || continue
+  [[ -e "$existing" ]] && continue
+  if [[ $dry == "1" ]]; then
+    log "Would prune stale skill link: $(basename "$existing")"
+  else
+    rm "$existing"
+    info "Pruned stale skill link: $(basename "$existing")"
+  fi
+done
+
 # Link the adapted CLAUDE.md (Claude Code reads this at session start)
 link "$HOME_DIR/claude/CLAUDE.md" "$HOME/.claude/CLAUDE.md"
 
