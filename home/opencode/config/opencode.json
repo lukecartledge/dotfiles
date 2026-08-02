@@ -12,9 +12,15 @@
     "context-mode"
   ],
   "autoupdate": true,
-  "model": "github-copilot/claude-opus-4.8",
+  "model": "github-copilot/claude-sonnet-5",
   "small_model": "github-copilot/claude-haiku-4.5",
   "enabled_providers": ["github-copilot"],
+  "lsp": {
+    "marksman": {
+      "command": ["marksman", "server"],
+      "extensions": [".md", ".markdown"]
+    }
+  },
   "share": "disabled",
   "compaction": {
     "auto": true,
@@ -169,30 +175,6 @@
         "bash": true
       }
     },
-    "go-reviewer": {
-      "description": "Expert Go code reviewer specializing in idiomatic Go, concurrency patterns, error handling, and performance.",
-      "mode": "subagent",
-      "model": "github-copilot/claude-opus-4.8",
-      "prompt": "{file:prompts/agents/go-reviewer.txt}",
-      "tools": {
-        "read": true,
-        "bash": true,
-        "write": false,
-        "edit": false
-      }
-    },
-    "go-build-resolver": {
-      "description": "Go build, vet, and compilation error resolution specialist. Fixes Go build errors with minimal changes.",
-      "mode": "subagent",
-      "model": "github-copilot/claude-opus-4.8",
-      "prompt": "{file:prompts/agents/go-build-resolver.txt}",
-      "tools": {
-        "read": true,
-        "write": true,
-        "edit": true,
-        "bash": true
-      }
-    },
     "database-reviewer": {
       "description": "PostgreSQL database specialist for query optimization, schema design, security, and performance. Incorporates Supabase best practices.",
       "mode": "subagent",
@@ -310,7 +292,6 @@
     "go-review": {
       "description": "Go code review",
       "template": "{file:commands/go-review.md}\n\n$ARGUMENTS",
-      "agent": "go-reviewer",
       "subtask": true
     },
     "go-test": {
@@ -322,7 +303,6 @@
     "go-build": {
       "description": "Fix Go build errors",
       "template": "{file:commands/go-build.md}\n\n$ARGUMENTS",
-      "agent": "go-build-resolver",
       "subtask": true
     },
     "skill-create": {

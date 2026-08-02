@@ -2,15 +2,15 @@
   "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-openagent/master/assets/oh-my-opencode.schema.json",
   "agents": {
     "sisyphus": {
-      "model": "github-copilot/claude-opus-4.8",
+      "model": "github-copilot/claude-sonnet-5",
       "variant": "high"
     },
     "hephaestus": {
-      "model": "github-copilot/gpt-5.3-codex",
+      "model": "github-copilot/gpt-5.4",
       "variant": "medium"
     },
     "oracle": {
-      "model": "github-copilot/gpt-5.6-terra",
+      "model": "github-copilot/claude-sonnet-5",
       "variant": "high"
     },
     "librarian": {
@@ -23,15 +23,15 @@
       "model": "github-copilot/claude-sonnet-5"
     },
     "prometheus": {
-      "model": "github-copilot/claude-opus-4.8",
+      "model": "github-copilot/claude-sonnet-5",
       "variant": "high"
     },
     "metis": {
-      "model": "github-copilot/claude-opus-4.8",
+      "model": "github-copilot/claude-sonnet-5",
       "variant": "high"
     },
     "momus": {
-      "model": "github-copilot/gpt-5.6-terra",
+      "model": "github-copilot/claude-sonnet-5",
       "variant": "medium"
     },
     "atlas": {
@@ -43,19 +43,19 @@
   },
   "categories": {
     "visual-engineering": {
-      "model": "github-copilot/claude-opus-4.8",
+      "model": "github-copilot/claude-sonnet-5",
       "variant": "high"
     },
     "ultrabrain": {
-      "model": "github-copilot/gpt-5.3-codex",
+      "model": "github-copilot/gpt-5.4",
       "variant": "xhigh"
     },
     "deep": {
-      "model": "github-copilot/gpt-5.3-codex",
+      "model": "github-copilot/gpt-5.4",
       "variant": "high"
     },
     "artistry": {
-      "model": "github-copilot/claude-opus-4.8",
+      "model": "github-copilot/claude-sonnet-5",
       "variant": "high"
     },
     "quick": {

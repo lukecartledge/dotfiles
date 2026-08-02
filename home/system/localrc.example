@@ -38,6 +38,14 @@ export NEWRELIC_API_KEY=""
 export CONTENTFUL_SPACE_ID=""
 export CONTENTFUL_MANAGEMENT_TOKEN=""
 
+# === Talon.One MCP ===================================================
+# MCP connection API key (closed beta, distinct from the migration repo's
+# TALONONE_MANAGEMENT_API_KEY — this one is created under Account > Tools
+# > MCP Connections in the Campaign Manager and can't be viewed again).
+# Used by: opencode `talon-one` MCP.
+# 1Password item: "Talon.One MCP API Key (onag)"
+export TALONONE_MCP_API_KEY=""
+
 # === Mealie ==========================================================
 # Self-hosted recipe manager — personal-only.
 # Used by: opencode mealie skill (~/.config/opencode/skills/custom/

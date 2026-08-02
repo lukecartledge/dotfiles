@@ -1,9 +1,22 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "skills": {
-    "urls": ["github:onrunning/purchase-team-toolkit"]
-  },
   "mcp": {
-    "shopify-dev": { "enabled": false }
+    "shopify-dev": { "enabled": false },
+    "talon-one": {
+      "type": "local",
+      "command": [
+        "npx",
+        "mcp-remote",
+        "https://onag.us-east4.talon.one/v1/mcp/entrypoint",
+        "--header",
+        "Authorization: Bearer ${MCP_AUTH_TOKEN}"
+      ],
+      "environment": {
+        "PATH": "{env:PATH}",
+        "MCP_AUTH_TOKEN": "{env:TALONONE_MCP_API_KEY}"
+      },
+      "enabled": false,
+      "timeout": 30000
+    }
   }
 }
