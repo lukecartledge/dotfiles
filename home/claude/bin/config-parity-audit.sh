@@ -233,24 +233,54 @@ echo "── Domain agents ──"
 EXPECTED_AGENTS=(
   planner
   architect
+  code-reviewer
   security-reviewer
   tdd-guide
   build-error-resolver
   e2e-runner
   doc-updater
   refactor-cleaner
-  go-reviewer
-  go-build-resolver
   database-reviewer
 )
 
+CC_AGENTS_DIR="$HOME/.dotfiles/home/claude/agents"
+OC_CONFIG="$HOME/.dotfiles/home/opencode/config/opencode.json"
+
+# Agents are an authored surface, so both harnesses must carry the same set.
+# Checking only one side lets a removal on the other pass silently.
 for a in "${EXPECTED_AGENTS[@]}"; do
-  if [ -f "$HOME/.dotfiles/home/claude/agents/$a.md" ]; then
-    log_pass "$a"
+  in_cc=0; in_oc=0
+  [ -f "$CC_AGENTS_DIR/$a.md" ] && in_cc=1
+  if command -v jq >/dev/null 2>&1 && [ -f "$OC_CONFIG" ]; then
+    jq -e --arg a "$a" '(.agent // {}) | has($a)' "$OC_CONFIG" >/dev/null 2>&1 && in_oc=1
   else
-    log_fail "$a missing from $HOME/.dotfiles/home/claude/agents/"
+    in_oc=1  # cannot verify without jq — do not report a false mismatch
+  fi
+
+  if [ "$in_cc" -eq 1 ] && [ "$in_oc" -eq 1 ]; then
+    log_pass "$a"
+  elif [ "$in_cc" -eq 1 ]; then
+    log_fail "$a in Claude Code but missing from opencode.json"
+  elif [ "$in_oc" -eq 1 ]; then
+    log_fail "$a in opencode.json but missing from $CC_AGENTS_DIR"
+  else
+    log_fail "$a missing from both harnesses — drop it from EXPECTED_AGENTS"
   fi
 done
+
+# Agents defined in either harness but absent from EXPECTED_AGENTS are drift:
+# they were added or removed without the parity contract being updated.
+for f in "$CC_AGENTS_DIR"/*.md; do
+  [ -f "$f" ] || continue
+  a="$(basename "$f" .md)"
+  in_list "$a" "${EXPECTED_AGENTS[@]}" || log_warn "$a present in Claude Code but not tracked in EXPECTED_AGENTS"
+done
+if command -v jq >/dev/null 2>&1 && [ -f "$OC_CONFIG" ]; then
+  while IFS= read -r a; do
+    [ -n "$a" ] || continue
+    in_list "$a" "${EXPECTED_AGENTS[@]}" || log_warn "$a present in OpenCode but not tracked in EXPECTED_AGENTS"
+  done < <(jq -r '(.agent // {}) | keys[]' "$OC_CONFIG" 2>/dev/null || true)
+fi
 
 # 4. Commands — key ported commands present, SKIP list absent
 echo
