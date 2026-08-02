@@ -1,6 +1,5 @@
 ---
 description: Fix Go build and vet errors
-agent: go-build-resolver
 subtask: true
 ---
 
