@@ -13,7 +13,7 @@
   ],
   "autoupdate": true,
   "model": "github-copilot/claude-sonnet-5",
-  "small_model": "github-copilot/claude-haiku-4.5",
+  "small_model": "github-copilot/gpt-5.6-luna",
   "enabled_providers": ["github-copilot"],
   "lsp": {
     "marksman": {
@@ -94,7 +94,7 @@
     "code-reviewer": {
       "description": "Expert code review specialist. Reviews code for quality, security, and maintainability. Use immediately after writing or modifying code.",
       "mode": "subagent",
-      "model": "github-copilot/claude-opus-4.8",
+      "model": "github-copilot/claude-sonnet-5",
       "prompt": "{file:prompts/agents/code-reviewer.txt}",
       "tools": {
         "read": true,
@@ -118,7 +118,7 @@
     "tdd-guide": {
       "description": "Test-Driven Development specialist enforcing write-tests-first methodology. Use when writing new features, fixing bugs, or refactoring code. Ensures 80%+ test coverage.",
       "mode": "subagent",
-      "model": "github-copilot/claude-opus-4.8",
+      "model": "github-copilot/claude-sonnet-5",
       "prompt": "{file:prompts/agents/tdd-guide.txt}",
       "tools": {
         "read": true,
@@ -130,7 +130,7 @@
     "build-error-resolver": {
       "description": "Build and TypeScript error resolution specialist. Use when build fails or type errors occur. Fixes build/type errors only with minimal diffs.",
       "mode": "subagent",
-      "model": "github-copilot/claude-opus-4.8",
+      "model": "github-copilot/claude-sonnet-5",
       "prompt": "{file:prompts/agents/build-error-resolver.txt}",
       "tools": {
         "read": true,
@@ -142,7 +142,7 @@
     "e2e-runner": {
       "description": "End-to-end testing specialist using Playwright. Generates, maintains, and runs E2E tests for critical user flows.",
       "mode": "subagent",
-      "model": "github-copilot/claude-opus-4.8",
+      "model": "github-copilot/claude-sonnet-5",
       "prompt": "{file:prompts/agents/e2e-runner.txt}",
       "tools": {
         "read": true,
@@ -154,7 +154,7 @@
     "doc-updater": {
       "description": "Documentation and codemap specialist. Use for updating codemaps and documentation.",
       "mode": "subagent",
-      "model": "github-copilot/claude-opus-4.8",
+      "model": "github-copilot/claude-sonnet-5",
       "prompt": "{file:prompts/agents/doc-updater.txt}",
       "tools": {
         "read": true,
@@ -166,7 +166,7 @@
     "refactor-cleaner": {
       "description": "Dead code cleanup and consolidation specialist. Use for removing unused code, duplicates, and refactoring.",
       "mode": "subagent",
-      "model": "github-copilot/claude-opus-4.8",
+      "model": "github-copilot/claude-sonnet-5",
       "prompt": "{file:prompts/agents/refactor-cleaner.txt}",
       "tools": {
         "read": true,
@@ -178,7 +178,7 @@
     "database-reviewer": {
       "description": "PostgreSQL database specialist for query optimization, schema design, security, and performance. Incorporates Supabase best practices.",
       "mode": "subagent",
-      "model": "github-copilot/claude-opus-4.8",
+      "model": "github-copilot/claude-sonnet-5",
       "prompt": "{file:prompts/agents/database-reviewer.txt}",
       "tools": {
         "read": true,

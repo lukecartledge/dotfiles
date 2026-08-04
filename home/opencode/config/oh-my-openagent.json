@@ -17,7 +17,7 @@
       "model": "github-copilot/claude-sonnet-5"
     },
     "explore": {
-      "model": "github-copilot/claude-haiku-4.5"
+      "model": "github-copilot/gpt-5.6-luna"
     },
     "multimodal-looker": {
       "model": "github-copilot/claude-sonnet-5"
@@ -59,10 +59,10 @@
       "variant": "high"
     },
     "quick": {
-      "model": "github-copilot/claude-haiku-4.5"
+      "model": "github-copilot/gpt-5.6-luna"
     },
     "unspecified-low": {
-      "model": "github-copilot/claude-haiku-4.5"
+      "model": "github-copilot/gpt-5.6-luna"
     },
     "unspecified-high": {
       "model": "github-copilot/claude-sonnet-5"
