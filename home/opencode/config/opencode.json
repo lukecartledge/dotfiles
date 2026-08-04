@@ -396,10 +396,6 @@
       "type": "remote",
       "url": "https://mcp.incident.io/mcp"
     },
-    "context-mode": {
-      "type": "local",
-      "command": ["context-mode"]
-    },
     "cloudflare": {
       "type": "remote",
       "url": "https://mcp.cloudflare.com/mcp",
