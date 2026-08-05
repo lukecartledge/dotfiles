@@ -14,16 +14,35 @@ All configuration and knowledge lives in two managed locations:
 
 ## Projects
 
-All projects are tracked in ~/notes/brain/20-work/projects/. Key projects:
-- lukecartledge-website — personal portfolio site
+Projects live in two roots, identical in structure and frontmatter:
+
+- **Work** — `~/notes/brain/20-work/projects/<name>/`
+- **Personal** — `~/notes/brain/10-personal/projects/<name>/`
+
+Choose by **ownership, not subject matter**: work means it has a Jira project, a COP
+ticket prefix, or an On-owned repo. Everything else is personal — including a homelab
+project that happens to host a work tool.
+
+Key work projects:
 - dtc-platform — DTC platform work
 - shopify-apps — Shopify app development
-- dotfiles — personal dotfiles (`~/.dotfiles`, GitHub: lukecartledge/dotfiles)
 - infrastructure — infra configs
+- solidus, talon-one — commerce platform and promotions
+
+Key personal projects:
+- lukecartledge-website — personal portfolio site
+- homelab-truenas — homelab / TrueNAS
+- dotfiles — personal dotfiles (`~/.dotfiles`, GitHub: lukecartledge/dotfiles)
 
 ## Plan storage
 
-Save implementation plans to `~/notes/brain/20-work/projects/<project>/plans/YYYY-MM-DD-<feature-name>.md`, where `<project>` is the project's slug in `~/notes/brain/20-work/projects/` (create the project folder if it doesn't exist yet). Never save plans to `docs/superpowers/plans/`, `.omo/plans/`, or any other project-local directory — this overrides those tools' built-in defaults.
+Save implementation plans to `<project-root>/<project>/plans/YYYY-MM-DD-<feature-name>.md`,
+where `<project-root>` is `~/notes/brain/20-work/projects` for work projects or
+`~/notes/brain/10-personal/projects` for personal ones, and `<project>` is the project's
+slug (create the project folder if it doesn't exist yet). If the project already exists,
+use whichever root it currently sits in — never move it just to save a plan. Never save
+plans to `docs/superpowers/plans/`, `.omo/plans/`, or any other project-local directory —
+this overrides those tools' built-in defaults.
 
 ### On AG work repos (~/code/onag/)
 
