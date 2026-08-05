@@ -14,6 +14,7 @@ Run:
 
 ```bash
 ls ~/notes/brain/20-work/projects/
+ls ~/notes/brain/10-personal/projects/
 ```
 
 For each project directory found, read the project note (`<name>/<name>.md`) and display:
@@ -40,8 +41,8 @@ Archived/Inactive:
 
 ## Vault Location
 
-Projects live at: `~/notes/brain/20-work/projects/`
+Projects live at: `~/notes/brain/20-work/projects/` (work) and `~/notes/brain/10-personal/projects/` (personal)
 
-Each project has a note at: `~/notes/brain/20-work/projects/<name>/<name>.md`
+Each project has a note at: `<root>/<name>/<name>.md`, where `<root>` is whichever of the two roots it sits in
 
 To create a new project, use `/new-project <name>`.
