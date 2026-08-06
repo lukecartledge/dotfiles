@@ -4,8 +4,15 @@ The project name is: $ARGUMENTS
 
 ## Step 1: Create the Obsidian project note
 
-1. Create the folder `~/notes/brain/20-work/projects/$ARGUMENTS/`
-2. Create `~/notes/brain/20-work/projects/$ARGUMENTS/$ARGUMENTS.md` with this frontmatter:
+0. **Decide the root.** Projects live in two roots:
+   - Work — `~/notes/brain/20-work/projects/` (has a Jira project, a COP ticket prefix, or an On-owned repo)
+   - Personal — `~/notes/brain/10-personal/projects/` (everything else)
+
+   Choose by **ownership, not subject matter**. If it is genuinely unclear, ask rather
+   than guessing — a misfiled project is tedious to unpick later. Call the chosen root
+   `<root>` below.
+1. Create the folder `<root>/$ARGUMENTS/`
+2. Create `<root>/$ARGUMENTS/$ARGUMENTS.md` with this frontmatter:
 
 ```yaml
 ---
@@ -15,7 +22,7 @@ created: {{date}}
 status: active
 tags: []
 github-repo:
-jira-project:
+jira-project:   # leave empty for personal projects; keep the key
 related-skills: []
 related-knowledge: []
 opencode-agents-md: false

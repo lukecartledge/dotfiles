@@ -28,7 +28,7 @@ Gathered skills: `~/notes/brain/40-skills/gathered/` (symlinked into Claude via 
 - `/user:tdd` — enforce TDD workflow with 80%+ coverage
 - `/user:verify` — run verification loop to validate implementation
 - `/user:new-skill` — scaffold a new skill in the Obsidian vault
-- `/user:new-project` — create a new project in the Obsidian vault at ~/notes/brain/20-work/projects/ with optional per-repo config
+- `/user:new-project` — create a new project in the Obsidian vault, under 20-work/projects/ (work) or 10-personal/projects/ (personal), with optional per-repo config
 - `/user:save-session` — save session summary to the Obsidian vault
 - `/user:save-prompt` — save a reusable prompt to the Obsidian vault
 

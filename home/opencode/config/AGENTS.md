@@ -21,12 +21,24 @@ All configuration and knowledge lives in two managed locations:
 
 ## Projects
 
-All projects are tracked in ~/notes/brain/20-work/projects/. Key projects:
-- lukecartledge-website — personal portfolio site
+Projects live in two roots, identical in structure and frontmatter:
+
+- **Work** — `~/notes/brain/20-work/projects/<name>/`
+- **Personal** — `~/notes/brain/10-personal/projects/<name>/`
+
+Choose by **ownership, not subject matter**: work means it has a Jira project, a COP
+ticket prefix, or an On-owned repo. Everything else is personal.
+
+Key work projects:
 - dtc-platform — DTC platform work
 - shopify-apps — Shopify app development
-- dotfiles — personal dotfiles (`~/.dotfiles`, GitHub: lukecartledge/dotfiles)
 - infrastructure — infra configs
+- solidus, talon-one — commerce platform and promotions
+
+Key personal projects:
+- lukecartledge-website — personal portfolio site
+- homelab-truenas — homelab / TrueNAS
+- dotfiles — personal dotfiles (`~/.dotfiles`, GitHub: lukecartledge/dotfiles)
 
 ### On AG work repos (~/code/onag/)
 
@@ -139,7 +151,7 @@ If any answer is **no**, split the commit.
 - /user:tdd — enforce TDD workflow with 80%+ coverage
 - /user:verify — run verification loop to validate implementation
 - /user:new-skill — scaffold a new skill in the Obsidian vault
-- /user:new-project — create a new project in the Obsidian vault at ~/notes/brain/20-work/projects/ with optional per-repo OpenCode config
+- /user:new-project — create a new project in the Obsidian vault, under 20-work/projects/ (work) or 10-personal/projects/ (personal), with optional per-repo OpenCode config
 - /user:save-session — save session summary to the Obsidian vault
 - /user:save-prompt — save a reusable prompt to the Obsidian vault
 
