@@ -15,7 +15,7 @@
         "PATH": "{env:PATH}",
         "MCP_AUTH_TOKEN": "{env:TALONONE_MCP_API_KEY}"
       },
-      "enabled": false,
+      "enabled": true,
       "timeout": 30000
     }
   }
