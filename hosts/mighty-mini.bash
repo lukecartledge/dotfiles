@@ -30,6 +30,7 @@ export PACKAGES=(
   tmux
   iterm2
   ghostty
+  swiftbar-package
 
   # Languages & Tools
   mise
