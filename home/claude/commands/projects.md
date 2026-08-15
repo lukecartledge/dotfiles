@@ -14,10 +14,14 @@ Run:
 
 ```bash
 ls ~/notes/brain/20-work/projects/
-ls ~/notes/brain/10-personal/projects/
+grep -rl --include='*.md' '^type: project' ~/notes/brain/10-personal/
 ```
 
-For each project directory found, read the project note (`<name>/<name>.md`) and display:
+Work projects are one flat root, so `ls` is enough. Personal projects are filed by area
+and may be a bare note rather than a folder, so match on frontmatter instead.
+
+For each project found, read the project note (`<name>/<name>.md`, or the bare note
+itself) and display:
 - Project name
 - Status (from frontmatter)
 - GitHub repo (if set)
@@ -41,8 +45,10 @@ Archived/Inactive:
 
 ## Vault Location
 
-Projects live at: `~/notes/brain/20-work/projects/` (work) and `~/notes/brain/10-personal/projects/` (personal)
+Projects live at: `~/notes/brain/20-work/projects/` (work) and `~/notes/brain/10-personal/<area>/` (personal)
 
-Each project has a note at: `<root>/<name>/<name>.md`, where `<root>` is whichever of the two roots it sits in
+Work projects have a note at `20-work/projects/<name>/<name>.md`. Personal projects sit
+under their area — either `10-personal/<area>/<name>/<name>.md` or, when there are no
+supporting files, a bare `10-personal/<area>/<name>.md`
 
 To create a new project, use `/new-project <name>`.
