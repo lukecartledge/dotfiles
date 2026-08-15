@@ -9,6 +9,7 @@ Personal dotfiles for macOS development environment. Originally forked from [@ho
 - **`~/.config` support** - Sync XDG-compliant app configs (Zed, etc.)
 - **Dry-run mode** - Preview changes before applying
 - **Automatic backups** - Existing files are backed up before replacing
+- **SwiftBar plugins** - Private standalone SwiftBar plugins can be installed and linked per host
 
 ## Quick Start
 
