@@ -29,5 +29,6 @@
         "repo": "pbakaus/impeccable"
       }
     }
-  }
+  },
+  "agentPushNotifEnabled": true
 }
