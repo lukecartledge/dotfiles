@@ -14,14 +14,18 @@ All configuration and knowledge lives in two managed locations:
 
 ## Projects
 
-Projects live in two roots, identical in structure and frontmatter:
+Projects use the same structure and frontmatter everywhere, but are filed differently
+by ownership:
 
-- **Work** — `~/notes/brain/20-work/projects/<name>/`
-- **Personal** — `~/notes/brain/10-personal/projects/<name>/`
+- **Work** — `~/notes/brain/20-work/projects/<name>/` (one flat root)
+- **Personal** — `~/notes/brain/10-personal/<area>/<name>/` (filed under its area)
 
 Choose by **ownership, not subject matter**: work means it has a Jira project, a COP
 ticket prefix, or an On-owned repo. Everything else is personal — including a homelab
 project that happens to host a work tool.
+
+There is no `projects/` folder under `10-personal` — the area is the grouping. Personal
+areas: `photography`, `web`, `homelab`, `finance`, `tooling`, `3d-printing`, `home`.
 
 Key work projects:
 - dtc-platform — DTC platform work
@@ -30,17 +34,22 @@ Key work projects:
 - solidus, talon-one — commerce platform and promotions
 
 Key personal projects:
-- lukecartledge-website — personal portfolio site
-- homelab-truenas — homelab / TrueNAS
-- dotfiles — personal dotfiles (`~/.dotfiles`, GitHub: lukecartledge/dotfiles)
+- photography/lukecartledge-website — personal portfolio site
+- photography/portfolio-tools — photo metadata CLI feeding the portfolio
+- web/aurora-career-coaching — brochure site
+- homelab/ — TrueNAS home server and its plans
+- finance/llm-trading, finance/investing — investing work
+- tooling/dotfiles — personal dotfiles (`~/.dotfiles`, GitHub: lukecartledge/dotfiles)
+- tooling/brain-vault — the Obsidian vault itself (`~/notes/brain`)
+- tooling/obsidian-vault-starter — the published bundle for colleagues
 
 ## Plan storage
 
 Save implementation plans to `<project-root>/<project>/plans/YYYY-MM-DD-<feature-name>.md`,
 where `<project-root>` is `~/notes/brain/20-work/projects` for work projects or
-`~/notes/brain/10-personal/projects` for personal ones, and `<project>` is the project's
+`~/notes/brain/10-personal/<area>` for personal ones, and `<project>` is the project's
 slug (create the project folder if it doesn't exist yet). If the project already exists,
-use whichever root it currently sits in — never move it just to save a plan. Never save
+use whichever root and area it currently sits in — never move it just to save a plan. Never save
 plans to `docs/superpowers/plans/`, `.omo/plans/`, or any other project-local directory —
 this overrides those tools' built-in defaults.
 

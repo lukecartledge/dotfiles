@@ -6,7 +6,7 @@ The project name is: $ARGUMENTS
 
 0. **Decide the root.** Projects live in two roots:
    - Work — `~/notes/brain/20-work/projects/` (has a Jira project, a COP ticket prefix, or an On-owned repo)
-   - Personal — `~/notes/brain/10-personal/projects/` (everything else)
+   - Personal — `~/notes/brain/10-personal/<area>/` (everything else; area = photography, web, homelab, finance, tooling, 3d-printing, home)
 
    Choose by **ownership, not subject matter**. If it is genuinely unclear, ask rather
    than guessing — a misfiled project is tedious to unpick later. Call the chosen root

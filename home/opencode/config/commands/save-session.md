@@ -5,7 +5,7 @@ The session topic is: $ARGUMENTS
 ## Step 1: Determine the project name
 
 - Check the current working directory for a git remote. Extract the repo name (e.g. `onrunning/shopify-promotion-extensions` → `shopify-promotion-extensions`).
-- Check if a project note exists at `~/notes/brain/20-work/projects/<repo-name>/` or `~/notes/brain/10-personal/projects/<repo-name>/`. If it does, use that as the project name. Check both roots — personal projects live in the second.
+- Check if a project note exists at `~/notes/brain/20-work/projects/<repo-name>/` or `~/notes/brain/10-personal/<area>/<repo-name>/`. If it does, use that as the project name. Check both roots — personal projects are filed one level deep under their area.
 - If no git remote or no matching project note, ask the user for the project name.
 
 ## Step 2: Determine the model
