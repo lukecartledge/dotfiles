@@ -25,7 +25,7 @@ ticket prefix, or an On-owned repo. Everything else is personal — including a 
 project that happens to host a work tool.
 
 There is no `projects/` folder under `10-personal` — the area is the grouping. Personal
-areas: `photography`, `web`, `homelab`, `finance`, `3d-printing`, `home`.
+areas: `photography`, `web`, `homelab`, `finance`, `tooling`, `3d-printing`, `home`.
 
 Key work projects:
 - dtc-platform — DTC platform work
@@ -39,7 +39,9 @@ Key personal projects:
 - web/aurora-career-coaching — brochure site
 - homelab/ — TrueNAS home server and its plans
 - finance/llm-trading, finance/investing — investing work
-- dotfiles — personal dotfiles (`~/.dotfiles`, GitHub: lukecartledge/dotfiles)
+- tooling/dotfiles — personal dotfiles (`~/.dotfiles`, GitHub: lukecartledge/dotfiles)
+- tooling/brain-vault — the Obsidian vault itself (`~/notes/brain`)
+- tooling/obsidian-vault-starter — the published bundle for colleagues
 
 ## Plan storage
 

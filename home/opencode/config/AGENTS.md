@@ -31,7 +31,7 @@ Choose by **ownership, not subject matter**: work means it has a Jira project, a
 ticket prefix, or an On-owned repo. Everything else is personal.
 
 There is no `projects/` folder under `10-personal` — the area is the grouping. Personal
-areas: `photography`, `web`, `homelab`, `finance`, `3d-printing`, `home`.
+areas: `photography`, `web`, `homelab`, `finance`, `tooling`, `3d-printing`, `home`.
 
 Key work projects:
 - dtc-platform — DTC platform work
@@ -40,9 +40,10 @@ Key work projects:
 - solidus, talon-one — commerce platform and promotions
 
 Key personal projects:
-- lukecartledge-website — personal portfolio site
-- homelab-truenas — homelab / TrueNAS
-- dotfiles — personal dotfiles (`~/.dotfiles`, GitHub: lukecartledge/dotfiles)
+- photography/lukecartledge-website — personal portfolio site
+- homelab/ — TrueNAS home server and its plans
+- tooling/dotfiles — personal dotfiles (`~/.dotfiles`, GitHub: lukecartledge/dotfiles)
+- tooling/brain-vault — the Obsidian vault itself (`~/notes/brain`)
 
 ### On AG work repos (~/code/onag/)
 
