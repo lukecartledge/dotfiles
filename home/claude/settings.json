@@ -29,5 +29,10 @@
         "repo": "pbakaus/impeccable"
       }
     }
+  },
+  "agentPushNotifEnabled": true,
+  "statusLine": {
+    "type": "command",
+    "command": "~/.dotfiles/home/claude/bin/statusline.sh"
   }
 }

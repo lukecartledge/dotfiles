@@ -28,3 +28,6 @@ export HOMEBREW_NO_INSTALL_UPGRADE=1
 if [[ -d "$HOME/.local/bin" ]]; then
   export PATH="$PATH:$HOME/.local/bin"
 fi
+
+# Added by Obsidian
+export PATH="$PATH:/Applications/Obsidian.app/Contents/MacOS"
