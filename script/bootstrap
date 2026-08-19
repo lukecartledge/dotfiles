@@ -277,6 +277,18 @@ install_brew_packages () {
   info "Installing Homebrew packages from Brewfile..."
   brew bundle --file="$DOTFILES_ROOT/Brewfile"
   success "Homebrew packages installed"
+
+  # Packages that belong to one machine only (personal-machine tooling, work-only
+  # agents) live in an optional per-host Brewfile alongside hosts/<host>.bash.
+  local hostname
+  hostname=$("$DOTFILES_ROOT/bin/host")
+  local host_brewfile="$DOTFILES_ROOT/hosts/$hostname.Brewfile"
+
+  [[ -f "$host_brewfile" ]] || return 0
+
+  info "Installing host packages for $hostname..."
+  brew bundle --file="$host_brewfile"
+  success "Host packages installed"
 }
 
 # Check for host configuration
