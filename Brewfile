@@ -46,7 +46,7 @@ brew 'pipx'
 brew 'pnpm'
 brew 'ruby-build'
 brew 'yarn'
-brew 'bun'
+brew 'oven-sh/bun/bun'
 
 # Cloud & infrastructure
 brew 'awscli'
