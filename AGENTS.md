@@ -176,6 +176,10 @@ link "$source" "$destination"
 
 ## Important Constraints & Gotchas
 
+### Commit Attribution
+
+- Never add agent identity comments, `Sisyphus`/`Ultraworked` attribution, or `Co-authored-by` trailers to commits unless explicitly requested by the user.
+
 ### Zsh File Loading Order
 
 Files load in this order (managed by `home/zsh/zshrc`):
