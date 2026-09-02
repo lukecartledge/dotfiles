@@ -1,0 +1,111 @@
+# tmuxship — tmux status bar rendered by starship.
+#
+# Rounded-pill styling in Catppuccin Mocha. Shares the palette with the zsh
+# prompt in home/starship/starship.toml without copying its shape: the prompt is
+# one continuous powerline run, this is discrete capsules with gaps.
+#
+# Linked to ~/.config/tmux/tmuxship.toml by home/tmux/link.bash and pointed at by
+# TMUX_SHIP_CONFIG in tmux.conf. Needs tmuxship from git master — the unified
+# [left]/[center]/[right] layout below is not in the released 0.1.3 crate.
+#
+# Every cap sets bg=default explicitly. In tmux `default` is the terminal's own
+# background, not the bar's — so the pills float on the terminal colour and
+# there is no band of a third, almost-matching dark behind them. tmux.conf
+# leaves status-style bg=default to match.
+#
+# Caps are U+E0B6/U+E0B4 and the icons are Nerd Font glyphs. The terminal font
+# does NOT need to be a Nerd Font — Ghostty falls back per glyph, so Operator
+# Mono keeps rendering all the text and italics and only these few symbols come
+# from the Nerd Font the Brewfile installs (font-fira-code-nerd-font).
+#
+# Every side lists its modules explicitly rather than using a bare "$custom",
+# which renders alphabetically.
+#
+# Preview without touching a live server:  tmuxship full
+
+name = "Catppuccin Mocha Pills"
+window_separator = " "
+
+# --- Left: session ----------------------------------------------------------
+[left]
+"$schema" = 'https://starship.rs/config-schema.json'
+format = "${custom.prefix_active}${custom.session_normal}"
+add_newline = false
+
+# Prefix held: red, so the modal state is impossible to miss.
+[left.custom.prefix_active]
+shell = "bash"
+when = 'test "${TMUX_CLIENT_PREFIX:-0}" = "1"'
+command = 'printf "#[bg=default,fg=#f38ba8]#[bg=#f38ba8,fg=#11111b,bold]󰌾 %s#[bg=default,fg=#f38ba8]" "${TMUX_SESSION_NAME:-tmux}"'
+format = "$output "
+
+[left.custom.session_normal]
+shell = "bash"
+when = 'test "${TMUX_CLIENT_PREFIX:-0}" != "1"'
+command = 'printf "#[bg=default,fg=#cba6f7]#[bg=#cba6f7,fg=#11111b,bold]󰪝 %s#[bg=default,fg=#cba6f7]" "${TMUX_SESSION_NAME:-tmux}"'
+format = "$output "
+
+# --- Center: window list ----------------------------------------------------
+[center]
+format = "${custom.window_active}${custom.window_inactive}${custom.window_zoom}"
+add_newline = false
+
+# Active: two-tone capsule — peach index, then the name on surface1.
+[center.custom.window_active]
+when = 'test "${TMUX_WINDOW_ACTIVE:-0}" = "1"'
+command = 'printf "#[bg=default,fg=#fab387]#[bg=#fab387,fg=#11111b,bold] #I #[bg=#45475a,fg=#cdd6f4,bold] #W #[bg=default,fg=#45475a]"'
+format = "$output"
+
+# Inactive: single muted capsule so the active window carries the eye.
+[center.custom.window_inactive]
+when = 'test "${TMUX_WINDOW_ACTIVE:-0}" != "1"'
+command = 'printf "#[bg=default,fg=#313244]#[bg=#313244,fg=#a6adc8] #I #W #[bg=default,fg=#313244]"'
+format = "$output"
+
+[center.custom.window_zoom]
+when = 'test "${TMUX_WINDOW_ACTIVE:-0}" = "1" && test "${TMUX_WINDOW_ZOOMED_FLAG:-0}" = "1"'
+command = 'printf " 󰊓"'
+format = "$output"
+style = "fg:#f9e2af"
+
+# --- Right: battery, host, clock --------------------------------------------
+[right]
+"$schema" = 'https://starship.rs/config-schema.json'
+format = "${custom.battery}${custom.host}${custom.time}"
+add_newline = false
+
+# Gated on there actually being a battery, so the Mac mini omits the pill
+# entirely rather than showing an empty or bogus reading. macOS only — every
+# host in hosts/ is SYSTEM="macos".
+[right.custom.battery]
+shell = "bash"
+when = 'pmset -g batt 2>/dev/null | grep -q InternalBattery'
+command = '''
+batt=$(pmset -g batt)
+pct=$(printf '%s' "$batt" | grep -oE '[0-9]+%' | head -1 | tr -d '%')
+[ -n "$pct" ] || exit 0
+if printf '%s' "$batt" | head -1 | grep -q "AC Power"; then
+  icon="󰂄"; colour="#a6e3a1"
+elif [ "$pct" -le 20 ]; then
+  icon="󰂃"; colour="#f38ba8"
+elif [ "$pct" -le 50 ]; then
+  icon="󰁹"; colour="#fab387"
+else
+  icon="󰁹"; colour="#a6e3a1"
+fi
+printf "#[bg=default,fg=%s]#[bg=%s,fg=#11111b,bold]%s %s%%#[bg=default,fg=%s]" \
+  "$colour" "$colour" "$icon" "$pct" "$colour"
+'''
+format = "$output "
+
+[right.custom.host]
+when = "true"
+shell = "bash"
+command = 'printf "#[bg=default,fg=#74c7ec]#[bg=#74c7ec,fg=#11111b,bold]󰒋 %s#[bg=default,fg=#74c7ec]" "${TMUX_HOST_SHORT:-$(hostname -s)}"'
+format = "$output "
+
+[right.custom.time]
+when = "true"
+shell = "bash"
+command = 'printf "#[bg=default,fg=#b4befe]#[bg=#b4befe,fg=#11111b,bold]󱑂 %s#[bg=default,fg=#b4befe]" "$(date +%H:%M)"'
+format = "$output"

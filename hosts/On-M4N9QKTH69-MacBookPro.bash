@@ -17,6 +17,7 @@ export PACKAGES=(
 
   # Shell
   zsh
+  starship
 
   # Version control
   git
