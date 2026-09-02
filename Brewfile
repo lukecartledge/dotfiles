@@ -26,6 +26,7 @@ brew 'yq'
 brew 'zoxide'
 
 # Shell
+brew 'starship'
 brew 'zsh'
 
 # Version control
