@@ -15,6 +15,7 @@ $rust\
 $golang\
 $nodejs\
 $bun\
+$ruby\
 $php\
 $java\
 $kotlin\
@@ -94,6 +95,12 @@ format = '[[ $symbol( $version) ](fg:crust bg:green)]($style)'
 symbol = ""
 style = "bg:green"
 format = '[[ $symbol( $version) ](fg:crust bg:green)]($style)'
+
+[ruby]
+symbol = ""
+style = "bg:green"
+format = '[[ $symbol( $version) ](fg:crust bg:green)]($style)'
+detect_files = ["Gemfile", ".ruby-version", ".tool-versions", ".ruby-gemset", "mise.toml", ".mise.toml", ".mise/config.toml"]
 
 [c]
 symbol = " "
