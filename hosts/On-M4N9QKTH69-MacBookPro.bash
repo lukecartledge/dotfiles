@@ -27,14 +27,17 @@ export PACKAGES=(
   vim
   zed
 
+  # Languages & Tools
+  # Ahead of Terminal on purpose: tmux/install.bash builds tmuxship with
+  # cargo, which arrives with mise's rust toolchain. Behind it, a clean
+  # bootstrap skips tmuxship and needs a second script/run.
+  mise
+  ruby
+
   # Terminal
   tmux
   iterm2
   ghostty
-
-  # Languages & Tools
-  mise
-  ruby
 
   # AI Tools
   opencode
