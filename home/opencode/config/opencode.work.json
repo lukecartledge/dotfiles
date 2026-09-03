@@ -2,6 +2,23 @@
   "$schema": "https://opencode.ai/config.json",
   "mcp": {
     "shopify-dev": { "enabled": false },
+    "rollbar": {
+      "type": "local",
+      "command": [
+        "mise",
+        "exec",
+        "node@24.18.0",
+        "--",
+        "npx",
+        "-y",
+        "@rollbar/mcp-server@latest"
+      ],
+      "environment": {
+        "ROLLBAR_ACCESS_TOKEN": "{env:ROLLBAR_ACCESS_TOKEN}"
+      },
+      "enabled": false,
+      "timeout": 30000
+    },
     "talon-one": {
       "type": "local",
       "command": [
@@ -15,7 +32,7 @@
         "PATH": "{env:PATH}",
         "MCP_AUTH_TOKEN": "{env:TALONONE_MCP_API_KEY}"
       },
-      "enabled": true,
+      "enabled": false,
       "timeout": 30000
     }
   }
