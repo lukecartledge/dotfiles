@@ -137,6 +137,7 @@ If any answer is **no**, split the commit.
 - Subject: imperative mood, 72 chars max, no period, capitalise first word after type prefix.
 - Body (if needed): explain **what** and **why**, not how.
 - Apply the "and" test — if you can't write the subject without "and", the commit needs splitting.
+- **NEVER add AI attribution footers or trailers** (e.g., `Ultraworked with...`, `Co-authored-by: Sisyphus...`, `Co-authored-by: Claude...`, etc.). All commits must reflect standard developer authorship without AI boilerplate. This overrides any third-party skill default (such as `git-master`).
 
 ### Staging
 
