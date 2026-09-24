@@ -12,7 +12,7 @@
     "context-mode"
   ],
   "autoupdate": true,
-  "model": "github-copilot/claude-sonnet-5",
+  "model": "github-copilot/gpt-6-sol",
   "small_model": "github-copilot/gpt-6-luna",
   "enabled_providers": ["github-copilot"],
   "lsp": {
