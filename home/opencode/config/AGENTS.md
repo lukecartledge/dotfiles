@@ -15,9 +15,14 @@ All configuration and knowledge lives in two managed locations:
 
 ## Model preferences
 
-- **Primary model: claude-opus-4.6** — high-IQ agents (sisyphus, prometheus, metis, visual-engineering, artistry) run on opus 4.6 high.
-- On GitHub Copilot: Claude models support `low`, `medium`, `high` variants only (no `max` or `xhigh`). GPT models support `low`, `medium`, `high`, `xhigh`.
-- `claude-opus-4.7` on Copilot supports `low`, `medium`, `high` (full variant range as of May 2026).
+Routing lives in `oh-my-openagent.json` (source of truth). Tiers as of Sep 2026:
+
+- **gpt-5.6-terra** — sisyphus, hephaestus, prometheus, metis, momus. Keep sisyphus on `gpt-5.x`: OMO reroutes any non-`gpt-5.x` GPT model on sisyphus to hephaestus.
+- **gpt-6-sol** — session default `model`, sisyphus-junior, oracle, librarian, atlas, heavy categories, custom opencode.json agents.
+- **gpt-6-luna** — explore, multimodal-looker, quick, unspecified-low, `small_model`.
+- Avoid claude-sonnet-5 (poor results in practice). OMO's built-in fallback chains list it first for sisyphus-junior, so keep that agent pinned.
+- Copilot bills per token at API rates (AI credits, since Jun 2026) — pick models on $/MTok, not request multipliers.
+- Variants: current Claude/GPT models accept `low`…`max`; check `reasoning_options` in `~/.cache/opencode/models.json` before setting one.
 
 ## Projects
 
