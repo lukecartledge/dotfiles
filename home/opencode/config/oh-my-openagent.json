@@ -2,40 +2,43 @@
   "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-openagent/master/assets/oh-my-opencode.schema.json",
   "agents": {
     "sisyphus": {
-      "model": "github-copilot/claude-sonnet-5",
+      "model": "github-copilot/gpt-5.6-terra",
       "variant": "high"
     },
     "hephaestus": {
-      "model": "github-copilot/gpt-5.4",
+      "model": "github-copilot/gpt-5.6-terra",
       "variant": "medium"
     },
+    "sisyphus-junior": {
+      "model": "github-copilot/gpt-6-sol"
+    },
     "oracle": {
-      "model": "github-copilot/claude-sonnet-5",
+      "model": "github-copilot/gpt-6-sol",
       "variant": "high"
     },
     "librarian": {
-      "model": "github-copilot/claude-sonnet-5"
+      "model": "github-copilot/gpt-6-sol"
     },
     "explore": {
-      "model": "github-copilot/gpt-5.6-luna"
+      "model": "github-copilot/gpt-6-luna"
     },
     "multimodal-looker": {
-      "model": "github-copilot/claude-sonnet-5"
+      "model": "github-copilot/gpt-6-luna"
     },
     "prometheus": {
-      "model": "github-copilot/claude-sonnet-5",
+      "model": "github-copilot/gpt-5.6-terra",
       "variant": "high"
     },
     "metis": {
-      "model": "github-copilot/claude-sonnet-5",
+      "model": "github-copilot/gpt-5.6-terra",
       "variant": "high"
     },
     "momus": {
-      "model": "github-copilot/claude-sonnet-5",
+      "model": "github-copilot/gpt-5.6-terra",
       "variant": "medium"
     },
     "atlas": {
-      "model": "github-copilot/claude-sonnet-5"
+      "model": "github-copilot/gpt-6-sol"
     }
   },
   "browser_automation_engine": {
@@ -43,32 +46,32 @@
   },
   "categories": {
     "visual-engineering": {
-      "model": "github-copilot/claude-sonnet-5",
+      "model": "github-copilot/gpt-6-sol",
       "variant": "high"
     },
     "ultrabrain": {
-      "model": "github-copilot/gpt-5.4",
-      "variant": "xhigh"
+      "model": "github-copilot/gpt-6-sol",
+      "variant": "high"
     },
     "deep": {
-      "model": "github-copilot/gpt-5.4",
+      "model": "github-copilot/gpt-6-sol",
       "variant": "high"
     },
     "artistry": {
-      "model": "github-copilot/claude-sonnet-5",
+      "model": "github-copilot/gpt-6-sol",
       "variant": "high"
     },
     "quick": {
-      "model": "github-copilot/gpt-5.6-luna"
+      "model": "github-copilot/gpt-6-luna"
     },
     "unspecified-low": {
-      "model": "github-copilot/gpt-5.6-luna"
+      "model": "github-copilot/gpt-6-luna"
     },
     "unspecified-high": {
-      "model": "github-copilot/claude-sonnet-5"
+      "model": "github-copilot/gpt-6-sol"
     },
     "writing": {
-      "model": "github-copilot/claude-sonnet-5"
+      "model": "github-copilot/gpt-6-sol"
     }
   }
 }
