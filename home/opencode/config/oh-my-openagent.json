@@ -17,10 +17,10 @@
       "model": "github-copilot/gpt-5.6-terra"
     },
     "explore": {
-      "model": "github-copilot/gpt-5.6-luna"
+      "model": "github-copilot/gpt-6-luna"
     },
     "multimodal-looker": {
-      "model": "github-copilot/gpt-5.6-luna"
+      "model": "github-copilot/gpt-6-luna"
     },
     "prometheus": {
       "model": "github-copilot/gpt-5.6-terra",
@@ -59,10 +59,10 @@
       "variant": "high"
     },
     "quick": {
-      "model": "github-copilot/gpt-5.6-luna"
+      "model": "github-copilot/gpt-6-luna"
     },
     "unspecified-low": {
-      "model": "github-copilot/gpt-5.6-luna"
+      "model": "github-copilot/gpt-6-luna"
     },
     "unspecified-high": {
       "model": "github-copilot/gpt-5.6-terra"
