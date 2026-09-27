@@ -42,4 +42,6 @@ export PACKAGES=(
   # AI Tools
   opencode
   omp
+
+  herdr
 )

@@ -87,6 +87,7 @@ brew 'shopify/shopify/shopify-cli'
 # AI tools
 brew 'anomalyco/tap/opencode'
 brew 'can1357/tap/omp'
+brew 'herdr'
 
 # Image & media
 brew 'exiftool'

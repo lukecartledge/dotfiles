@@ -44,4 +44,6 @@ export PACKAGES=(
   opencode
   claude
   omp
+
+  herdr
 )
