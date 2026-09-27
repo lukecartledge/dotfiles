@@ -15,7 +15,7 @@
       "Read(**/*.secret)"
     ]
   },
-  "model": "opus",
+  "model": "opus[1m]",
   "enabledPlugins": {
     "superpowers@claude-plugins-official": true,
     "impeccable@impeccable": true,
