@@ -1,0 +1,37 @@
+{
+  "$schema": "https://raw.githubusercontent.com/can1357/oh-my-pi/main/packages/coding-agent/src/config/mcp-schema.json",
+  "mcpServers": {
+    "context-mode": {
+      "command": "context-mode"
+    },
+    "contentful": {
+      "command": "npx",
+      "args": ["-y", "@contentful/mcp-server"],
+      "env": {
+        "CONTENTFUL_MANAGEMENT_ACCESS_TOKEN": "CONTENTFUL_MANAGEMENT_TOKEN",
+        "SPACE_ID": "CONTENTFUL_SPACE_ID",
+        "ENVIRONMENT_ID": "master"
+      },
+      "enabled": false
+    },
+    "github": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/",
+      "headers": {
+        "Authorization": "Bearer ${GITHUB_PERSONAL_ACCESS_TOKEN}"
+      },
+      "enabled": false
+    },
+    "cloudflare": {
+      "type": "http",
+      "url": "https://mcp.cloudflare.com/mcp",
+      "enabled": false
+    },
+    "slack": {
+      "type": "http",
+      "url": "https://mcp.slack.com/mcp",
+      "oauth": { "clientId": "2540541395.10827271922499" },
+      "enabled": false
+    }
+  }
+}

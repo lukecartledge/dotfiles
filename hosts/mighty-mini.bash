@@ -43,4 +43,9 @@ export PACKAGES=(
   # AI
   opencode
   claude
+  omp
+
+  # Behind the agents on purpose: herdr/install.bash writes its hooks into
+  # their linked config.
+  herdr
 )

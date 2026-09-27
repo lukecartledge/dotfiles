@@ -36,3 +36,6 @@ package-lock.json
 
 # OMO (oh-my-openagent) runtime state
 .omo/
+
+# herdr agent integrations (regenerated per machine by herdr/install.bash)
+home/opencode/config/plugins/herdr-agent-state.js

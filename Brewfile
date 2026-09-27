@@ -3,6 +3,7 @@ cask_args appdir: '/Applications'
 # Taps
 tap 'anomalyco/tap'
 tap 'bufbuild/buf'
+tap 'can1357/tap'
 tap 'common-fate/granted'
 tap 'mike-engel/jwt-cli'
 tap 'shopify/shopify'
@@ -85,6 +86,8 @@ brew 'shopify/shopify/shopify-cli'
 
 # AI tools
 brew 'anomalyco/tap/opencode'
+brew 'can1357/tap/omp'
+brew 'herdr'
 
 # Image & media
 brew 'exiftool'

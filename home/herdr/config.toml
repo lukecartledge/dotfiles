@@ -1,0 +1,69 @@
+# herdr configuration — linked to ~/.config/herdr/config.toml
+#
+# Keybindings mirror home/tmux/tmux.conf (plus the tmux defaults and
+# tmux-pain-control bindings it relies on), so muscle memory carries over.
+# Herdr "tabs" play the role of tmux windows and "workspaces" of tmux sessions.
+# `herdr --default-config` lists every option; `herdr config check` validates.
+
+onboarding = false
+
+[ui]
+status_indicators = "dots"
+
+[ui.toast]
+delivery = "herdr"
+
+[ui.sound]
+enabled = false
+
+[keys]
+# tmux: set -g prefix C-s
+prefix = "ctrl+s"
+
+# tmux: bind r source-file (herdr's own default for r is resize mode)
+reload_config = "prefix+r"
+resize_mode = "prefix+shift+r"
+
+# tmux default: prefix d detaches
+detach = "prefix+d"
+
+# tmux: prefix w / prefix C-j choose-tree
+workspace_picker = ["prefix+w", "prefix+ctrl+j"]
+
+# tmux default: prefix , renames the window
+rename_tab = "prefix+comma"
+
+# tmux: bind c new-window (cwd follows the pane, see [terminal] new_cwd)
+new_tab = "prefix+c"
+
+# tmux: prefix p/n (defaults) and F1/F2 cycle windows
+previous_tab = ["prefix+p", "f1"]
+next_tab = ["prefix+n", "f2"]
+
+# tmux: prefix S-Left/S-Right swap-window
+move_tab_previous = "prefix+shift+left"
+move_tab_next = "prefix+shift+right"
+
+# tmux: bind -n C-h/j/k/l select-pane (prefix+h/j/k/l from tmux-pain-control)
+focus_pane_left = ["prefix+h", "ctrl+h"]
+focus_pane_down = ["prefix+j", "ctrl+j"]
+focus_pane_up = ["prefix+k", "ctrl+k"]
+focus_pane_right = ["prefix+l", "ctrl+l"]
+
+# tmux default: prefix ; jumps to the last pane
+last_pane = "prefix+semicolon"
+
+# tmux: prefix \ splits side by side, prefix - stacks (| and _ from pain-control)
+split_vertical = ["prefix+backslash", "prefix+|"]
+split_horizontal = ["prefix+minus", "prefix+_"]
+
+# tmux: bind -n S-arrows (fine) and C-arrows (coarse) resize-pane.
+# Herdr has a single resize step, so both chords resize by the same amount.
+resize_pane_left = ["shift+left", "ctrl+left"]
+resize_pane_down = ["shift+down", "ctrl+down"]
+resize_pane_up = ["shift+up", "ctrl+up"]
+resize_pane_right = ["shift+right", "ctrl+right"]
+
+# Matching herdr defaults, pinned here for clarity:
+#   prefix+1..9 switch tab (tmux base-index 1), prefix+z zoom, prefix+x close pane,
+#   prefix+? help.
