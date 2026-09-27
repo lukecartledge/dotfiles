@@ -4,11 +4,10 @@
 # models, vault skills, and custom agents. `omp config list` shows every key.
 
 # Model tiers follow home/opencode/config/oh-my-openagent.json:
-#   gpt-6-sol    session default and custom agents
-#   gpt-6-luna   lightweight lanes (opencode small_model)
+#   gpt-6-luna   session default, custom agents and lightweight lanes
 #   gpt-5.6-terra  planning / deep reasoning (prometheus, metis, momus)
 modelRoles:
-  default: github-copilot/gpt-6-sol
+  default: github-copilot/gpt-6-luna
   smol: github-copilot/gpt-6-luna
   slow: github-copilot/gpt-5.6-terra
   plan: github-copilot/gpt-5.6-terra
@@ -34,3 +33,12 @@ skills:
   customDirectories:
     - ~/notes/brain/40-skills/custom
     - ~/notes/brain/40-skills/gathered
+
+# UI and session preferences, as written by `omp` setup (setupVersion 2).
+symbolPreset: unicode
+composer:
+  shape: box
+theme:
+  dark: titanium
+setupVersion: 2
+extendedContext: true
