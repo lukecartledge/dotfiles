@@ -1,0 +1,43 @@
+{
+  "$schema": "https://raw.githubusercontent.com/can1357/oh-my-pi/main/packages/coding-agent/src/config/mcp-schema.json",
+  "mcpServers": {
+    "atlassian": {
+      "type": "http",
+      "url": "https://mcp.atlassian.com/v1/mcp"
+    },
+    "newrelic": {
+      "type": "http",
+      "url": "https://mcp.newrelic.com/mcp/",
+      "headers": {
+        "api-key": "${NEWRELIC_API_KEY}"
+      }
+    },
+    "incident-io": {
+      "type": "http",
+      "url": "https://mcp.incident.io/mcp"
+    },
+    "rollbar": {
+      "command": "mise",
+      "args": ["exec", "node@24.18.0", "--", "npx", "-y", "@rollbar/mcp-server@latest"],
+      "env": {
+        "ROLLBAR_ACCESS_TOKEN": "ROLLBAR_ACCESS_TOKEN"
+      },
+      "timeout": 30000,
+      "enabled": false
+    },
+    "talon-one": {
+      "command": "npx",
+      "args": [
+        "mcp-remote",
+        "https://onag.us-east4.talon.one/v1/mcp/entrypoint",
+        "--header",
+        "Authorization: Bearer ${MCP_AUTH_TOKEN}"
+      ],
+      "env": {
+        "MCP_AUTH_TOKEN": "TALONONE_MCP_API_KEY"
+      },
+      "timeout": 30000,
+      "enabled": false
+    }
+  }
+}

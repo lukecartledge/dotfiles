@@ -1,0 +1,36 @@
+# omp (oh-my-pi) global settings — linked to ~/.omp/agent/config.yml
+#
+# Mirrors the opencode setup in home/opencode/config: same GitHub Copilot
+# models, vault skills, and custom agents. `omp config list` shows every key.
+
+# Model tiers follow home/opencode/config/oh-my-openagent.json:
+#   gpt-6-sol    session default and custom agents
+#   gpt-6-luna   lightweight lanes (opencode small_model)
+#   gpt-5.6-terra  planning / deep reasoning (prometheus, metis, momus)
+modelRoles:
+  default: github-copilot/gpt-6-sol
+  smol: github-copilot/gpt-6-luna
+  slow: github-copilot/gpt-5.6-terra
+  plan: github-copilot/gpt-5.6-terra
+
+# Custom agents are shared with Claude Code (home/claude/agents), whose
+# frontmatter names Claude models. Pin them to the opencode tiers instead.
+task:
+  agentModelOverrides:
+    planner: "@default"
+    architect: "@default"
+    code-reviewer: "@default"
+    security-reviewer: "@default"
+    tdd-guide: "@default"
+    build-error-resolver: "@default"
+    e2e-runner: "@default"
+    doc-updater: "@default"
+    refactor-cleaner: "@default"
+    database-reviewer: "@default"
+
+# Vault skills (~/notes/brain/40-skills), one level deep like opencode's
+# skills/custom and skills/gathered links.
+skills:
+  customDirectories:
+    - ~/notes/brain/40-skills/custom
+    - ~/notes/brain/40-skills/gathered

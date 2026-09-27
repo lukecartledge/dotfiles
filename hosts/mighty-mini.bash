@@ -43,4 +43,5 @@ export PACKAGES=(
   # AI
   opencode
   claude
+  omp
 )
