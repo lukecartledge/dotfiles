@@ -1,11 +1,10 @@
 # omp (oh-my-pi) global settings — linked to ~/.omp/agent/config.yml
 #
-# Mirrors the opencode setup in home/opencode/config: same GitHub Copilot
-# models, vault skills, and custom agents. `omp config list` shows every key.
+# Uses GitHub Copilot, vault skills, and custom agents. `omp config list` shows every key.
 
-# Model tiers follow home/opencode/config/oh-my-openagent.json:
-#   gpt-6-luna   session default, custom agents and lightweight lanes
-#   gpt-5.6-terra  planning / deep reasoning (prometheus, metis, momus)
+# Model tiers are independent of OpenCode's ~/.omo/omo.jsonc:
+#   gpt-6-luna     session default, custom agents and lightweight lanes
+#   gpt-5.6-terra planning and deep reasoning
 modelRoles:
   default: github-copilot/gpt-6-luna
   smol: github-copilot/gpt-6-luna
