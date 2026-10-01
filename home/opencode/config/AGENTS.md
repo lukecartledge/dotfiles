@@ -6,7 +6,7 @@ You are working inside a personal dev vault. Notes and skills are stored in Obsi
 
 All configuration and knowledge lives in two managed locations:
 
-- **Dotfiles** (`~/.dotfiles`) — Source of truth for all machine config. Synced via GitHub (`lukecartledge/dotfiles`). OpenCode config lives at `~/.dotfiles/home/opencode/config/` and is symlinked into `~/.config/opencode/` by the dotfiles `link.bash` script. When editing opencode config, always edit the symlinked file (changes propagate to dotfiles automatically).
+- **Dotfiles** (`~/.dotfiles`) — Source of truth for all machine config. Synced via GitHub (`lukecartledge/dotfiles`). OpenCode config lives at `~/.dotfiles/home/opencode/config/`; the dotfiles `link.bash` script links OpenCode files into `~/.config/opencode/` and OMO's `omo.jsonc` into `~/.omo/`. Edit the symlinked file so changes propagate to dotfiles.
 - **Knowledge base** (`~/notes/brain`) — Obsidian vault with projects, sessions, skills, and notes. Synced separately.
   - Sessions: `~/notes/brain/20-work/sessions/`
   - Skills (custom): `~/notes/brain/40-skills/custom/` → symlinked to `~/.config/opencode/skills/custom`
@@ -15,10 +15,9 @@ All configuration and knowledge lives in two managed locations:
 
 ## Model preferences
 
-Routing lives in `oh-my-openagent.json` (source of truth). Tiers as of Sep 2026:
+Routing lives in `~/.omo/omo.jsonc` (source of truth). Tiers as of Sep 2026:
 
-- **gpt-5.6-terra** — sisyphus, hephaestus, prometheus, metis, momus. Keep sisyphus on `gpt-5.x`: OMO reroutes any non-`gpt-5.x` GPT model on sisyphus to hephaestus.
-- **gpt-6-sol** — session default `model`, sisyphus-junior, oracle, librarian, atlas, heavy categories, custom opencode.json agents.
+- **gpt-6-sol** — session default `model`, sisyphus, hephaestus, sisyphus-junior, prometheus, metis, momus, oracle, librarian, atlas, heavy categories, custom opencode.json agents.
 - **gpt-6-luna** — explore, multimodal-looker, quick, unspecified-low, `small_model`.
 - Avoid claude-sonnet-5 (poor results in practice). OMO's built-in fallback chains list it first for sisyphus-junior, so keep that agent pinned.
 - Copilot bills per token at API rates (AI credits, since Jun 2026) — pick models on $/MTok, not request multipliers.

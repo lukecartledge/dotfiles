@@ -52,6 +52,24 @@
     "webfetch": "allow",
     "websearch": "allow",
     "codesearch": "allow",
+    "atlassian_getAccessibleAtlassianResources": "allow",
+    "atlassian_getConfluenceCommentChildren": "allow",
+    "atlassian_getConfluencePage": "allow",
+    "atlassian_getConfluencePageDescendants": "allow",
+    "atlassian_getConfluencePageFooterComments": "allow",
+    "atlassian_getConfluencePageInlineComments": "allow",
+    "atlassian_getConfluenceSpaces": "allow",
+    "atlassian_getIssueLinkTypes": "allow",
+    "atlassian_getJiraIssue": "allow",
+    "atlassian_getJiraIssueRemoteIssueLinks": "allow",
+    "atlassian_getJiraIssueTypeMetaWithFields": "allow",
+    "atlassian_getJiraProjectIssueTypesMetadata": "allow",
+    "atlassian_getPagesInConfluenceSpace": "allow",
+    "atlassian_getTransitionsForJiraIssue": "allow",
+    "atlassian_getVisibleJiraProjects": "allow",
+    "atlassian_search": "allow",
+    "atlassian_searchConfluenceUsingCql": "allow",
+    "atlassian_searchJiraIssuesUsingJql": "allow",
     "bash": {
       "*": "allow",
       "rm *": "ask",
@@ -384,6 +402,7 @@
     "newrelic": {
       "type": "remote",
       "url": "https://mcp.newrelic.com/mcp/",
+      "enabled": false,
       "headers": {
         "api-key": "{env:NEWRELIC_API_KEY}"
       },

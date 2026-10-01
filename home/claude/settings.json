@@ -15,7 +15,11 @@
       "Read(**/*.secret)"
     ]
   },
-  "model": "opus",
+  "model": "opus[1m]",
+  "statusLine": {
+    "type": "command",
+    "command": "~/.dotfiles/home/claude/bin/statusline.sh"
+  },
   "enabledPlugins": {
     "superpowers@claude-plugins-official": true,
     "impeccable@impeccable": true,
@@ -31,8 +35,5 @@
     }
   },
   "agentPushNotifEnabled": true,
-  "statusLine": {
-    "type": "command",
-    "command": "~/.dotfiles/home/claude/bin/statusline.sh"
-  }
+  "hooks": {"SessionStart":[{"matcher":"^(startup|resume|clear|compact|fork)$","hooks":[{"type":"command","command":"bash '/Users/lukecartledge/.claude/hooks/herdr-agent-state.sh' session","timeout":10}]}]}
 }
