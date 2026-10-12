@@ -32,5 +32,6 @@ task:
 # skills/custom and skills/gathered links.
 skills:
   customDirectories:
+    - ~/.local/share/onrunning/dev-tooling-config/skills
     - ~/notes/brain/40-skills/custom
     - ~/notes/brain/40-skills/gathered

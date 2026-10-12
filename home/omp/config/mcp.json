@@ -6,7 +6,10 @@
     },
     "contentful": {
       "command": "npx",
-      "args": ["-y", "@contentful/mcp-server"],
+      "args": [
+        "-y",
+        "@contentful/mcp-server"
+      ],
       "env": {
         "CONTENTFUL_MANAGEMENT_ACCESS_TOKEN": "CONTENTFUL_MANAGEMENT_TOKEN",
         "SPACE_ID": "CONTENTFUL_SPACE_ID",
@@ -30,7 +33,10 @@
     "slack": {
       "type": "http",
       "url": "https://mcp.slack.com/mcp",
-      "oauth": { "clientId": "2540541395.10827271922499" },
+      "oauth": {
+        "clientId": "2540541395.10827271922499",
+        "scope": "canvases:read canvases:write channels:history groups:history im:history mpim:history search:read.public search:read.private search:read.mpim search:read.im search:read.files search:read.users users:read users:read.email reactions:write"
+      },
       "enabled": false
     }
   }
