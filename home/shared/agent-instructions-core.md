@@ -12,6 +12,15 @@ All configuration and knowledge lives in two managed locations:
   - Skills (custom): `~/notes/brain/40-skills/custom/`
   - Skills (gathered): `~/notes/brain/40-skills/gathered/`
 
+## Shared instructions and vault lookup
+
+- This file (`~/.dotfiles/home/shared/agent-instructions-core.md`) is the canonical global instruction source for OpenCode, OMP, and OmO Native. Their global `AGENTS.md` files are symlinks to it. Edit this source for shared rules; do not create divergent copies.
+- Before planning or implementing work, look for the relevant project notes, decisions, previous sessions, and reusable skills in `~/notes/brain`. Read only the material relevant to the task; do not ingest the whole vault.
+- Keep durable project knowledge and plans in the vault, using the ownership and plan-storage rules below. Code and machine configuration remain in their repositories.
+- When delegating, include the vault location, relevant note paths, and applicable shared constraints in the worker's brief. Do not assume a child agent inherits the parent's instructions.
+- In OpenCode (including the OMO plugin), read `~/.config/opencode/APPEND_SYSTEM.md` at the start of a session for runtime-specific guidance. OpenCode V2 does not load the `instructions` config array; do not rely on it to import this file or supplements.
+- OMP's runtime-specific guidance lives in `~/.omp/agent/APPEND_SYSTEM.md`; OmO Native's global instructions live at `~/.omo/agent/AGENTS.md`.
+
 ## Projects
 
 Projects use the same structure and frontmatter everywhere, but are filed differently

@@ -1,204 +1,50 @@
-## Identity
+# OpenCode-specific guidance
 
-You are working inside a personal dev vault. Notes and skills are stored in Obsidian at ~/notes/brain.
+Shared rules live in `~/.dotfiles/home/shared/agent-instructions-core.md`, linked
+as `~/.config/opencode/AGENTS.md`. This supplement is linked as
+`~/.config/opencode/APPEND_SYSTEM.md`; do not duplicate shared rules here.
 
-## Filesystem topology
+## Configuration
 
-All configuration and knowledge lives in two managed locations:
+- OpenCode config lives in `~/.dotfiles/home/opencode/config/`, linked into `~/.config/opencode/` by `home/opencode/link.bash`.
+- Machine-specific overrides use `opencode.local.json`, linked from `opencode.work.json` on On-* hosts and `opencode.personal.json` otherwise.
+- OmO Native routing lives in the regular runtime file `~/.omo/omo.jsonc`, initially seeded from `~/.dotfiles/home/omo/config/omo.jsonc`. It is not automatically synced back during the Native evaluation. The `[native]` block configures standalone OmO; legacy `[opencode]` settings and `oh-my-openagent.json` do not configure OpenCode V2, whose incompatible OMO plugin is disabled.
+- Terminal preferences and keybindings live in `~/.config/opencode/cli.json`.
 
-- **Dotfiles** (`~/.dotfiles`) — Source of truth for all machine config. Synced via GitHub (`lukecartledge/dotfiles`). OpenCode config lives at `~/.dotfiles/home/opencode/config/` and is symlinked into `~/.config/opencode/` by the dotfiles `link.bash` script. When editing opencode config, always edit the symlinked file (changes propagate to dotfiles automatically).
-- **Knowledge base** (`~/notes/brain`) — Obsidian vault with projects, sessions, skills, and notes. Synced separately.
-  - Sessions: `~/notes/brain/20-work/sessions/`
-  - Skills (custom): `~/notes/brain/40-skills/custom/` → symlinked to `~/.config/opencode/skills/custom`
-  - Skills (gathered): `~/notes/brain/40-skills/gathered/` → symlinked to `~/.config/opencode/skills/gathered`
-- **Machine-specific overrides** use `opencode.local.json` (symlinked per-host from dotfiles: `opencode.work.json` on On-* hosts, `opencode.personal.json` otherwise).
+## Models
 
-## Model preferences
+- Use GitHub Copilot. Preserve the configured model choices unless the user asks to change them.
+- The configured session/default heavy model is `gpt-6-sol`; lightweight lanes use `gpt-6-luna`.
+- Avoid `claude-sonnet-5` (poor results in practice).
+- Copilot bills per token at API rates (AI credits, since Jun 2026); choose models on $/MTok, not request multipliers.
+- Query served models live. Check provider-specific reasoning values in `~/.cache/opencode/models.json` before setting a variant.
+- Check the installed OMO version and its current routing rules rather than applying legacy Sisyphus/GPT gate assumptions.
 
-Routing lives in `oh-my-openagent.json` (source of truth). Tiers as of Sep 2026:
+## Skills and workflow commands
 
-- **gpt-5.6-terra** — sisyphus, hephaestus, prometheus, metis, momus. Keep sisyphus on `gpt-5.x`: OMO reroutes any non-`gpt-5.x` GPT model on sisyphus to hephaestus.
-- **gpt-6-sol** — session default `model`, sisyphus-junior, oracle, librarian, atlas, heavy categories, custom opencode.json agents.
-- **gpt-6-luna** — explore, multimodal-looker, quick, unspecified-low, `small_model`.
-- Avoid claude-sonnet-5 (poor results in practice). OMO's built-in fallback chains list it first for sisyphus-junior, so keep that agent pinned.
-- Copilot bills per token at API rates (AI credits, since Jun 2026) — pick models on $/MTok, not request multipliers.
-- Variants: current Claude/GPT models accept `low`…`max`; check `reasoning_options` in `~/.cache/opencode/models.json` before setting one.
+- Global skills: `~/.config/opencode/skills/`.
+- Vault skills: `~/notes/brain/40-skills/{custom,gathered}/`, symlinked into the global skills directory.
+- Organisation skills: `https://dev-tooling.on.com/skills/`.
+- `/user:tdd` — enforce TDD workflow with 80%+ coverage.
+- `/user:verify` — run the verification loop.
+- `/user:new-skill` — scaffold a vault skill.
+- `/user:new-project` — create a vault project under its work/personal root.
+- `/user:save-session` — save the session summary to the vault.
+- `/user:save-prompt` — save a reusable prompt to the vault.
 
-## Projects
+## MCPs
 
-Projects use the same structure and frontmatter everywhere, but are filed differently
-by ownership:
+- Organisation MCP definitions come from `https://dev-tooling.on.com/.well-known/opencode`.
+- Inspect live connection status before relying on a server; a configured server may be disabled or require sign-in.
+- Available integrations include Atlassian, Contentful, GitHub, New Relic, incident.io, and context-mode; enablement is controlled by config.
 
-- **Work** — `~/notes/brain/20-work/projects/<name>/` (one flat root)
-- **Personal** — `~/notes/brain/10-personal/<area>/<name>/` (filed under its area)
+## context-mode routing
 
-Choose by **ownership, not subject matter**: work means it has a Jira project, a COP
-ticket prefix, or an On-owned repo. Everything else is personal.
+Use context-mode when its tools are available to avoid flooding the context window.
 
-There is no `projects/` folder under `10-personal` — the area is the grouping. Personal
-areas: `photography`, `web`, `homelab`, `finance`, `tooling`, `3d-printing`, `home`.
-
-Key work projects:
-- dtc-platform — DTC platform work
-- shopify-apps — Shopify app development
-- infrastructure — infra configs
-- solidus, talon-one — commerce platform and promotions
-
-Key personal projects:
-- photography/lukecartledge-website — personal portfolio site
-- homelab/ — TrueNAS home server and its plans
-- tooling/dotfiles — personal dotfiles (`~/.dotfiles`, GitHub: lukecartledge/dotfiles)
-- tooling/brain-vault — the Obsidian vault itself (`~/notes/brain`)
-
-### On AG work repos (~/code/onag/)
-
-These repos use the COP Jira project. Branch names and PR titles **must**
-start with the Jira ticket key:
-
-- Branch format: `COP-XXX/<short-slug>`
-- PR title format: `COP-XXX: <imperative description>`
-- A GitHub Action validates the prefix and auto-links the Jira ticket.
-- Do **not** use Conventional Commit prefixes (`feat(…)`, `chore(…)`) in
-  branch names or PR titles — those are for commit messages only.
-
-### Personal repos
-
-No Jira ticket prefix required. Use descriptive branch names freely.
-
-## Coding behaviour
-
-These rules apply to every code change. Bias toward caution over speed — for trivial one-liners, use judgment.
-
-### Think before coding
-
-- State assumptions explicitly. If uncertain, ask before writing code.
-- If multiple interpretations exist, present them — do not pick silently.
-- If a simpler approach exists, say so. Push back when warranted.
-- If something is unclear, stop. Name the confusion. Ask.
-
-### Verify before investing
-
-- Run the cheapest possible test that would disprove your assumption before building on it.
-- At integration boundaries: confirm the API/system actually behaves as docs claim. One probe call before full implementation.
-- At delivery boundaries: verify arrival, not just dispatch. Upstream 2xx does not mean downstream received.
-- At environment level: confirm ambient state (tunnel alive, deps fresh, CI convention matched) before debugging code.
-- If something "should work" but doesn't after 3 attempts, stop and isolate — you're likely testing the wrong layer.
-
-### Simplicity first
-
-- Write the minimum code that solves the problem. Nothing speculative.
-- No features beyond what was asked.
-- No abstractions for single-use code.
-- No "flexibility" or "configurability" that wasn't requested.
-- No error handling for impossible scenarios.
-- If 200 lines could be 50, rewrite. Ask: "Would a senior engineer call this overcomplicated?"
-
-### Surgical changes
-
-- Touch only what the task requires. Do not "improve" adjacent code, comments, or formatting.
-- Do not refactor things that aren't broken.
-- Match existing style, even if you'd do it differently.
-- If you spot unrelated dead code, mention it — do not delete it.
-- Remove imports/variables/functions that YOUR changes made unused. Do not remove pre-existing dead code unless asked.
-- **Every changed line must trace directly to the user's request.**
-
-### Goal-driven execution
-
-- Transform tasks into verifiable goals before starting:
-  - "Add validation" → "Write tests for invalid inputs, then make them pass"
-  - "Fix the bug" → "Write a test that reproduces it, then make it pass"
-  - "Refactor X" → "Ensure tests pass before and after"
-- For multi-step tasks, state a brief plan with verification checkpoints:
-  ```
-  1. [Step] → verify: [check]
-  2. [Step] → verify: [check]
-  ```
-- Strong success criteria enable autonomous looping. Weak criteria ("make it work") require clarification — ask for it.
-
-## Git discipline
-
-All commits must be **atomic**. Load the `git-atomic-commits` skill whenever committing.
-
-### Core test — apply before every commit
-
-1. Does this do exactly one thing?
-2. Does the build/tests pass at this exact commit?
-3. Can `git revert <sha>` undo it cleanly?
-4. Can the message be written without "and" or "also"?
-
-If any answer is **no**, split the commit.
-
-### Commit messages
-
-- Use Conventional Commits format: `type(scope): imperative description`
-- Subject: imperative mood, 72 chars max, no period, capitalise first word after type prefix.
-- Body (if needed): explain **what** and **why**, not how.
-- Apply the "and" test — if you can't write the subject without "and", the commit needs splitting.
-
-### Staging
-
-- Use `git add -p` to stage specific hunks when a working tree contains multiple logical changes.
-- Run `git diff --staged` before every commit to confirm scope.
-- Never commit unrelated changes together.
-
-### PR branch work
-
-- When addressing PR review feedback or working on an open PR branch, commit and push after verification passes — don't wait for an explicit push request.
-- The intent "address PR comments" implies shipping the result.
-
-## General rules
-
-- Check for a relevant SKILL.md before starting any complex or repeatable task.
-- If a task produces a reusable pattern, flag it for promotion to a skill.
-- Save session outputs to ~/notes/brain/20-work/sessions/ when asked.
-- Keep AGENTS.md files concise — instructions only, no explanations.
-- Always run verification after implementation using the verify command.
-- Follow TDD workflow for all new code — tests first, then implementation.
-- Apply security review checks before marking any task complete.
-
-## Workflow commands
-
-- /user:tdd — enforce TDD workflow with 80%+ coverage
-- /user:verify — run verification loop to validate implementation
-- /user:new-skill — scaffold a new skill in the Obsidian vault
-- /user:new-project — create a new project in the Obsidian vault, under 20-work/projects/ (work) or 10-personal/<area>/ (personal), with optional per-repo OpenCode config
-- /user:save-session — save session summary to the Obsidian vault
-- /user:save-prompt — save a reusable prompt to the Obsidian vault
-
-## Skill locations
-
-Global skills: ~/.config/opencode/skills/
-Custom skills: ~/notes/brain/40-skills/custom/
-Gathered skills: ~/notes/brain/40-skills/gathered/
-
-## MCP tools available
-
-- atlassian — Jira and Confluence
-- contentful — CMS content management
-- github — repo and PR management
-- newrelic — observability and monitoring
-- context-mode — context window optimization and session continuity
-
-## context-mode — MANDATORY routing rules
-
-You have context-mode MCP tools available. These rules protect your context window from flooding. A single unrouted command can dump 56 KB into context and waste the entire session.
-
-### BLOCKED commands — do NOT attempt these
-
-- **curl / wget** — intercepted and blocked by context-mode plugin. Use `context-mode_ctx_fetch_and_index(url, source)` or `context-mode_ctx_execute(language: "javascript", code: "const r = await fetch(...)")` instead.
-- **Inline HTTP** — `fetch('http`, `requests.get(`, etc. blocked in shell. Use `context-mode_ctx_execute(language, code)` instead.
-- **Direct web fetching** — Use `context-mode_ctx_fetch_and_index(url, source)` then `context-mode_ctx_search(queries)`.
-
-### REDIRECTED tools — use sandbox equivalents
-
-- **Shell (>20 lines output)** — Shell is ONLY for: `git`, `mkdir`, `rm`, `mv`, `cd`, `ls`, `npm install`, `pip install`, and other short-output commands. For everything else use `context-mode_ctx_batch_execute` or `context-mode_ctx_execute`.
-- **File reading (for analysis)** — If reading to **edit**, reading is correct. If reading to **analyze/summarize**, use `context-mode_ctx_execute_file(path, language, code)` instead.
-- **grep / search (large results)** — Use `context-mode_ctx_execute(language: "shell", code: "grep ...")` for large search results.
-
-### Tool selection hierarchy
-
-1. **GATHER**: `context-mode_ctx_batch_execute(commands, queries)` — Primary tool. ONE call replaces 30+ individual calls.
-2. **FOLLOW-UP**: `context-mode_ctx_search(queries)` — Query indexed content. Pass ALL questions as array in ONE call.
-3. **PROCESSING**: `context-mode_ctx_execute(language, code)` | `context-mode_ctx_execute_file(path, language, code)` — Sandbox execution.
-4. **WEB**: `context-mode_ctx_fetch_and_index(url, source)` then `context-mode_ctx_search(queries)`.
-5. **INDEX**: `context-mode_ctx_index(content, source)` — Store content in FTS5 knowledge base.
+- Do not use shell `curl`/`wget` or inline HTTP requests. Use context-mode's fetch/index or sandbox execution tools.
+- For large command output, prefer `ctx_batch_execute` or `ctx_execute`; use `ctx_search` for follow-up questions.
+- Read files normally when editing. For analysis/summarisation, prefer `ctx_execute_file`.
+- Route large grep/search results through sandbox execution.
+- Prefer fetch-and-index then search for web content.
+- If context-mode tools are absent, report the gap and use available native tools with bounded output. Never call invented or unavailable tool names.

@@ -20,7 +20,10 @@ link "$HOME_DIR/opencode/config/tui.json" "$HOME/.config/opencode/tui.json"
 link "$HOME_DIR/opencode/config/oh-my-openagent.json" "$HOME/.config/opencode/oh-my-openagent.json"
 
 # Link AGENTS.md (global agent instructions)
-link "$HOME_DIR/opencode/config/AGENTS.md" "$HOME/.config/opencode/AGENTS.md"
+link "$HOME_DIR/shared/agent-instructions-core.md" "$HOME/.config/opencode/AGENTS.md"
+
+# OpenCode-only guidance; the shared core instructs agents to read this file.
+link "$HOME_DIR/opencode/config/AGENTS.md" "$HOME/.config/opencode/APPEND_SYSTEM.md"
 
 # Link commands directory (custom slash commands)
 link "$HOME_DIR/opencode/config/commands" "$HOME/.config/opencode/commands"

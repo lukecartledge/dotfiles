@@ -9,9 +9,24 @@ link_agent_config() {
   [ "$status" -eq 0 ]
 }
 
+@test "OpenCode global instructions link to the shared core" {
+  link_agent_config opencode
+  [ "$(readlink "$HOME/.config/opencode/AGENTS.md")" = "$REPO_ROOT/home/shared/agent-instructions-core.md" ]
+}
+
+@test "OMP global instructions link to the shared core" {
+  link_agent_config omp
+  [ "$(readlink "$HOME/.omp/agent/AGENTS.md")" = "$REPO_ROOT/home/shared/agent-instructions-core.md" ]
+}
+
 @test "OmO Native global instructions link to the shared core" {
   link_agent_config omo
   [ "$(readlink "$HOME/.omo/agent/AGENTS.md")" = "$REPO_ROOT/home/shared/agent-instructions-core.md" ]
+}
+
+@test "OpenCode keeps its runtime guidance separate from the shared core" {
+  link_agent_config opencode
+  [ "$(readlink "$HOME/.config/opencode/APPEND_SYSTEM.md")" = "$REPO_ROOT/home/opencode/config/AGENTS.md" ]
 }
 
 @test "OmO unified config is seeded as a regular file" {
