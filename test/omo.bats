@@ -26,3 +26,10 @@ load helpers/setup
   '
   [ "$status" -eq 0 ]
 }
+
+@test "tmux config enables modified keys with CSI-u encoding" {
+  run grep -E '^set -g extended-keys on$' "$REPO_ROOT/home/tmux/tmux.conf"
+  [ "$status" -eq 0 ]
+  run grep -E '^set -g extended-keys-format csi-u$' "$REPO_ROOT/home/tmux/tmux.conf"
+  [ "$status" -eq 0 ]
+}
