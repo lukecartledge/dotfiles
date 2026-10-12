@@ -1,7 +1,5 @@
 {
-  "dependencies": {
-    "@opencode-ai/plugin": "1.17.15"
-  },
+  "dependencies": {},
   "mcp": {
     "context7": {
       "type": "remote",

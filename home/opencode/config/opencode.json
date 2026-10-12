@@ -5,11 +5,8 @@
     "~/.config/opencode/AGENTS.md",
     "instructions/INSTRUCTIONS.md"
   ],
-  "plugin": [
-    "oh-my-openagent@latest",
-    "./plugins",
-    "superpowers@git+https://github.com/obra/superpowers.git",
-    "context-mode"
+  "plugins": [
+    "superpowers@git+https://github.com/obra/superpowers.git"
   ],
   "autoupdate": true,
   "model": "github-copilot/gpt-6-sol",
@@ -358,6 +355,31 @@
     "urls": ["https://dev-tooling.on.com/skills/"]
   },
   "mcp": {
+    "context7": {
+      "type": "remote",
+      "url": "https://mcp.context7.com/mcp",
+      "enabled": true,
+      "oauth": false
+    },
+    "grep_app": {
+      "type": "remote",
+      "url": "https://mcp.grep.app",
+      "enabled": true,
+      "oauth": false
+    },
+    "websearch": {
+      "type": "remote",
+      "url": "https://mcp.exa.ai/mcp?tools=web_search_exa",
+      "enabled": true,
+      "oauth": false
+    },
+    "context-mode": {
+      "type": "local",
+      "command": [
+        "context-mode"
+      ],
+      "enabled": true
+    },
     "atlassian": {
       "type": "remote",
       "url": "https://mcp.atlassian.com/v1/mcp",

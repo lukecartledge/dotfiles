@@ -2,9 +2,9 @@
 #
 # opencode/install.bash - Install the context-mode CLI
 #
-# opencode.json references context-mode as both a plugin and an MCP
+# opencode.json references context-mode as a local MCP
 # server (command: ["context-mode"]). Without the global binary on
-# PATH, opencode loads neither and the AGENTS.md context-mode routing
+# PATH, opencode cannot connect it and the context-mode routing
 # rules point at tools that don't exist. Installed via npm, so this
 # depends on mise having provisioned node first (mise is processed
 # before opencode in the host PACKAGES order).
