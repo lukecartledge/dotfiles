@@ -42,6 +42,7 @@ export PACKAGES=(
 
   # AI Tools
   opencode
+  omo
   omp
 
   # Behind the agents on purpose: herdr/install.bash writes its hooks into
