@@ -3,10 +3,11 @@
 # Uses GitHub Copilot, vault skills, and custom agents. `omp config list` shows every key.
 
 # Model tiers are independent of OpenCode's ~/.omo/omo.jsonc:
-#   gpt-6-luna     session default, custom agents and lightweight lanes
+#   gpt-6.1-sol    session default and custom agents
+#   gpt-6-luna     lightweight lanes
 #   gpt-5.6-terra planning and deep reasoning
 modelRoles:
-  default: github-copilot/gpt-6-luna
+  default: github-copilot/gpt-6.1-sol:medium
   smol: github-copilot/gpt-6-luna
   slow: github-copilot/gpt-5.6-terra
   plan: github-copilot/gpt-5.6-terra
@@ -39,6 +40,11 @@ symbolPreset: unicode
 composer:
   shape: box
 theme:
-  dark: titanium
+  dark: dark-solstice
 setupVersion: 2
 extendedContext: true
+dev:
+  autoqaConsent: denied
+statusLine:
+  separator: powerline
+hideThinkingBlock: true
