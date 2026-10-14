@@ -11,6 +11,9 @@
         "model": "github-copilot/gpt-6-sol",
         "reasoning": "medium"
       },
+      "sisyphus-junior": {
+        "model": "github-copilot/gpt-6-sol"
+      },
       "oracle": {
         "model": "github-copilot/gpt-6-sol",
         "reasoning": "high"
