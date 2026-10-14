@@ -12,6 +12,9 @@ home/zed/config/settings.local.json
 home/iterm2/com.googlecode.iterm2.plist
 home/iterm2/*.plist.lock
 
+# omp runtime lock file
+home/omp/config/config.yml.lock
+
 # Local/machine-specific overrides
 *.local
 *.local.json
