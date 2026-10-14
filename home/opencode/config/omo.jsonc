@@ -1,0 +1,85 @@
+// OMO configuration
+{
+  "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-openagent/dev/assets/omo.schema.json",
+  "[opencode]": {
+    "agents": {
+      "sisyphus": {
+        "model": "github-copilot/gpt-6-sol",
+        "reasoning": "high"
+      },
+      "hephaestus": {
+        "model": "github-copilot/gpt-6-sol",
+        "reasoning": "medium"
+      },
+      "sisyphus-junior": {
+        "model": "github-copilot/gpt-6-sol"
+      },
+      "oracle": {
+        "model": "github-copilot/gpt-6-sol",
+        "reasoning": "high"
+      },
+      "librarian": {
+        "model": "github-copilot/gpt-6-sol"
+      },
+      "explore": {
+        "model": "github-copilot/gpt-6-luna"
+      },
+      "multimodal-looker": {
+        "model": "github-copilot/gpt-6-luna"
+      },
+      "prometheus": {
+        "model": "github-copilot/gpt-6-sol",
+        "reasoning": "high"
+      },
+      "metis": {
+        "model": "github-copilot/gpt-6-sol",
+        "reasoning": "high"
+      },
+      "momus": {
+        "model": "github-copilot/gpt-6-sol",
+        "reasoning": "medium"
+      },
+      "atlas": {
+        "model": "github-copilot/gpt-6-sol"
+      }
+    },
+    "browser_automation_engine": {
+      "provider": "playwright-cli"
+    },
+    "categories": {
+      "visual-engineering": {
+        "model": "github-copilot/gpt-6-sol",
+        "reasoning": "high"
+      },
+      "ultrabrain": {
+        "model": "github-copilot/gpt-6-sol",
+        "reasoning": "high"
+      },
+      "deep-low": {
+        "model": "github-copilot/gpt-6-sol",
+        "reasoning": "high"
+      },
+      "artistry": {
+        "model": "github-copilot/gpt-6-sol",
+        "reasoning": "high"
+      },
+      "quick": {
+        "model": "github-copilot/gpt-6-luna"
+      },
+      "unspecified-low": {
+        "model": "github-copilot/gpt-6-luna"
+      },
+      "unspecified-high": {
+        "model": "github-copilot/gpt-6-sol"
+      },
+      "writing": {
+        "model": "github-copilot/gpt-6-sol"
+      }
+    }
+  },
+  "_migrations": [
+    "2026-07-opencode-config-unification",
+    "2026-08-reasoning-unification",
+    "2026-09-category-deep-split"
+  ]
+}

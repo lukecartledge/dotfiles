@@ -4,4 +4,4 @@
 - `~/.omp/agent/AGENTS.md` is the shared `home/shared/agent-instructions-core.md`; `RULES.md` is opencode's `instructions/INSTRUCTIONS.md`.
 - MCP servers: shared ones in `mcp.json`; host-specific ones in `.mcp.json` (`mcp.work.json` on On-* hosts, `mcp.personal.json` otherwise).
 - Skills come from `~/notes/brain/40-skills/{custom,gathered}` via `skills.customDirectories`.
-- Models run through GitHub Copilot (`/login github-copilot`). Tiers mirror opencode's `oh-my-openagent.json`.
+- Models run through GitHub Copilot (`/login github-copilot`). Model routing is separate from OpenCode's `~/.omo/omo.jsonc`; do not assume their tiers match.
