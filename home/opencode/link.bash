@@ -16,17 +16,17 @@ link "$HOME_DIR/opencode/config/opencode.json" "$HOME/.config/opencode/opencode.
 # Link tui.json (declares opencode terminal ui configuration)
 link "$HOME_DIR/opencode/config/tui.json" "$HOME/.config/opencode/tui.json"
 
-mkdir -p "$HOME/.omo"
-link "$HOME_DIR/opencode/config/omo.jsonc" "$HOME/.omo/omo.jsonc"
+# V2 terminal settings (including keybindings).
+link "$HOME_DIR/opencode/config/cli.json" "$HOME/.config/opencode/cli.json"
 
 # Link AGENTS.md (global agent instructions)
-link "$HOME_DIR/opencode/config/AGENTS.md" "$HOME/.config/opencode/AGENTS.md"
+link "$HOME_DIR/shared/agent-instructions-core.md" "$HOME/.config/opencode/AGENTS.md"
+
+# OpenCode-only guidance; the shared core instructs agents to read this file.
+link "$HOME_DIR/opencode/config/AGENTS.md" "$HOME/.config/opencode/APPEND_SYSTEM.md"
 
 # Link commands directory (custom slash commands)
 link "$HOME_DIR/opencode/config/commands" "$HOME/.config/opencode/commands"
-
-# Link plugins directory (custom opencode plugins)
-link "$HOME_DIR/opencode/config/plugins" "$HOME/.config/opencode/plugins"
 
 # Link prompts directory (ECC agent prompt definitions)
 link "$HOME_DIR/opencode/config/prompts" "$HOME/.config/opencode/prompts"

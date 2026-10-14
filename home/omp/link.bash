@@ -3,7 +3,7 @@
 # Individual files are linked rather than the whole directory so omp can keep
 # its runtime state (sessions, agent.db, extensions/) alongside them.
 # Mirrors the opencode setup: shared instructions, the same commands and
-# agents, vault skills (via config.yml), and a per-host MCP overlay.
+# agents, vault skills (via config.yml), and a complete per-host MCP inventory.
 
 OMP_AGENT_DIR="$HOME/.omp/agent"
 mkdir -p "$OMP_AGENT_DIR"
@@ -26,13 +26,21 @@ link "$HOME_DIR/opencode/config/commands" "$OMP_AGENT_DIR/commands"
 # Task agents shared with Claude Code (models pinned in config.yml)
 link "$HOME_DIR/claude/agents" "$OMP_AGENT_DIR/agents"
 
-# MCP servers: shared list plus a per-host overlay. omp reads both
-# mcp.json and .mcp.json from the agent dir.
-link "$HOME_DIR/omp/config/mcp.json" "$OMP_AGENT_DIR/mcp.json"
+# Native mcp.json keeps disabled servers visible to /mcp list and /mcp enable.
+# Discovery through .mcp.json filters disabled entries out of the inventory.
 if [[ "$CURR_HOST" == On-* ]]; then
-  link "$HOME_DIR/omp/config/mcp.work.json" "$OMP_AGENT_DIR/.mcp.json"
+  link "$HOME_DIR/omp/config/mcp.work.json" "$OMP_AGENT_DIR/mcp.json"
 else
-  link "$HOME_DIR/omp/config/mcp.personal.json" "$OMP_AGENT_DIR/.mcp.json"
+  link "$HOME_DIR/omp/config/mcp.personal.json" "$OMP_AGENT_DIR/mcp.json"
+fi
+
+# Retire only the legacy link owned by this package; preserve other user files.
+if [[ -L "$OMP_AGENT_DIR/.mcp.json" ]]; then
+  case "$(readlink "$OMP_AGENT_DIR/.mcp.json")" in
+    "$HOME_DIR/omp/config/mcp.work.json"|"$HOME_DIR/omp/config/mcp.personal.json")
+      backup "$OMP_AGENT_DIR/.mcp.json"
+      ;;
+  esac
 fi
 
 if [[ ! -d "$HOME/notes/brain/40-skills" ]]; then
