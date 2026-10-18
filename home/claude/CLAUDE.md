@@ -1,4 +1,5 @@
 @~/.dotfiles/home/shared/agent-instructions-core.md
+@~/notes/brain/00-system/about-me.md
 
 ## Claude Code–specific
 
