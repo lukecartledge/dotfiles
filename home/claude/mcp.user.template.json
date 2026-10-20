@@ -5,10 +5,12 @@
     "contentful": "claude mcp add --scope user contentful -e 'CONTENTFUL_MANAGEMENT_ACCESS_TOKEN=${CONTENTFUL_MANAGEMENT_TOKEN}' -e 'SPACE_ID=${CONTENTFUL_SPACE_ID}' -e 'ENVIRONMENT_ID=master' -- npx -y @contentful/mcp-server",
     "github": "claude mcp add --scope user --transport http github https://api.githubcopilot.com/mcp/ --header 'Authorization: Bearer ${GITHUB_PERSONAL_ACCESS_TOKEN}'",
     "newrelic": "claude mcp add --scope user --transport http newrelic https://mcp.newrelic.com/mcp/ --header 'api-key: ${NEWRELIC_API_KEY}'",
-    "context-mode": "claude mcp add --scope user context-mode -- context-mode"
+    "context-mode": "claude mcp add --scope user context-mode -- context-mode",
+    "solidcraft": "claude mcp add --scope user solidcraft -- /Applications/SolidCraft.app/Contents/MacOS/solidcraft-cli mcp"
   },
   "_notes": {
     "secrets": "Use only ${VAR} placeholders. Do not hardcode token values.",
-    "scope": "User scope applies across projects."
+    "scope": "User scope applies across projects.",
+    "solidcraft": "The CLI ships inside SolidCraft.app and is not on PATH, so use the absolute path. Skip on machines without the app."
   }
 }
