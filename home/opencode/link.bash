@@ -19,6 +19,9 @@ link "$HOME_DIR/opencode/config/tui.json" "$HOME/.config/opencode/tui.json"
 # V2 terminal settings (including keybindings).
 link "$HOME_DIR/opencode/config/cli.json" "$HOME/.config/opencode/cli.json"
 
+# Link oh-my-opencode-slim configuration
+link "$HOME_DIR/opencode/config/oh-my-opencode-slim.json" "$HOME/.config/opencode/oh-my-opencode-slim.json"
+
 # Link AGENTS.md (global agent instructions)
 link "$HOME_DIR/shared/agent-instructions-core.md" "$HOME/.config/opencode/AGENTS.md"
 

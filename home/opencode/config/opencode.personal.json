@@ -1,38 +1,45 @@
 {
   "$schema": "https://opencode.ai/config.json",
+  "policies": [
+    { "action": "integration.use", "resource": "mcp:atlassian", "effect": "deny" },
+    { "action": "integration.use", "resource": "mcp:newrelic", "effect": "deny" },
+    { "action": "integration.use", "resource": "mcp:shopify-dev", "effect": "deny" },
+    { "action": "integration.use", "resource": "mcp:incident-io", "effect": "deny" },
+    { "action": "integration.use", "resource": "mcp:contentful", "effect": "deny" },
+    { "action": "integration.use", "resource": "mcp:rollbar", "effect": "deny" },
+    { "action": "integration.use", "resource": "mcp:talon-one", "effect": "deny" }
+  ],
   "mcp": {
-    "atlassian": { "enabled": false },
-    "newrelic": { "enabled": false },
-    "shopify-dev": { "enabled": false },
-    "incident-io": { "enabled": false },
-    "garmin": {
-      "type": "local",
-      "command": [
-        "uvx",
-        "--python",
-        "3.12",
-        "--from",
-        "git+https://github.com/Taxuspt/garmin_mcp",
-        "garmin-mcp"
-      ],
-      "enabled": false
-    },
-    "strava": {
-      "type": "local",
-      "command": ["npx", "-y", "@r-huijts/strava-mcp-server"],
-      "environment": {
-        "STRAVA_CLIENT_ID": "{env:STRAVA_CLIENT_ID}",
-        "STRAVA_CLIENT_SECRET": "{env:STRAVA_CLIENT_SECRET}"
+    "servers": {
+      "garmin": {
+        "type": "local",
+        "command": [
+          "uvx",
+          "--python",
+          "3.12",
+          "--from",
+          "git+https://github.com/Taxuspt/garmin_mcp",
+          "garmin-mcp"
+        ],
+        "disabled": true
       },
-      "enabled": false
-    },
-    "ibkr": {
-      "type": "local",
-      "command": [
-        "/Users/lukecartledge/code/personal/tools/mcp_claude_ibkr/venv/bin/python",
-        "/Users/lukecartledge/code/personal/tools/mcp_claude_ibkr/ibkr_mcp.py"
-      ],
-      "enabled": true
+      "strava": {
+        "type": "local",
+        "command": ["npx", "-y", "@r-huijts/strava-mcp-server"],
+        "environment": {
+          "STRAVA_CLIENT_ID": "{env:STRAVA_CLIENT_ID}",
+          "STRAVA_CLIENT_SECRET": "{env:STRAVA_CLIENT_SECRET}"
+        },
+        "disabled": true
+      },
+      "ibkr": {
+        "type": "local",
+        "command": [
+          "{env:HOME}/code/personal/tools/mcp_claude_ibkr/venv/bin/python",
+          "{env:HOME}/code/personal/tools/mcp_claude_ibkr/ibkr_mcp.py"
+        ],
+        "disabled": false
+      }
     }
   }
 }
