@@ -19,9 +19,10 @@ load helpers/setup
     const fs = require("fs");
     const d = JSON.parse(fs.readFileSync(process.env.REPO_ROOT + "/home/opencode/config/opencode.json", "utf8"));
     const urls = {context7: "https://mcp.context7.com/mcp", grep_app: "https://mcp.grep.app", websearch: "https://mcp.exa.ai/mcp?tools=web_search_exa"};
+    const servers = d.mcp?.servers || d.mcp || {};
     for (const [name, url] of Object.entries(urls)) {
-      const v = d.mcp[name];
-      if (!v || v.url !== url || v.enabled !== true || v.oauth !== false) throw Error(name + " not restored");
+      const v = servers[name];
+      if (!v || v.url !== url || v.disabled === true || v.oauth !== false) throw Error(name + " not restored");
     }
   '
   [ "$status" -eq 0 ]

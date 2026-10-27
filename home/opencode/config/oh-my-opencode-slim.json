@@ -1,0 +1,29 @@
+{
+  "$schema": "https://unpkg.com/oh-my-opencode-slim@3.0.5/oh-my-opencode-slim.schema.json",
+  "preset": "copilot",
+  "presets": {
+    "copilot": {
+      "orchestrator": {
+        "model": "github-copilot/gemini-4-argon",
+        "skills": ["*"]
+      },
+      "oracle": {
+        "model": "github-copilot/gpt-6-astra",
+        "skills": ["simplify"]
+      },
+      "explorer": {
+        "model": "github-copilot/claude-haiku-5.5",
+        "skills": []
+      },
+      "designer": {
+        "model": "github-copilot/gemini-3.8-flash",
+        "skills": []
+      },
+      "fixer": {
+        "model": "github-copilot/claude-sonnet-5.5",
+        "skills": []
+      }
+    }
+  },
+  "disabled_mcps": ["gh_grep"]
+}
