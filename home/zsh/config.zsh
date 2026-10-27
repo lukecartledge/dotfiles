@@ -8,6 +8,8 @@ export GPG_TTY=$(tty)
 
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
+export OPENCODE_EXPERIMENTAL_BACKGROUND_SUBAGENTS=true
+
 fpath=(/usr/local/share/zsh-completions $fpath)
 fpath=($DOTFILES/home/functions/zsh-functions $fpath)
 

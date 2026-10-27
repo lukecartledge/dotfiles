@@ -1,39 +1,48 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "mcp": {
-    "shopify-dev": { "enabled": false },
-    "rollbar": {
-      "type": "local",
-      "command": [
-        "mise",
-        "exec",
-        "node@24.18.0",
-        "--",
-        "npx",
-        "-y",
-        "@rollbar/mcp-server@latest"
-      ],
-      "environment": {
-        "ROLLBAR_ACCESS_TOKEN": "{env:ROLLBAR_ACCESS_TOKEN}"
+    "servers": {
+      "rollbar": {
+        "type": "local",
+        "command": [
+          "mise",
+          "exec",
+          "node@24.18.0",
+          "--",
+          "npx",
+          "-y",
+          "@rollbar/mcp-server@latest"
+        ],
+        "environment": {
+          "ROLLBAR_ACCESS_TOKEN": "{env:ROLLBAR_ACCESS_TOKEN}"
+        },
+        "disabled": true,
+        "timeout": {
+          "startup": 30000,
+          "catalog": 30000,
+          "execution": 30000
+        }
       },
-      "enabled": false,
-      "timeout": 30000
-    },
-    "talon-one": {
-      "type": "local",
-      "command": [
-        "npx",
-        "mcp-remote",
-        "https://onag.us-east4.talon.one/v1/mcp/entrypoint",
-        "--header",
-        "Authorization: Bearer ${MCP_AUTH_TOKEN}"
-      ],
-      "environment": {
-        "PATH": "{env:PATH}",
-        "MCP_AUTH_TOKEN": "{env:TALONONE_MCP_API_KEY}"
-      },
-      "enabled": false,
-      "timeout": 30000
+      "talon-one": {
+        "type": "local",
+        "command": [
+          "npx",
+          "mcp-remote",
+          "https://onag.us-east4.talon.one/v1/mcp/entrypoint",
+          "--header",
+          "Authorization: Bearer {env:TALONONE_MCP_API_KEY}"
+        ],
+        "environment": {
+          "PATH": "{env:PATH}",
+          "MCP_AUTH_TOKEN": "{env:TALONONE_MCP_API_KEY}"
+        },
+        "disabled": true,
+        "timeout": {
+          "startup": 30000,
+          "catalog": 30000,
+          "execution": 30000
+        }
+      }
     }
   }
 }
