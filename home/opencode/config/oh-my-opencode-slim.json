@@ -5,23 +5,53 @@
     "copilot": {
       "orchestrator": {
         "model": "github-copilot/gemini-4-argon",
-        "skills": ["*"]
+        "skills": ["*"],
+        "permission": {
+          "external_directory": {
+            "/Users/luke.cartledge/notes/brain": "allow",
+            "/Users/luke.cartledge/notes/brain/*": "allow"
+          }
+        }
       },
       "oracle": {
         "model": "github-copilot/gpt-6-astra",
-        "skills": ["simplify"]
+        "skills": ["simplify"],
+        "permission": {
+          "external_directory": {
+            "/Users/luke.cartledge/notes/brain": "allow",
+            "/Users/luke.cartledge/notes/brain/*": "allow"
+          }
+        }
       },
       "explorer": {
         "model": "github-copilot/claude-haiku-5.5",
-        "skills": []
+        "skills": [],
+        "permission": {
+          "external_directory": {
+            "/Users/luke.cartledge/notes/brain": "allow",
+            "/Users/luke.cartledge/notes/brain/*": "allow"
+          }
+        }
       },
       "designer": {
         "model": "github-copilot/gemini-3.8-flash",
-        "skills": []
+        "skills": [],
+        "permission": {
+          "external_directory": {
+            "/Users/luke.cartledge/notes/brain": "allow",
+            "/Users/luke.cartledge/notes/brain/*": "allow"
+          }
+        }
       },
       "fixer": {
         "model": "github-copilot/claude-sonnet-5.5",
-        "skills": []
+        "skills": [],
+        "permission": {
+          "external_directory": {
+            "/Users/luke.cartledge/notes/brain": "allow",
+            "/Users/luke.cartledge/notes/brain/*": "allow"
+          }
+        }
       }
     }
   },
