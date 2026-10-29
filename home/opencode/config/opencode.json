@@ -29,7 +29,8 @@
     "buffer": 10000
   },
   "skills": [
-    "https://dev-tooling.on.com/skills/"
+    "https://dev-tooling.on.com/skills/",
+    "~/.local/share/incident-io-skills/plugins/incident-io/skills"
   ],
   "permissions": [
     { "action": "read", "resource": "*", "effect": "allow" },
