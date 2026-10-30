@@ -5,6 +5,7 @@ node = "22"
 python = "latest"
 ruby = "latest"
 rust = "latest"
+uv = "latest"
 terraform = "1.5.7"
 "npm:contentful-cli" = "latest"
 
