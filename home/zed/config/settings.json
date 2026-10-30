@@ -169,6 +169,18 @@
   "languages": {
     "Ruby": {
       "language_servers": ["ruby-lsp", "rubocop"]
+    },
+    // vtsls 0.3.0 fails every completion with "Reduce of empty array"
+    // (yioneko/vtsls#318, unreleased). Use typescript-language-server for JS.
+    "JavaScript": {
+      "language_servers": ["typescript-language-server", "!vtsls", "..."]
+    }
+  },
+  // Projects pinning old Node (via mise) lack these npm globals, so the mise
+  // shim on PATH fails. Always use Zed's own managed binaries instead.
+  "lsp": {
+    "typescript-language-server": {
+      "binary": { "ignore_system_version": true }
     }
   }
 }
