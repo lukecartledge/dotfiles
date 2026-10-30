@@ -179,6 +179,9 @@
   // Projects pinning old Node (via mise) lack these npm globals, so the mise
   // shim on PATH fails. Always use Zed's own managed binaries instead.
   "lsp": {
+    "yaml-language-server": {
+      "binary": { "ignore_system_version": true }
+    },
     "typescript-language-server": {
       "binary": { "ignore_system_version": true }
     }
