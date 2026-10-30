@@ -3,3 +3,4 @@ pry
 gem-ctags
 solargraph
 rubocop
+ruby-lsp
