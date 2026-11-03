@@ -169,3 +169,4 @@ If any answer is **no**, split the commit.
 - Always run verification after implementation.
 - Follow TDD workflow for all new code — tests first, then implementation.
 - Apply security review checks before marking any task complete.
+- At a natural checkpoint in long work (phase done, PR opened, end of day), update the plan note and start a fresh session from it rather than continuing a session that has been open for hours.
