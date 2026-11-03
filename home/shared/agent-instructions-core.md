@@ -95,6 +95,7 @@ These rules apply to every code change. Bias toward caution over speed — for t
 - At delivery boundaries: verify arrival, not just dispatch. Upstream 2xx does not mean downstream received.
 - At environment level: confirm ambient state (tunnel alive, deps fresh, CI convention matched) before debugging code.
 - If something "should work" but doesn't after 3 attempts, stop and isolate — you're likely testing the wrong layer.
+- Any claim about live state (CI result, deploy, infra apply, data, config in effect) names the command and output it rests on, in the same message. No evidence, no claim: say it is unverified instead.
 
 ### Simplicity first
 
