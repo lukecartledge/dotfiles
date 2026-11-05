@@ -6,7 +6,7 @@ tap 'bufbuild/buf'
 tap 'can1357/tap'
 tap 'common-fate/granted'
 tap 'mike-engel/jwt-cli'
-tap 'shopify/shopify'
+tap 'oven-sh/bun'
 
 # CLI essentials
 brew 'bat'
@@ -83,10 +83,9 @@ brew 'ctags'
 brew 'exercism'
 brew 'mike-engel/jwt-cli/jwt-cli'
 brew 'shellcheck'
-brew 'shopify/shopify/shopify-cli'
 
 # AI tools
-brew 'anomalyco/tap/opencode'
+brew 'anomalyco/tap/opencode-v2'
 brew 'can1357/tap/omp'
 brew 'herdr'
 
