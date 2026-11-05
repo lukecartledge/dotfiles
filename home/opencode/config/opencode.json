@@ -13,9 +13,7 @@
   "model": "github-copilot/gpt-6-sol",
   "policies": [
     { "action": "provider.use", "resource": "*", "effect": "deny" },
-    { "action": "provider.use", "resource": "github-copilot", "effect": "allow" },
-    { "action": "integration.use", "resource": "mcp:google-drive", "effect": "deny" },
-    { "action": "integration.use", "resource": "mcp:google-gmail", "effect": "deny" }
+    { "action": "provider.use", "resource": "github-copilot", "effect": "allow" }
   ],
   "lsp": {
     "marksman": {
@@ -348,6 +346,26 @@
       "atlassian": {
         "type": "remote",
         "url": "https://mcp.atlassian.com/v1/mcp"
+      },
+      "google-drive": {
+        "type": "remote",
+        "url": "https://drivemcp.googleapis.com/mcp/v1",
+        "oauth": {
+          "client_id": "289856961465-kuskbvg5hoanbh26mr21ul9oc7kflpta.apps.googleusercontent.com",
+          "client_secret": "{env:GOOGLE_MCP_CLIENT_SECRET}",
+          "scope": "https://www.googleapis.com/auth/drive.readonly https://www.googleapis.com/auth/drive.file"
+        },
+        "disabled": true
+      },
+      "google-gmail": {
+        "type": "remote",
+        "url": "https://gmailmcp.googleapis.com/mcp/v1",
+        "oauth": {
+          "client_id": "289856961465-kuskbvg5hoanbh26mr21ul9oc7kflpta.apps.googleusercontent.com",
+          "client_secret": "{env:GOOGLE_MCP_CLIENT_SECRET}",
+          "scope": "https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/gmail.compose"
+        },
+        "disabled": true
       },
       "shopify-dev": {
         "type": "local",
