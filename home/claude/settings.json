@@ -66,5 +66,15 @@
       "effortLevel": "high"
     }
   },
-  "agentPushNotifEnabled": true
+  "agentPushNotifEnabled": true,
+  "autoMode": {
+    "environment": [
+      "$defaults",
+      "Organization: one developer's two Macs share this config. Mighty Mini (hostname Mighty-Mini) is a personal Mac used for software development, dotfiles and agent configuration, homelab administration, and a personal Obsidian notes vault. The work MacBook (hostname On-FQCFVVL4C9-MacBook-Pro) belongs to the employer, On, and is used for On's ecommerce engineering",
+      "Source control: github.com/lukecartledge and all repos under it, including ~/.dotfiles and ~/notes/brain; github.com/lukecartledge/dotfiles is public. On the work MacBook, also github.com/onrunning repos, checked out under ~/code/onag. Sessions often start in ~/code, which is not itself a repo, so repos under ~/code whose remotes point at those orgs are trusted",
+      "Trusted internal domains: on Mighty Mini, the home LAN (192.168.1.0/24, *.local) and the user's Tailscale tailnet (100.64.0.0/10, *.ts.net), which host the TrueNAS homelab server and local Ollama",
+      "Sensitive data locations & audiences: ~/notes/brain is a personal vault that may only be pushed to its own repo, and its 20-work folder holds employer-confidential notes; ~/.ssh, ~/.aws, password manager items and brokerage or finance data stay on the machine they are on. On the work MacBook, On's code and data stay in github.com/onrunning and On's own services and are never pushed to personal repos",
+      "Sensitive remote targets: the TrueNAS homelab server. Deleting datasets, snapshots or media there, or changing pool or share configuration, needs an explicit request. On the work MacBook, On's production systems and data need an explicit request"
+    ]
+  }
 }
