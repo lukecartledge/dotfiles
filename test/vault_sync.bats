@@ -43,6 +43,14 @@ setup() {
 
   export VAULT_SYNC_APP="vault-sync-test-none"
   export VAULT_SYNC_LOG="$TEST_TMPDIR/logs/sync.log"
+
+  # Stubs record their arguments, and keep tests away from the real ssh agent
+  STUB_DIR="$TEST_TMPDIR/stubs"
+  CALLS="$TEST_TMPDIR/calls.log"
+  mkdir -p "$STUB_DIR"
+  printf '#!/bin/sh\necho "ssh-add $*" >> "%s"\n' "$CALLS" > "$STUB_DIR/ssh-add"
+  chmod +x "$STUB_DIR/ssh-add"
+  export PATH="$STUB_DIR:$PATH"
 }
 
 teardown() {
@@ -235,4 +243,14 @@ remote_head() {
   assert_output "local edit"
   run tail -1 "$VAULT_SYNC_LOG"
   assert_output --partial "error: unresolved conflicts"
+}
+
+@test "vault-sync: loads keychain ssh keys before committing" {
+  echo "x" > "$VAULT_DIR/note.md"
+
+  run "$SCRIPT"
+  assert_success
+
+  run cat "$CALLS"
+  assert_output --partial "ssh-add --apple-load-keychain"
 }

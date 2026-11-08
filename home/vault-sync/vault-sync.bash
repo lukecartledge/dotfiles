@@ -61,6 +61,10 @@ main() {
     exit 1
   fi
 
+  # After a reboot the agent is empty until something uses ssh, and signing
+  # commits needs the key.
+  ssh-add --apple-load-keychain -q 2> /dev/null || true
+
   local committed=0
   vgit add -A
   if [[ -n "$(vgit diff --cached --name-only)" ]]; then
