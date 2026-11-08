@@ -254,3 +254,19 @@ remote_head() {
   run cat "$CALLS"
   assert_output --partial "ssh-add --apple-load-keychain"
 }
+
+@test "vault-sync: ssh never waits for a prompt or a dead connection" {
+  printf '#!/bin/sh\necho "ssh $*" >> "%s"\nexit 255\n' "$CALLS" > "$STUB_DIR/ssh"
+  chmod +x "$STUB_DIR/ssh"
+  git -C "$VAULT_DIR" remote set-url origin "ssh://git@example.invalid/vault.git"
+
+  run "$SCRIPT"
+  assert_failure
+
+  run grep "^ssh " "$CALLS"
+  assert_output --partial "BatchMode=yes"
+  assert_output --partial "ConnectTimeout="
+  assert_output --partial "ServerAliveInterval="
+  run tail -1 "$VAULT_SYNC_LOG"
+  assert_output --partial "error: pull failed"
+}

@@ -62,8 +62,9 @@ main() {
   fi
 
   # After a reboot the agent is empty until something uses ssh, and signing
-  # commits needs the key.
+  # commits needs the key. Fail fast rather than hang on a prompt or a dead link.
   ssh-add --apple-load-keychain -q 2> /dev/null || true
+  export GIT_SSH_COMMAND="ssh -o BatchMode=yes -o ConnectTimeout=20 -o ServerAliveInterval=15 -o ServerAliveCountMax=2"
 
   local committed=0
   vgit add -A
