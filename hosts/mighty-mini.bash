@@ -48,4 +48,7 @@ export PACKAGES=(
   # Behind the agents on purpose: herdr/install.bash writes its hooks into
   # their linked config.
   herdr
+
+  # Obsidian vault git sync (launchd); Mighty Mini runs Remindian
+  vault-sync
 )
