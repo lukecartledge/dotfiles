@@ -55,6 +55,11 @@ main() {
     log "skip: not on $VAULT_SYNC_BRANCH"
     return 0
   fi
+  # A conflicted stash pop or cherry-pick leaves no MERGE_HEAD; never commit its markers
+  if [[ -n "$(vgit ls-files -u)" ]]; then
+    log "error: unresolved conflicts"
+    exit 1
+  fi
 
   local committed=0
   vgit add -A

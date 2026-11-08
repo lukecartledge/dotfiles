@@ -216,3 +216,23 @@ remote_head() {
   run tail -1 "$VAULT_SYNC_LOG"
   assert_output --partial "error: commit failed"
 }
+
+@test "vault-sync: refuses to commit unresolved conflicts" {
+  echo "stashed" > "$VAULT_DIR/shared.md"
+  git -C "$VAULT_DIR" stash -q
+  echo "committed" > "$VAULT_DIR/shared.md"
+  git -C "$VAULT_DIR" commit -q -am "local edit"
+  git -C "$VAULT_DIR" stash pop -q 2>/dev/null || true
+  [ ! -e "$VAULT_DIR/.git/MERGE_HEAD" ]
+  local before
+  before="$(remote_head)"
+
+  run "$SCRIPT"
+  assert_failure
+
+  [ "$(remote_head)" = "$before" ]
+  run git -C "$VAULT_DIR" log -1 --format=%s
+  assert_output "local edit"
+  run tail -1 "$VAULT_SYNC_LOG"
+  assert_output --partial "error: unresolved conflicts"
+}
