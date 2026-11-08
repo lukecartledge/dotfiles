@@ -16,25 +16,6 @@
     ]
   },
   "model": "opus[1m]",
-  "statusLine": {
-    "type": "command",
-    "command": "~/.dotfiles/home/claude/bin/statusline.sh"
-  },
-  "enabledPlugins": {
-    "superpowers@claude-plugins-official": true,
-    "impeccable@impeccable": true,
-    "apollo-skills@claude-plugins-official": false,
-    "frontend-design@claude-plugins-official": true
-  },
-  "extraKnownMarketplaces": {
-    "impeccable": {
-      "source": {
-        "source": "github",
-        "repo": "pbakaus/impeccable"
-      }
-    }
-  },
-  "agentPushNotifEnabled": true,
   "hooks": {
     "SessionStart": [
       {
@@ -60,5 +41,25 @@
         ]
       }
     ]
-  }
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "~/.dotfiles/home/claude/bin/statusline.sh"
+  },
+  "enabledPlugins": {
+    "superpowers@claude-plugins-official": true,
+    "impeccable@impeccable": true,
+    "apollo-skills@claude-plugins-official": false,
+    "frontend-design@claude-plugins-official": true,
+    "github@anthropic-plugin-directory": true
+  },
+  "extraKnownMarketplaces": {
+    "impeccable": {
+      "source": {
+        "source": "github",
+        "repo": "pbakaus/impeccable"
+      }
+    }
+  },
+  "agentPushNotifEnabled": true
 }
