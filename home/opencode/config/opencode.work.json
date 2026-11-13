@@ -16,6 +16,7 @@
         "environment": {
           "ROLLBAR_ACCESS_TOKEN": "{env:ROLLBAR_ACCESS_TOKEN}"
         },
+        "disabled": true,
         "timeout": {
           "startup": 30000,
           "catalog": 30000,
@@ -35,6 +36,7 @@
           "PATH": "{env:PATH}",
           "MCP_AUTH_TOKEN": "{env:TALONONE_MCP_API_KEY}"
         },
+        "disabled": true,
         "timeout": {
           "startup": 30000,
           "catalog": 30000,
