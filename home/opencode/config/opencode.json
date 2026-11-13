@@ -368,6 +368,36 @@
         },
         "disabled": true
       },
+      "google-calendar": {
+        "type": "remote",
+        "url": "https://calendarmcp.googleapis.com/mcp/v1",
+        "oauth": {
+          "client_id": "289856961465-kuskbvg5hoanbh26mr21ul9oc7kflpta.apps.googleusercontent.com",
+          "client_secret": "{env:GOOGLE_MCP_CLIENT_SECRET}",
+          "scope": "https://www.googleapis.com/auth/calendar.readonly https://www.googleapis.com/auth/calendar.events"
+        },
+        "disabled": true
+      },
+      "google-chat": {
+        "type": "remote",
+        "url": "https://chatmcp.googleapis.com/mcp/v1",
+        "oauth": {
+          "client_id": "289856961465-kuskbvg5hoanbh26mr21ul9oc7kflpta.apps.googleusercontent.com",
+          "client_secret": "{env:GOOGLE_MCP_CLIENT_SECRET}",
+          "scope": "https://www.googleapis.com/auth/chat.messages.readonly https://www.googleapis.com/auth/chat.spaces.readonly"
+        },
+        "disabled": true
+      },
+      "google-people": {
+        "type": "remote",
+        "url": "https://people.googleapis.com/mcp/v1",
+        "oauth": {
+          "client_id": "289856961465-kuskbvg5hoanbh26mr21ul9oc7kflpta.apps.googleusercontent.com",
+          "client_secret": "{env:GOOGLE_MCP_CLIENT_SECRET}",
+          "scope": "https://www.googleapis.com/auth/directory.readonly https://www.googleapis.com/auth/contacts.readonly"
+        },
+        "disabled": true
+      },
       "shopify-dev": {
         "type": "local",
         "command": ["npx", "-y", "@shopify/dev-mcp@latest"],
