@@ -355,8 +355,7 @@
           "client_id": "289856961465-kuskbvg5hoanbh26mr21ul9oc7kflpta.apps.googleusercontent.com",
           "client_secret": "{env:GOOGLE_MCP_CLIENT_SECRET}",
           "scope": "https://www.googleapis.com/auth/drive.readonly https://www.googleapis.com/auth/drive.file"
-        },
-        "disabled": true
+        }
       },
       "google-gmail": {
         "type": "remote",
@@ -365,8 +364,7 @@
           "client_id": "289856961465-kuskbvg5hoanbh26mr21ul9oc7kflpta.apps.googleusercontent.com",
           "client_secret": "{env:GOOGLE_MCP_CLIENT_SECRET}",
           "scope": "https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/gmail.compose"
-        },
-        "disabled": true
+        }
       },
       "google-calendar": {
         "type": "remote",
@@ -375,8 +373,7 @@
           "client_id": "289856961465-kuskbvg5hoanbh26mr21ul9oc7kflpta.apps.googleusercontent.com",
           "client_secret": "{env:GOOGLE_MCP_CLIENT_SECRET}",
           "scope": "https://www.googleapis.com/auth/calendar.readonly https://www.googleapis.com/auth/calendar.events"
-        },
-        "disabled": true
+        }
       },
       "google-chat": {
         "type": "remote",
@@ -385,8 +382,7 @@
           "client_id": "289856961465-kuskbvg5hoanbh26mr21ul9oc7kflpta.apps.googleusercontent.com",
           "client_secret": "{env:GOOGLE_MCP_CLIENT_SECRET}",
           "scope": "https://www.googleapis.com/auth/chat.messages.readonly https://www.googleapis.com/auth/chat.spaces.readonly"
-        },
-        "disabled": true
+        }
       },
       "google-people": {
         "type": "remote",
@@ -395,13 +391,11 @@
           "client_id": "289856961465-kuskbvg5hoanbh26mr21ul9oc7kflpta.apps.googleusercontent.com",
           "client_secret": "{env:GOOGLE_MCP_CLIENT_SECRET}",
           "scope": "https://www.googleapis.com/auth/directory.readonly https://www.googleapis.com/auth/contacts.readonly"
-        },
-        "disabled": true
+        }
       },
       "shopify-dev": {
         "type": "local",
-        "command": ["npx", "-y", "@shopify/dev-mcp@latest"],
-        "disabled": true
+        "command": ["npx", "-y", "@shopify/dev-mcp@latest"]
       },
       "contentful": {
         "type": "local",
@@ -418,8 +412,7 @@
         "url": "https://api.githubcopilot.com/mcp/",
         "headers": {
           "Authorization": "Bearer {env:GITHUB_PERSONAL_ACCESS_TOKEN}"
-        },
-        "disabled": true
+        }
       },
       "newrelic": {
         "type": "remote",
@@ -427,26 +420,22 @@
         "headers": {
           "api-key": "{env:NEWRELIC_API_KEY}"
         },
-        "oauth": false,
-        "disabled": true
+        "oauth": false
       },
       "incident-io": {
         "type": "remote",
-        "url": "https://mcp.incident.io/mcp",
-        "disabled": true
+        "url": "https://mcp.incident.io/mcp"
       },
       "cloudflare": {
         "type": "remote",
-        "url": "https://mcp.cloudflare.com/mcp",
-        "disabled": true
+        "url": "https://mcp.cloudflare.com/mcp"
       },
       "slack": {
         "type": "remote",
         "url": "https://mcp.slack.com/mcp",
         "oauth": {
           "client_id": "2540541395.10827271922499"
-        },
-        "disabled": true
+        }
       }
     }
   }
