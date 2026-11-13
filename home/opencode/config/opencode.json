@@ -340,12 +340,13 @@
       "context-mode": {
         "type": "local",
         "command": [
-          "context-mode"
+          "{env:HOME}/.local/share/mise/installs/node/22/bin/node",
+          "/opt/homebrew/lib/node_modules/context-mode/cli.bundle.mjs"
         ]
       },
       "atlassian": {
         "type": "remote",
-        "url": "https://mcp.atlassian.com/v1/mcp"
+        "url": "https://mcp.atlassian.com/v2/mcp"
       },
       "google-drive": {
         "type": "remote",
