@@ -14,7 +14,7 @@ as `~/.config/opencode/AGENTS.md`. This supplement is linked as
 ## Models
 
 - Use GitHub Copilot. Preserve the configured model choices unless the user asks to change them.
-- The configured session/default heavy model is `gpt-6-sol`; lightweight lanes use `gpt-6-luna`.
+- The session default is `gpt-6.1-terra`; planner and code-reviewer pilot `gpt-6.1-sol`, other heavy agents use `gpt-6-sol`, and lightweight lanes use `gpt-6-luna`.
 - Avoid `claude-sonnet-5` (poor results in practice).
 - Copilot bills per token at API rates (AI credits, since Jun 2026); choose models on $/MTok, not request multipliers.
 - Query served models live. Check provider-specific reasoning values in `~/.cache/opencode/models.json` before setting a variant.

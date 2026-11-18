@@ -10,7 +10,7 @@
     "oh-my-opencode-slim@3.0.5"
   ],
   "update": "auto",
-  "model": "github-copilot/gpt-6-sol",
+  "model": "github-copilot/gpt-6.1-terra",
   "policies": [
     { "action": "provider.use", "resource": "*", "effect": "deny" },
     { "action": "provider.use", "resource": "github-copilot", "effect": "allow" }
@@ -84,7 +84,7 @@
     "planner": {
       "description": "Expert planning specialist for complex features and refactoring. Use for implementation planning, architectural changes, or complex refactoring.",
       "mode": "subagent",
-      "model": "github-copilot/gpt-6-sol",
+      "model": "github-copilot/gpt-6.1-sol",
       "system": "{file:prompts/agents/planner.txt}",
       "permissions": [
         { "action": "edit", "resource": "*", "effect": "deny" }
@@ -102,7 +102,7 @@
     "code-reviewer": {
       "description": "Expert code review specialist. Reviews code for quality, security, and maintainability. Use immediately after writing or modifying code.",
       "mode": "subagent",
-      "model": "github-copilot/gpt-6-sol",
+      "model": "github-copilot/gpt-6.1-sol",
       "system": "{file:prompts/agents/code-reviewer.txt}",
       "permissions": [
         { "action": "edit", "resource": "*", "effect": "deny" }
