@@ -18,6 +18,7 @@ All configuration and knowledge lives in two managed locations:
 - Before planning or implementing work, look for the relevant project notes, decisions, previous sessions, and reusable skills in `~/notes/brain`. Read only the material relevant to the task; do not ingest the whole vault.
 - Keep durable project knowledge and plans in the vault, using the ownership and plan-storage rules below. Code and machine configuration remain in their repositories.
 - When delegating, include the vault location, relevant note paths, and applicable shared constraints in the worker's brief. Do not assume a child agent inherits the parent's instructions.
+- Before reporting material delegated findings, spot-check them against primary sources; identify claims that could not be verified.
 - In OpenCode (including the OMO plugin), read `~/.config/opencode/APPEND_SYSTEM.md` at the start of a session for runtime-specific guidance. OpenCode V2 does not load the `instructions` config array; do not rely on it to import this file or supplements.
 - OMP's runtime-specific guidance lives in `~/.omp/agent/APPEND_SYSTEM.md`; OmO Native's global instructions live at `~/.omo/agent/AGENTS.md`.
 
