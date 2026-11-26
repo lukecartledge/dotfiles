@@ -53,7 +53,20 @@
     { "action": "webfetch", "resource": "*", "effect": "allow" },
     { "action": "websearch", "resource": "*", "effect": "allow" },
     { "action": "codesearch", "resource": "*", "effect": "allow" },
-    { "action": "atlassian_*", "resource": "*", "effect": "allow" },
+    { "action": "atlassian_*", "resource": "*", "effect": "deny" },
+    { "action": "newrelic_*", "resource": "*", "effect": "deny" },
+    { "action": "rollbar_*", "resource": "*", "effect": "deny" },
+    { "action": "incident-io_*", "resource": "*", "effect": "deny" },
+    { "action": "github_*", "resource": "*", "effect": "deny" },
+    { "action": "shopify-dev_*", "resource": "*", "effect": "deny" },
+    { "action": "talon-one_*", "resource": "*", "effect": "deny" },
+    { "action": "google-drive_*", "resource": "*", "effect": "deny" },
+    { "action": "google-gmail_*", "resource": "*", "effect": "deny" },
+    { "action": "google-calendar_*", "resource": "*", "effect": "deny" },
+    { "action": "google-chat_*", "resource": "*", "effect": "deny" },
+    { "action": "google-people_*", "resource": "*", "effect": "deny" },
+    { "action": "slack_*", "resource": "*", "effect": "deny" },
+    { "action": "cloudflare_*", "resource": "*", "effect": "deny" },
     { "action": "shell", "resource": "*", "effect": "allow" },
     { "action": "shell", "resource": "rm *", "effect": "ask" },
     { "action": "shell", "resource": "mv *", "effect": "ask" },
@@ -149,6 +162,82 @@
       "mode": "subagent",
       "model": "github-copilot/gpt-6-sol",
       "system": "{file:prompts/agents/database-reviewer.txt}"
+    },
+    "atlassian-agent": {
+      "description": "Jira and Confluence specialist. Use to read or update Jira tickets, search Confluence, or create Confluence pages. Returns concise findings with issue keys and links.",
+      "mode": "subagent",
+      "model": "github-copilot/claude-haiku-5.5",
+      "system": "You are the Atlassian specialist. Answer the caller's request using Atlassian tools only. Return concise findings with issue keys and links. Do not write to Jira or Confluence unless the request explicitly asks for it.",
+      "permissions": [{ "action": "atlassian_*", "resource": "*", "effect": "allow" }]
+    },
+    "newrelic-agent": {
+      "description": "New Relic specialist for APM performance, NRQL queries, infrastructure metrics and alert data. Use to investigate slow endpoints, error rates and performance regressions.",
+      "mode": "subagent",
+      "model": "github-copilot/claude-haiku-5.5",
+      "system": "You are the New Relic specialist. Answer the caller's request using New Relic tools only. Return concise findings with the queries used and key numbers. Do not change alert or dashboard configuration unless explicitly asked.",
+      "permissions": [{ "action": "newrelic_*", "resource": "*", "effect": "allow" }]
+    },
+    "rollbar-agent": {
+      "description": "Rollbar specialist for error and exception trends, stack traces and error root causes. Use to investigate production errors or correlate them with code.",
+      "mode": "subagent",
+      "model": "github-copilot/claude-haiku-5.5",
+      "system": "You are the Rollbar specialist. Answer the caller's request using Rollbar tools only. Return concise findings with item counts, affected versions and stack trace summaries. Do not change item status unless explicitly asked.",
+      "permissions": [{ "action": "rollbar_*", "resource": "*", "effect": "allow" }]
+    },
+    "incident-agent": {
+      "description": "incident.io specialist for incidents, postmortems, on-call and escalation context. Use to look up incident status, timelines, roles or who is on call.",
+      "mode": "subagent",
+      "model": "github-copilot/claude-haiku-5.5",
+      "system": "You are the incident.io specialist. Answer the caller's request using incident.io tools only. Return concise findings with incident IDs and links. Do not change incident state unless explicitly asked.",
+      "permissions": [{ "action": "incident-io_*", "resource": "*", "effect": "allow" }]
+    },
+    "github-agent": {
+      "description": "GitHub specialist for repositories, pull requests, issues and code search in the onrunning org. Use for PR context, repository lookups and code search.",
+      "mode": "subagent",
+      "model": "github-copilot/claude-haiku-5.5",
+      "system": "You are the GitHub specialist. Answer the caller's request using GitHub tools only. Return concise findings with repository names, PR or issue numbers and links. Do not create or merge PRs unless explicitly asked.",
+      "permissions": [{ "action": "github_*", "resource": "*", "effect": "allow" }]
+    },
+    "shopify-agent": {
+      "description": "Shopify developer specialist. Use for Shopify docs search, API schema lookups and validating app or Function code against Shopify APIs.",
+      "mode": "subagent",
+      "model": "github-copilot/claude-haiku-5.5",
+      "system": "You are the Shopify developer specialist. Answer the caller's request using Shopify dev tools only. Return concise answers with the relevant API types, fields and doc links.",
+      "permissions": [{ "action": "shopify-dev_*", "resource": "*", "effect": "allow" }]
+    },
+    "talon-one-agent": {
+      "description": "Talon.One promotions specialist. Use to inspect campaigns, rules, attributes and coupons, and to troubleshoot promotion behaviour.",
+      "mode": "subagent",
+      "model": "github-copilot/claude-haiku-5.5",
+      "system": "You are the Talon.One specialist. Answer the caller's request using Talon.One tools only. Return concise findings with campaign and rule IDs. Do not change campaigns or rules unless explicitly asked.",
+      "permissions": [{ "action": "talon-one_*", "resource": "*", "effect": "allow" }]
+    },
+    "google-agent": {
+      "description": "Google Workspace specialist for Drive, Gmail, Calendar, Chat and People (contacts). Use to find or read documents, emails, calendar events, chat messages and contacts.",
+      "mode": "subagent",
+      "model": "github-copilot/claude-haiku-5.5",
+      "system": "You are the Google Workspace specialist. Answer the caller's request using Google tools only. Return concise findings with document titles, dates and links. Do not send email or create calendar events unless explicitly asked.",
+      "permissions": [
+        { "action": "google-drive_*", "resource": "*", "effect": "allow" },
+        { "action": "google-gmail_*", "resource": "*", "effect": "allow" },
+        { "action": "google-calendar_*", "resource": "*", "effect": "allow" },
+        { "action": "google-chat_*", "resource": "*", "effect": "allow" },
+        { "action": "google-people_*", "resource": "*", "effect": "allow" }
+      ]
+    },
+    "slack-agent": {
+      "description": "Slack specialist for searching message history, reading channels and user context. Use to find past discussions or channel content.",
+      "mode": "subagent",
+      "model": "github-copilot/claude-haiku-5.5",
+      "system": "You are the Slack specialist. Answer the caller's request using Slack tools only. Return concise findings with channel names, dates and permalinks. Do not post or draft messages unless explicitly asked.",
+      "permissions": [{ "action": "slack_*", "resource": "*", "effect": "allow" }]
+    },
+    "cloudflare-agent": {
+      "description": "Cloudflare specialist for Workers, DNS, zones and account configuration. Use to look up Cloudflare configuration.",
+      "mode": "subagent",
+      "model": "github-copilot/claude-haiku-5.5",
+      "system": "You are the Cloudflare specialist. Answer the caller's request using Cloudflare tools only. Return concise findings with zone, account and resource names. Do not change configuration unless explicitly asked.",
+      "permissions": [{ "action": "cloudflare_*", "resource": "*", "effect": "allow" }]
     },
     "title": {
       "model": "github-copilot/gpt-6-luna"
@@ -355,8 +444,7 @@
           "client_id": "289856961465-kuskbvg5hoanbh26mr21ul9oc7kflpta.apps.googleusercontent.com",
           "client_secret": "{env:GOOGLE_MCP_CLIENT_SECRET}",
           "scope": "https://www.googleapis.com/auth/drive.readonly https://www.googleapis.com/auth/drive.file"
-        },
-        "disabled": true
+        }
       },
       "google-gmail": {
         "type": "remote",
@@ -365,13 +453,38 @@
           "client_id": "289856961465-kuskbvg5hoanbh26mr21ul9oc7kflpta.apps.googleusercontent.com",
           "client_secret": "{env:GOOGLE_MCP_CLIENT_SECRET}",
           "scope": "https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/gmail.compose"
-        },
-        "disabled": true
+        }
+      },
+      "google-calendar": {
+        "type": "remote",
+        "url": "https://calendarmcp.googleapis.com/mcp/v1",
+        "oauth": {
+          "client_id": "289856961465-kuskbvg5hoanbh26mr21ul9oc7kflpta.apps.googleusercontent.com",
+          "client_secret": "{env:GOOGLE_MCP_CLIENT_SECRET}",
+          "scope": "https://www.googleapis.com/auth/calendar.readonly https://www.googleapis.com/auth/calendar.events"
+        }
+      },
+      "google-chat": {
+        "type": "remote",
+        "url": "https://chatmcp.googleapis.com/mcp/v1",
+        "oauth": {
+          "client_id": "289856961465-kuskbvg5hoanbh26mr21ul9oc7kflpta.apps.googleusercontent.com",
+          "client_secret": "{env:GOOGLE_MCP_CLIENT_SECRET}",
+          "scope": "https://www.googleapis.com/auth/chat.messages.readonly https://www.googleapis.com/auth/chat.spaces.readonly"
+        }
+      },
+      "google-people": {
+        "type": "remote",
+        "url": "https://people.googleapis.com/mcp/v1",
+        "oauth": {
+          "client_id": "289856961465-kuskbvg5hoanbh26mr21ul9oc7kflpta.apps.googleusercontent.com",
+          "client_secret": "{env:GOOGLE_MCP_CLIENT_SECRET}",
+          "scope": "https://www.googleapis.com/auth/directory.readonly https://www.googleapis.com/auth/contacts.readonly"
+        }
       },
       "shopify-dev": {
         "type": "local",
-        "command": ["npx", "-y", "@shopify/dev-mcp@latest"],
-        "disabled": true
+        "command": ["npx", "-y", "@shopify/dev-mcp@latest"]
       },
       "contentful": {
         "type": "local",
@@ -388,8 +501,7 @@
         "url": "https://api.githubcopilot.com/mcp/",
         "headers": {
           "Authorization": "Bearer {env:GITHUB_PERSONAL_ACCESS_TOKEN}"
-        },
-        "disabled": true
+        }
       },
       "newrelic": {
         "type": "remote",
@@ -397,26 +509,22 @@
         "headers": {
           "api-key": "{env:NEWRELIC_API_KEY}"
         },
-        "oauth": false,
-        "disabled": true
+        "oauth": false
       },
       "incident-io": {
         "type": "remote",
-        "url": "https://mcp.incident.io/mcp",
-        "disabled": true
+        "url": "https://mcp.incident.io/mcp"
       },
       "cloudflare": {
         "type": "remote",
-        "url": "https://mcp.cloudflare.com/mcp",
-        "disabled": true
+        "url": "https://mcp.cloudflare.com/mcp"
       },
       "slack": {
         "type": "remote",
         "url": "https://mcp.slack.com/mcp",
         "oauth": {
           "client_id": "2540541395.10827271922499"
-        },
-        "disabled": true
+        }
       }
     }
   }
