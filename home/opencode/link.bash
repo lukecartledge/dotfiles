@@ -34,6 +34,9 @@ link "$HOME_DIR/opencode/config/commands" "$HOME/.config/opencode/commands"
 # Link prompts directory (ECC agent prompt definitions)
 link "$HOME_DIR/opencode/config/prompts" "$HOME/.config/opencode/prompts"
 
+# Link local V2 plugins directory (auto-discovered local plugins)
+link "$HOME_DIR/opencode/config/plugins" "$HOME/.config/opencode/plugins"
+
 # Link instructions directory (ECC instruction files)
 link "$HOME_DIR/opencode/config/instructions" "$HOME/.config/opencode/instructions"
 
